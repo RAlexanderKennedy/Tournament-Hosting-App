@@ -26,8 +26,8 @@ CREATE TABLE tournaments (
 );
 
 insert into tournaments(tournament_name, host_id, status, tournament_date, tournament_time)
-values ('1-on-1 Basketball Tournament', '18', 'Ongoing', '2021-2-10', '1:30:00'),
-('Smash 64 Tournament', '13', 'Ongoing', '2021-2-10', '12:30:00');
+values ('1-on-1 Basketball Tournament', '10', 'Ongoing', '2021-2-10', '1:30:00'),
+('Smash 64 Tournament', '10', 'Ongoing', '2021-2-10', '12:30:00');
 
 COMMIT TRANSACTION;
 
