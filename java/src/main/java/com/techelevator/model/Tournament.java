@@ -10,11 +10,6 @@ public class Tournament {
 	private int host_id;
 	private String status;
 	
-
-	
-	
-
-	
 	public Tournament(String name, String date, String time, int id, int host_id, String status) {
 		super();
 		this.name = name;
