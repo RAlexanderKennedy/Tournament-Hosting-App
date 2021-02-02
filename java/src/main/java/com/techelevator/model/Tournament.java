@@ -2,17 +2,19 @@ package com.techelevator.model;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tournament {
 	private String name;
 	private Date date;
 	private Time time;
 	private int id;
-	private User[] participants;
+	private List<User> participants = new ArrayList<User>();
 	private int host_id;
 	private String status;
 	
-	public Tournament(String name, Date date, Time time, int id, int host_id, String status, User[] participants) {
+	public Tournament(String name, Date date, Time time, int id, int host_id, String status, List<User> participants) {
 		this.name = name;
 		this.date = date;
 		this.time = time;
@@ -22,12 +24,12 @@ public class Tournament {
 		this.participants = participants;
 	}
 
-	public User[] getParticipants() {
+	public List<User> getParticipants() {
 		return participants;
 	}
 	
 	
-	public void setListOfUsers(User[] participants) {
+	public void setListOfUsers(List<User> participants) {
 		this.participants = participants;
 	}
 
