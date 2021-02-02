@@ -12,6 +12,7 @@
         role="alert"
         v-if="this.$route.query.registration"
       >Thank you for registering, please sign in.</div>
+      <div id="loginBox">
       <label for="username" class="sr-only">Username</label>
       <input
         type="text"
@@ -31,8 +32,10 @@
         v-model="user.password"
         required
       />
+      
       <router-link :to="{ name: 'register' }">Need an account?</router-link>
       <button type="submit">Sign in</button>
+      </div>
     </form>
   </div>
 </template>
@@ -74,3 +77,34 @@ export default {
   }
 };
 </script>
+
+<style>
+body{
+  margin:0px;
+  font-family:Arial, Helvetica, sans-serif;
+  background-color:#504B4B;
+}
+#app{
+  padding-left:0px;
+  background-color:rgb(168, 221, 88);
+  background: linear-gradient(180deg, rgb(168, 221, 88) 0%, rgb(174, 235, 139) 35%, rgb(168, 221, 88) 80%);
+}
+#loginBox{
+  width:275px;
+  
+ 
+}
+#nav{
+  padding-top:15px;
+  padding-left:15px;
+  padding-bottom:10px;
+  background-color:whitesmoke;
+}
+h1{
+  margin-top:10px;
+  margin-bottom:10px;
+}
+.form-signin{
+  padding-left:15px;
+}
+</style>
