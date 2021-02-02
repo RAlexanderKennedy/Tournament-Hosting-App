@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
+import TournamentDetails from '../views/TournamentDetails.vue'
 
 Vue.use(Router)
 
@@ -49,6 +50,14 @@ const router = new Router({
       path: "/register",
       name: "register",
       component: Register,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/details",
+      name: "details",
+      component: TournamentDetails,
       meta: {
         requiresAuth: false
       }

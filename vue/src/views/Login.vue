@@ -107,4 +107,7 @@ h1{
 .form-signin{
   padding-left:15px;
 }
+textarea{
+  border-radius:25px;
+}
 </style>

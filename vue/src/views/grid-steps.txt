@@ -1,0 +1,8 @@
+1)create 8 x 8 grid; - grid will be made up of divs (in order to have the connecting lines for the brackets i may
+need a 16 x 16 grid but only 8 solts will be used for players the rest will be there to use the borders to draw the
+bracket lines.)
+1.2) put the grid in a box that
+2)Find number of players on each team.
+3)Assign each team member a grid section - loop through array to do this
+4)Loop through each grid section and find populated grids
+5)If grid grid section is populated Assign a .active class to the div to for the brackets needed.
