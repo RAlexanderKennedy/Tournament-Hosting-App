@@ -33,8 +33,6 @@ public class TournamentSqlDAO implements TournamentDAO {
 		while (result.next()) {
 			String name = result.getString("tournament_name");
 			int id = result.getInt("tournament_id");
-			//TODO remove?
-			//String users = result.getString("users");
 			String status = result.getString("status");
 			int hostId = result.getInt("host_id");
 			Time time = result.getTime("tournament_time");
