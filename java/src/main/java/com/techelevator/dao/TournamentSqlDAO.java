@@ -7,10 +7,12 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 
 import com.techelevator.model.Tournament;
 import com.techelevator.model.User;
 
+@Component
 public class TournamentSqlDAO implements TournamentDAO {
 
 	private JdbcTemplate template;
@@ -35,7 +37,7 @@ public class TournamentSqlDAO implements TournamentDAO {
 			int hostId = result.getInt("host_id");
 			String time = result.getString("tournament_time");
 			String date = result.getString("tournament_date");
-			Tournament tournament = new Tournament(name, time, date, id, hostId, status);
+			Tournament tournament = new Tournament(name, date, time, id, hostId, status);
 			tournaments.add(tournament);
 		}
 		
