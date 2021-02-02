@@ -1,12 +1,17 @@
 <template>
   <div class="home">
     <h1>Home</h1>
-    <p>You must be authenticated to see this</p>
+    <MainFeed />
   </div>
 </template>
 
 <script>
+import MainFeed from "@/components/MainFeed";
+
 export default {
-  name: "home"
+  name: "home",
+  components: {
+    MainFeed
+  }
 };
 </script>
