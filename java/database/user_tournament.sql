@@ -17,15 +17,15 @@ constraint FK_user_tournament_tournament_id foreign key(tournament_id) reference
 );
 
 insert into user_tournament(user_id, tournament_id)
-values (18, 1),
-(11, 1),
-(12, 1),
-(14, 1),
-(15, 1),
-(16, 1),
-(17, 2),
-(14, 2),
-(15, 2),
-(16, 2);
+values (1, 1),
+(1, 1),
+(2, 1),
+(4, 1),
+(5, 1),
+(6, 1),
+(7, 2),
+(4, 2),
+(5, 2),
+(6, 2);
 
 COMMIT TRANSACTION;
