@@ -29,9 +29,9 @@ public class TournamentSqlDAO implements TournamentDAO {
 		List<User> participants = new ArrayList<User>();
 		String sql = "select * " +
 				"from users " +
-				"join user_tournament on user.user_id = user_tournament.user_id " +
-				"join tournaments on user_tournament.tournament_id = tournament.tournament_id " +
-				"where tournament.tournament_id = ?";
+				"join user_tournament on users.user_id = user_tournament.user_id " +
+				"join tournaments on user_tournament.tournament_id = tournaments.tournament_id " +
+				"where tournaments.tournament_id = ?";
 		SqlRowSet rs = template.queryForRowSet(sql, tournamentId);
 		
 		while (rs.next()) {
@@ -96,11 +96,12 @@ public class TournamentSqlDAO implements TournamentDAO {
 		int host_id = newTournament.getHost_id();
 		Date date = newTournament.getDate();
 		Time time = newTournament.getTime();
-		String sql = "insert into tournaments (tournament_name, host_id, status, tournament_date, tournament_time) values (?,?,?,?,?)";
-		template.update(sql, name, host_id, status, date, time);
+		int tournamentId = getNextTournamentId();
+		String sql = "insert into tournaments (tournament_name, host_id, status, tournament_date, tournament_time, tournament_id) values (?,?,?,?,?,?)";
+		template.update(sql, name, host_id, status, date, time, tournamentId);
 		for (User user : newTournament.getParticipants()) {
 			// TODO: find way to get ID of created tournament
-			// addParticipant(user.getId(), tournamentId);
+			addParticipant(user.getId(), tournamentId);
 		}
 	}
 
@@ -119,12 +120,20 @@ public class TournamentSqlDAO implements TournamentDAO {
 
 
 	@Override
-	public void addParticipant(int participantId, int tournamentId) {
+	public void addParticipant(long participantId, int tournamentId) {
 		String sql = "insert into user_tournament (user_id, tournament_id) values (?,?)";
 		template.update(sql, participantId, tournamentId);
 		
 	}
-
+	
+	private int getNextTournamentId() {
+		SqlRowSet nextIdResult = template.queryForRowSet("select nextval('seq_tournament_id')");
+		if (nextIdResult.next()) {
+			return nextIdResult.getInt(1);
+		} else {
+			throw new RuntimeException("Something has gone horribly, horribly wrong");
+		}
+	}
 	
 
 }
