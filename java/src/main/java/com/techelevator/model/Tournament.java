@@ -1,23 +1,29 @@
 package com.techelevator.model;
 
+import java.sql.Date;
+import java.sql.Time;
+
 public class Tournament {
 	private String name;
-	private String date;
-	private String time;
+	private Date date;
+	private Time time;
 	private int id;
 	//TODO remove?
 	//private User[] listOfUsers;
 	private int host_id;
 	private String status;
 	
-	public Tournament(String name, String date, String time, int id, int host_id, String status) {
-		super();
+	public Tournament(String name, Date date, Time time, int id, int host_id, String status) {
 		this.name = name;
 		this.date = date;
 		this.time = time;
 		this.id = id;
 		this.host_id = host_id;
 		this.status = status;
+	}
+
+
+	public Tournament() {
 	}
 
 
@@ -31,19 +37,19 @@ public class Tournament {
 	}
 
 
-	public String getTime() {
+	public Time getTime() {
 		return time;
 	}
 	
-	public void setTime(String time) {
+	public void setTime(Time time) {
 		this.time = time;
 	}
 	
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 	
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

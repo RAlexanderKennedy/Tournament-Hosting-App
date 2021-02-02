@@ -1,5 +1,7 @@
 package com.techelevator.dao;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,8 +37,8 @@ public class TournamentSqlDAO implements TournamentDAO {
 			//String users = result.getString("users");
 			String status = result.getString("status");
 			int hostId = result.getInt("host_id");
-			String time = result.getString("tournament_time");
-			String date = result.getString("tournament_date");
+			Time time = result.getTime("tournament_time");
+			Date date = result.getDate("tournament_date");
 			Tournament tournament = new Tournament(name, date, time, id, hostId, status);
 			tournaments.add(tournament);
 		}
@@ -56,9 +58,9 @@ public class TournamentSqlDAO implements TournamentDAO {
 			//String users = result.getString("users");
 			String status = result.getString("status");
 			int hostId = result.getInt("host_id");
-			String time = result.getString("tournament_time");
-			String date = result.getString("tournament_date");
-			Tournament tournament = new Tournament(name, time, date, id, hostId, status);
+			Time time = result.getTime("tournament_time");
+			Date date = result.getDate("tournament_date");
+			Tournament tournament = new Tournament(name, date, time, id, hostId, status);
 			return tournament;
 		}
 		return null;
@@ -69,20 +71,20 @@ public class TournamentSqlDAO implements TournamentDAO {
 		String name = newTournament.getName();
 		String status = newTournament.getStatus();
 		int host_id = newTournament.getHost_id();
-		String date = newTournament.getDate();
-		String time = newTournament.getTime();
+		Date date = newTournament.getDate();
+		Time time = newTournament.getTime();
 		String sql = "insert into tournaments (tournament_name, host_id, status, tournament_date, tournament_time) values (?,?,?,?,?)";
-		template.update(sql, name, status, host_id, date, time);
+		template.update(sql, name, host_id, status, date, time);
 	}
 
 	@Override
 	public void editTournament(Tournament tournamentToEdit) {
 		String sql = "update tournaments set tournament_name = ?, host_id = ?, status = ?, tournament_date = ?, tournament_time = ? where tournament_id = ?";
-		template.update(sql, tournamentToEdit.getName(),tournamentToEdit.getHost_id(), tournamentToEdit.getName(), tournamentToEdit.getStatus(), tournamentToEdit.getDate(), tournamentToEdit.getTime());
+		template.update(sql, tournamentToEdit.getName(),tournamentToEdit.getHost_id(), tournamentToEdit.getStatus(), tournamentToEdit.getDate(), tournamentToEdit.getTime(), tournamentToEdit.getId());
 	}
 
 	@Override
-	public void cancelTournament(int id) {
+	public void deleteTournament(int id) {
 		String sql = "DELETE from tournaments WHERE tournament_id = ?";
 		template.update(sql, id);
 

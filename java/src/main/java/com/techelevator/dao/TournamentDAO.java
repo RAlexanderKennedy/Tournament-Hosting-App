@@ -17,5 +17,5 @@ public interface TournamentDAO {
 	
 	public void editTournament(Tournament tournamentToEdit);
 	
-	public void cancelTournament(int id);
+	public void deleteTournament(int id);
 }
