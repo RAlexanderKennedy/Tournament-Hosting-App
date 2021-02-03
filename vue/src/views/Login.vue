@@ -97,11 +97,28 @@ body{
  
 }
 #nav{
-  padding-top:15px;
   padding-left:15px;
-  padding-bottom:10px;
-  background-color:whitesmoke;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  color: white;
   
+}
+#nav h3{
+  display:inline;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  
+  
+}
+.nav-item {
+  color: white;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 17px;
 }
 h1{
   margin-top:10px;
