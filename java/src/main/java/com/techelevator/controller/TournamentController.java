@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.dao.TournamentDAO;
+import com.techelevator.dao.UserDAO;
 import com.techelevator.model.ParticipantsWebObject;
 import com.techelevator.model.Tournament;
 import com.techelevator.model.User;
@@ -24,6 +25,9 @@ public class TournamentController {
 	
 	@Autowired
 	TournamentDAO tournamentDAO;
+	
+	@Autowired
+	UserDAO userDAO;
 	
 	@RequestMapping(path="/allTournaments", method=RequestMethod.GET)
 	public List<Tournament> getAllTournaments(){
@@ -61,6 +65,11 @@ public class TournamentController {
 	public void addParticipants(@Valid @RequestBody ParticipantsWebObject x) {
 		tournamentDAO.addParticipant(x.getParticipants()[0], x.getParticipants()[1]);
 		//System.out.println(Arrays.toString(x.getParticipants()));
-	}
+	};
+	
+	@RequestMapping(path="/user/{id}", method=RequestMethod.GET)
+	public User getUserById(@PathVariable long id) {
+		return userDAO.getUserById(id);
+	};
 	
 }
