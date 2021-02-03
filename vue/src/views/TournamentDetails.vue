@@ -1,17 +1,31 @@
 <template>
   <div>
-      <brackets/>
+    <brackets/>
+      
+      <participants v-bind:tournamentId="parseInt($route.params.id)" />
+        
+      
   </div>
 </template>
 
 <script>
 import Brackets from '../components/Brackets.vue'
+import Participants from '../components/Participants.vue'
 export default {
+    
 components:{
-    Brackets
+    Brackets,
+    Participants   
+},
+name: "tournament-details"
 }
-}
+
 </script>
+
+
+
+
+
 
 <style scoped>
     body{

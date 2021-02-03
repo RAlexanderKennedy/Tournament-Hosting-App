@@ -1,7 +1,9 @@
 <template>
   <div>
     <div v-for="tournament in tournaments" v-bind:key="tournament.id">
-      {{tournament.name}}
+      <router-link v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
+        {{tournament.name}}
+      </router-link>
     </div>
   </div>
 </template>

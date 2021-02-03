@@ -3,8 +3,11 @@ package com.techelevator.dao;
 import java.util.List;
 
 import com.techelevator.model.Tournament;
+import com.techelevator.model.User;
 
 public interface TournamentDAO {
+	
+	public List<User> getUsersByTournamentId(int tournamentId);
 	
 	public List<Tournament> getAllTournaments();
 	
@@ -18,4 +21,6 @@ public interface TournamentDAO {
 	public void editTournament(Tournament tournamentToEdit);
 	
 	public void deleteTournament(int id);
+	
+	public void addParticipant(long participantId, int tournamentId);
 }

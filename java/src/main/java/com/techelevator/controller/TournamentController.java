@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.dao.TournamentDAO;
+import com.techelevator.model.ParticipantsWebObject;
 import com.techelevator.model.Tournament;
+import com.techelevator.model.User;
 
 @RestController
 @CrossOrigin
@@ -48,4 +51,16 @@ public class TournamentController {
 	public void deleteTournament (@PathVariable int id) {
 		tournamentDAO.deleteTournament(id);
 	};
+	
+	@RequestMapping(path="/user/tournament/{id}", method=RequestMethod.GET)
+	public List<User> getUserByTournamentId(@PathVariable int id) {
+		return tournamentDAO.getUsersByTournamentId(id);
+	};
+	
+	@RequestMapping(path="/tournament/add", method=RequestMethod.POST)
+	public void addParticipants(@Valid @RequestBody ParticipantsWebObject x) {
+		tournamentDAO.addParticipant(x.getParticipants()[0], x.getParticipants()[1]);
+		//System.out.println(Arrays.toString(x.getParticipants()));
+	}
+	
 }

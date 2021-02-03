@@ -99,6 +99,7 @@ body{
   padding-left:15px;
   padding-bottom:10px;
   background-color:whitesmoke;
+  
 }
 h1{
   margin-top:10px;

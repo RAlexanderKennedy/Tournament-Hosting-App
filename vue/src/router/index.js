@@ -55,13 +55,13 @@ const router = new Router({
       }
     },
     {
-      path: "/details",
-      name: "details",
+      path: "/tournamentDetails/:id",
+      name: "tournament-details",
       component: TournamentDetails,
       meta: {
         requiresAuth: false
       }
-    },
+    }
   ]
 })
 
