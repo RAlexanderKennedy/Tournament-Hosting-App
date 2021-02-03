@@ -16,6 +16,10 @@ export default {
 
     getUserById(id) {
         return http.get(`/user/${id}`);
+    },
+
+    getTournamentById(id){
+        return http.get(`/tournaments/${id}`)
     }
 
 
