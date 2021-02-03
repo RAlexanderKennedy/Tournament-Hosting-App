@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="search">
-      <input type="text" placeholder="Search Tournaments">
+      <input type="text" placeholder="Search Tournaments" v-model="filter.name">
     </div>
     <ul class="tournaments">
-      <li v-for="tournament in tournaments" v-bind:key="tournament.id">
+      <li v-for="tournament in filteredList" v-bind:key="tournament.id">
         <router-link v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
           {{tournament.name}}
         </router-link>
@@ -20,6 +20,9 @@ export default {
   name: "main-feed",
   data() {
     return {
+      filter: {
+        name: ""
+      },
       tournaments: []
     }
   },
@@ -30,6 +33,18 @@ export default {
   },
   methods: {
     
+  },
+
+  computed: {
+    filteredList() {
+      let filteredTournaments = this.tournaments;
+      if (this.filter.name != '') {
+        filteredTournaments = filteredTournaments.filter((tournament) =>
+        tournament.name.toLowerCase()
+        .includes(this.filter.name.toLowerCase()));
+      }
+      return filteredTournaments;
+    }
   }
 
 }
