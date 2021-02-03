@@ -1,22 +1,12 @@
 <template>
-<<<<<<< HEAD
   <div id="main-container1">
     <div id="item-wraper">
     <div>
-      <input class="search" type="text" placeholder="Search Tournaments">
-    </div>
-    <ul class="tournaments">
-      <li v-for="tournament in tournaments" v-bind:key="tournament.id">
-        <router-link class="link-text" v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
-=======
-  <div>
-    <div class="search">
-      <input type="text" placeholder="Search Tournaments" v-model="filter.name">
+      <input class="search" type="text" placeholder="Search Tournaments" v-model="filter.name">
     </div>
     <ul class="tournaments">
       <li v-for="tournament in filteredList" v-bind:key="tournament.id">
-        <router-link v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
->>>>>>> 1152c4e528815f3a574e12c4c667b8f050456140
+        <router-link class="link-text" v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
           {{tournament.name}}
         </router-link>
       </li>
