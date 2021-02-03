@@ -1,6 +1,11 @@
 <template>
   <div class="home">
-    <h1>Home</h1>
+    <h1 v-if="$store.state.token != ''"> 
+      Welcome {{$store.state.user.displayName}}!
+    </h1>
+    <h1 v-if="$store.state.token == ''"> 
+      Welcome!
+    </h1>
     <MainFeed />
   </div>
 </template>
@@ -15,3 +20,12 @@ export default {
   }
 };
 </script>
+
+<style>
+.home {
+  text-align: center;
+}
+.home h1 {
+  padding-bottom: 2rem;
+}
+</style>

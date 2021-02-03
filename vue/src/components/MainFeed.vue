@@ -83,7 +83,7 @@ margin-right:auto
 }
 .tournaments li {
     background: white;
-    border-radius: 0 0.5rem 0.5rem 0.0rem;
+    border-radius: 1rem;
     counter-increment: gradient-counter;
     margin-top: 0rem;
     min-height: 3rem;
@@ -92,6 +92,7 @@ margin-right:auto
     max-width:100%;
     border-top: solid darkgray 1px; 
     text-align: center;   
+    
 }
   .link-text{
     font-family: Arial, Helvetica, sans-serif;
