@@ -12,6 +12,10 @@ export default {
 
     getParticipantsByTournamentId(id) {
         return http.get(`/user/tournament/${id}`);
+    },
+
+    getUserById(id) {
+        return http.get(`/user/${id}`);
     }
 
 
