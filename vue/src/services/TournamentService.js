@@ -26,7 +26,7 @@ export default {
         return http.put(`/user/displayName/${username}`, user.displayName)
     },
 
-    getMatchByTournamentId(id) {
+    getMatchesByTournamentId(id) {
         return http.get(`/tournament/${id}/matches`);
     }
 

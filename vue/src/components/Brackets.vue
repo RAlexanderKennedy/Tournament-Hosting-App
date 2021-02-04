@@ -20,32 +20,7 @@ export default {
   data() {
     return {
       participants: [],
-      testPlayers:[
-          {
-            name:"player1",
-            round: 1,
-            eleminated: false,
-            win: false,
-          },
-          {
-            name:"player2",
-            round: 1,
-            eleminated: false,
-            win: false,
-          },
-          {
-            name:"player3",
-            round: 1,
-            eleminated: false,
-            win: false,
-          },
-          {
-            name:"player4",
-            round: 1,
-            eleminated: false,
-            win: false,
-          },
-      ]
+      matches:[]
     }
   },
     computed:{
@@ -76,13 +51,17 @@ export default {
              container.appendChild(listItem);
              listItem.setAttribute("class", "card"); 
              listItem.setAttribute("id", ("slot"+ (i+1)));
-             listItem.setAttribute("style", "height:35px; vertical-align:middle; padding,10px; background-color:white; border-radius:15px; box-shadow: 4px 3px 8px 1px #969696; -webkit-box-shadow: 4px 3px 8px 1px #969696; padding-top: 15px;");
+             listItem.setAttribute("style", "height:35px; vertical-align:middle; padding,10px; background-color:white; border-radius:15px; box-shadow: 4px 3px 8px 1px #969696; -webkit-box-shadow: 4px 3px 8px 1px #969696; padding-top: 15px; min-width:150px;");
              
                
             }
       });
 
+        tournamentService.getMatchesByTournamentId(this.tournamentId)
+      .then(response => {
+          this.matches = response.data;
 
+      });
 
 
     }
@@ -142,17 +121,28 @@ export default {
 
 
 #grid-container {
-    height:800px;
+    font-size:15px;
+    font-weight: bold;
+    width:95%;
+    overflow-x:auto;
+    height:500px;
     padding:20px;
     display: grid;
-    grid-gap: 20px 50px;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-gap: 25px 25px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:
-            "grid1 grid2 grid3 grid4"
+            ". . . . . . . grid1 . . . . . . ."
+            ". . . grid2 line9 line10 line11 . line12 line13 line14 grid3 . . ."
+            ". grid4 line5 . line6 grid5 . . . grid6 line7 . line8 grid7 ."
+            ". line1 . . . line2 . . . line3 . . . line4 ."
+            "grid8 . grid9 . grid10 . grid11 . grid12 . grid13 . grid14 . grid15";
+
+        /* "grid1 grid2 grid3 grid4"9
             "grid5 grid6 grid7 grid8"
             "grid9 grid10 grid11 grid12"
-            "grid13 grid14 grid15 grid16";
+            "grid13 grid14 grid15 grid16"; */
+
     align-items: center;
     text-align: center;
 }
@@ -168,7 +158,6 @@ export default {
     
 }
 */
-
 
 
 </style>
