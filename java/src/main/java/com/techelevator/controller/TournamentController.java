@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.dao.TournamentDAO;
 import com.techelevator.dao.UserDAO;
+import com.techelevator.model.Match;
 import com.techelevator.model.ParticipantsWebObject;
 import com.techelevator.model.Tournament;
 import com.techelevator.model.User;
@@ -76,5 +77,10 @@ public class TournamentController {
 	public void addDisplayName (@PathVariable String username, @Valid @RequestBody String displayName) {
 		userDAO.addDisplayName(username, displayName);
 	}
+	
+	@RequestMapping(path="tournament/{id}/matches", method=RequestMethod.GET)
+	public List<Match> getMatchesByTournamentId(@PathVariable int id) {
+		return tournamentDAO.getMatchesByTournamentId(id);
+	};
 	
 }
