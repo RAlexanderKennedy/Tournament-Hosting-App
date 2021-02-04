@@ -6,10 +6,12 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import com.techelevator.model.Match;
 import com.techelevator.model.Tournament;
 import com.techelevator.model.User;
 
@@ -21,6 +23,9 @@ public class TournamentSqlDAO implements TournamentDAO {
 	public TournamentSqlDAO(DataSource datasource) {
 		template = new JdbcTemplate(datasource);
 	}
+	
+	@Autowired
+	UserSqlDAO UserDAO;
 	
 	
 	@Override
@@ -45,6 +50,42 @@ public class TournamentSqlDAO implements TournamentDAO {
 		}
 		
 		return participants;
+	}
+	
+	@Override
+	public List<Match> getMatchesByTournamentId(int tournamentId) {
+		List<Match> matches = new ArrayList<Match>();
+		String sql = "select * " +
+				"from matches " +
+				"join tournaments on matches.tournament_id = tournaments.tournament_id " +
+				"where tournaments.tournament_id = ?";
+		SqlRowSet rs = template.queryForRowSet(sql, tournamentId);
+		
+		while (rs.next()) {
+			Match match = new Match();
+			match.setId(rs.getInt("match_id"));
+			match.setTournamentId(rs.getInt("tournament_id"));
+			match.setRound(rs.getInt("round"));
+			
+			long par1 = rs.getInt("user1");
+			long par2 = rs.getInt("user2");
+			Integer winnerId = rs.getInt("winner");
+			
+			User participant1 = UserDAO.getUserById(par1);
+			User participant2 = UserDAO.getUserById(par2);
+			match.setParticipant1(participant1);
+			match.setParticipant2(participant2);
+			
+			if (winnerId != null) {
+				User winner = UserDAO.getUserById(winnerId.longValue());
+				match.setWinner(winner);
+			}
+			matches.add(match);
+			
+		}
+		
+		
+		return matches;
 	}
 	
 	@Override

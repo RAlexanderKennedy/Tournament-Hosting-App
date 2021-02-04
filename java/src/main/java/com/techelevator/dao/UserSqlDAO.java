@@ -61,6 +61,13 @@ public class UserSqlDAO implements UserDAO {
         }
         throw new UsernameNotFoundException("User " + username + " was not found.");
     }
+    
+    @Override
+    public void addDisplayName(String username, String displayName) {
+    	String sql = "update users set display_name = ? where username = ?";
+    	jdbcTemplate.update(sql, displayName, username);
+    	
+    }
 
     @Override
     public boolean create(String username, String password, String role) {

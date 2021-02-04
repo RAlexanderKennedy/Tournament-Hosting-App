@@ -13,6 +13,8 @@ public interface UserDAO {
     User findByUsername(String username);
 
     int findIdByUsername(String username);
+    
+    void addDisplayName(String username, String displayName);
 
     boolean create(String username, String password, String role);
 }

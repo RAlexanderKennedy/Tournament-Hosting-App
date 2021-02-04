@@ -1,7 +1,7 @@
 <template>
   <div id="main1">
       <div>
-          {{date}}
+          {{endDate}}
       </div>
   </div>
 </template>
@@ -10,20 +10,20 @@
 import tournamentService from "@/services/TournamentService.js";
 
 export default {
-  name: "date",
+  name: "endDate",
   props: {
       tournamentId: Number
   },
   data() {
     return {
-      date: ''
+      endDate: ''
     }
   },
   created() {
       tournamentService.getTournamentById(this.tournamentId)
       .then(response => {
           this.tournament = response.data;
-          this.date = this.tournament.startDate
+          this.endDate = this.tournament.endDate
       });
   }
 

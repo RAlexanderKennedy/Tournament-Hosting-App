@@ -9,6 +9,10 @@
         <router-link class="link-text" v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
           {{tournament.name}}
         </router-link>
+        <br>
+        {{tournament.status}}
+        <br>
+        {{tournament.startDate}} - {{tournament.endDate}}
       </li>
     </ul>
   </div>
