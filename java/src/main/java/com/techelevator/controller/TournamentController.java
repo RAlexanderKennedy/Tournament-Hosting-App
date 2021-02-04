@@ -72,4 +72,9 @@ public class TournamentController {
 		return userDAO.getUserById(id);
 	};
 	
+	@RequestMapping(path="/user/displayName/{username}", method=RequestMethod.PUT)
+	public void addDisplayName (@PathVariable String username, @Valid @RequestBody String displayName) {
+		userDAO.addDisplayName(username, displayName);
+	}
+	
 }

@@ -20,6 +20,10 @@ export default {
 
     getTournamentById(id){
         return http.get(`/tournaments/${id}`)
+    },
+
+    addDisplayName(username, user) {
+        return http.put(`/user/displayName/${username}`, user.displayName)
     }
 
 

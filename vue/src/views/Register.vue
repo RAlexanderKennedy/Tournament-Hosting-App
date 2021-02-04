@@ -52,6 +52,7 @@
 
 <script>
 import authService from '../services/AuthService';
+import tournamentService from '../services/TournamentService';
 
 export default {
   name: 'register',
@@ -61,6 +62,7 @@ export default {
         username: '',
         password: '',
         confirmPassword: '',
+        displayName: '',
         role: 'user',
       },
       registrationErrors: false,
@@ -73,6 +75,8 @@ export default {
         this.registrationErrors = true;
         this.registrationErrorMsg = 'Password & Confirm Password do not match.';
       } else {
+        tournamentService
+        .addDisplayName(this.user.username, this.user);
         authService
           .register(this.user)
           .then((response) => {
