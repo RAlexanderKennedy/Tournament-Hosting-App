@@ -1,29 +1,91 @@
 <template>
   <div>
   <div id="grid-container">
-      <div class="card" id="slot1">1</div>
-      <div class="card" id="slot2">2</div>
-      <div class="card" id="slot3">3</div>
-      <div class="card" id="slot4">4</div>
-      <div class="card" id="slot5">5</div>
-      <div class="card" id="slot6">6</div>
-      <div class="card" id="slot7">7</div>
-      <div class="card" id="slot8">8</div>
-      <div class="card" id="slot9">9</div>
-      <div class="card" id="slot10">10</div>
-      <div class="card" id="slot11">11</div>
-      <div class="card" id="slot12">12</div>
-      <div class="card" id="slot13">13</div>
-      <div class="card" id="slot14">14</div>
-      <div class="card" id="slot15">15</div>
-      <div class="card" id="slot16">16</div>
+      
 
   </div>
   </div>
 </template>
 
 <script>
+import tournamentService from "@/services/TournamentService.js";
+
 export default {
+    name: "brackets",
+
+    props: {
+      tournamentId: Number
+  },
+
+  data() {
+    return {
+      participants: [],
+      testPlayers:[
+          {
+            name:"player1",
+            round: 1,
+            eleminated: false,
+            win: false,
+          },
+          {
+            name:"player2",
+            round: 1,
+            eleminated: false,
+            win: false,
+          },
+          {
+            name:"player3",
+            round: 1,
+            eleminated: false,
+            win: false,
+          },
+          {
+            name:"player4",
+            round: 1,
+            eleminated: false,
+            win: false,
+          },
+      ]
+    }
+  },
+    computed:{
+        
+        slotUser(){
+            let counter = 1;
+            const currentDiv = document.getElementById("slot" + counter);
+            for(let i = 0; i < this.participants.length; i++){
+                //document.getElementById("slot" + counter)
+                if(currentDiv.innerText === ""){
+                    currentDiv.innerText = this.participants[i].displayName;
+                }
+                counter++;
+            }
+            return console.log()
+        }
+    },
+    created(){
+        tournamentService.getParticipantsByTournamentId(this.tournamentId)
+      .then(response => {
+          this.participants = response.data;            
+
+            
+            let container = document.getElementById("grid-container");
+            for(let i = 0; i < this.participants.length; i++){
+             let listItem = document.createElement("div");
+             listItem.innerText = this.participants[i].displayName;
+             container.appendChild(listItem);
+             listItem.setAttribute("class", "card"); 
+             listItem.setAttribute("id", ("slot"+ (i+1)));
+             listItem.setAttribute("style", "height:35px; vertical-align:middle; padding,10px; background-color:white; border-radius:15px; box-shadow: 4px 3px 8px 1px #969696; -webkit-box-shadow: 4px 3px 8px 1px #969696; padding-top: 15px;");
+             
+               
+            }
+      });
+
+
+
+
+    }
 
 }
 </script>
@@ -94,7 +156,7 @@ export default {
     align-items: center;
     text-align: center;
 }
-
+/*
 .card{
     height:35px;
     vertical-align:middle;
@@ -105,6 +167,7 @@ export default {
 -webkit-box-shadow: 4px 3px 8px 1px #969696;
     
 }
+*/
 
 
 

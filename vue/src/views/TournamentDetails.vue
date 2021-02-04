@@ -1,6 +1,6 @@
 <template>
   <div>
-    <brackets/>
+    <brackets v-bind:tournamentId="parseInt($route.params.id)"/>
       <h3>Host:</h3>
       <host v-bind:hostId="parseInt($route.params.id)" />
       <h3>Participants:</h3>
