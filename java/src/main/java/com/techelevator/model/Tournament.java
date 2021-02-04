@@ -7,17 +7,17 @@ import java.util.List;
 
 public class Tournament {
 	private String name;
-	private Date date;
-	private Time time;
+	private Date startDate;
+	private Date endDate;
 	private int id;
 	private List<User> participants = new ArrayList<User>();
 	private int host_id;
 	private String status;
 	
-	public Tournament(String name, Date date, Time time, int id, int host_id, String status, List<User> participants) {
+	public Tournament(String name, Date startDate, Date endDate, int id, int host_id, String status, List<User> participants) {
 		this.name = name;
-		this.date = date;
-		this.time = time;
+		this.startDate = startDate;
+		this.endDate = endDate;
 		this.id = id;
 		this.host_id = host_id;
 		this.status = status;
@@ -47,20 +47,20 @@ public class Tournament {
 	}
 
 
-	public Time getTime() {
-		return time;
+	public Date getStartDate() {
+		return startDate;
 	}
 	
-	public void setTime(Time time) {
-		this.time = time;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 	
-	public Date getDate() {
-		return date;
+	public Date getEndDate() {
+		return endDate;
 	}
 	
-	public void setDate(Date date) {
-		this.date = date;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public String getName() {
