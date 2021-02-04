@@ -11,6 +11,8 @@
         </router-link>
         <br>
         {{tournament.status}}
+        <br>
+        {{tournament.startDate}} - {{tournament.endDate}}
       </li>
     </ul>
   </div>

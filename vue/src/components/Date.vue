@@ -23,7 +23,7 @@ export default {
       tournamentService.getTournamentById(this.tournamentId)
       .then(response => {
           this.tournament = response.data;
-          this.date = this.tournament.date
+          this.date = this.tournament.startDate
       });
   }
 
