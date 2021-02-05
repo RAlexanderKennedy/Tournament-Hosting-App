@@ -58,25 +58,35 @@ export default {
           this.participants = response.data;            
 
             
-            let container = document.getElementById("grid-container");
-            for(let i = 0; i < this.participants.length; i++){
-             let listItem = document.createElement("div");
-             listItem.innerText = this.participants[i].displayName;
-             container.appendChild(listItem);
-             listItem.setAttribute("class", "card"); 
-             listItem.setAttribute("id", ("slot"+ (i+1)));
-             listItem.setAttribute("style", "height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;" + ("grid-area:grid"+ (i+1) + ";"));
+            //let container = document.getElementById("grid-container");
+            //for(let i = 0; i < this.participants.length; i++){
+             //let listItem = document.createElement("div");
+             //listItem.innerText = this.participants[i].displayName;
+             //container.appendChild(listItem);
+             //listItem.setAttribute("class", "card"); 
+             //listItem.setAttribute("id", ("slot"+ (i+1)));
+             //listItem.setAttribute("style", "height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;" + ("grid-area:grid"+ (i+1) + ";"));
              //listItem.setAttribute("style", ("grid-area:grid"+ (i+1) + ";"))
                
-            }
+            //}
       });
 
         tournamentService.getMatchesByTournamentId(this.tournamentId)
       .then(response => {
           this.matches = response.data;
 
-            
-
+            let container = document.getElementById("grid-container")
+            for(let i = 0; i < this.matches.length; i++){
+                let listItem = document.createElement("div");
+                let text = document.createElement("p");
+                listItem.innerText = this.matches[i].participant1.displayName +
+                " VS "+ this.matches[i].participant2.displayName;
+                container.appendChild(listItem);
+                listItem.setAttribute("class", "card"); 
+                listItem.setAttribute("id", ("slot"+ (i+1)));
+                listItem.setAttribute("style", "height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;" + ("grid-area:grid"+ (i+1) + ";"));
+                //listItem.setAttribute("style", ("grid-area:grid"+ (i+1) + ";"))
+            }
 
       });
 
