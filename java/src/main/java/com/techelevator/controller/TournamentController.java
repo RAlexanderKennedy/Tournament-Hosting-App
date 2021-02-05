@@ -52,7 +52,7 @@ public class TournamentController {
 		tournamentDAO.createTournament(tournamentToAdd);
 	};
 	
-	@RequestMapping(path="/tournament/{id}")
+	@RequestMapping(path="/tournament/{id}", method = RequestMethod.DELETE)
 	public void deleteTournament (@PathVariable int id) {
 		tournamentDAO.deleteTournament(id);
 	};
