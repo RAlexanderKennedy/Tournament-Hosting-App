@@ -32,6 +32,10 @@ export default {
 
     getAllUsers(){
         return http.get('/user/all')
+    },
+    
+    addTournament(tournament){
+        return http.post('/addTournament', tournament)
     }
 
 
