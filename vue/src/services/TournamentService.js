@@ -28,6 +28,10 @@ export default {
 
     getMatchesByTournamentId(id) {
         return http.get(`/tournament/${id}/matches`);
+    },
+
+    getAllUsers(){
+        return http.get('/user/all')
     }
 
 

@@ -83,4 +83,9 @@ public class TournamentController {
 		return tournamentDAO.getMatchesByTournamentId(id);
 	};
 	
+	@RequestMapping(path="/user/all")
+	public List<User> getAllUsers(){
+		return userDAO.findAll();
+	}
+	
 }
