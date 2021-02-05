@@ -2,8 +2,8 @@ package com.techelevator.model;
 
 public class Invite {
 	private int id;
-	private int tournament_id;
-	private int participant_id;
+	private int tournamentId;
+	private int participantId;
 	private String sender;
 	private String status;
 	private boolean read;
@@ -11,10 +11,16 @@ public class Invite {
 	
 	public Invite() {};
 	
-	public Invite(int id, int tournament_id, int participant_id, String sender, String status, boolean read) {
+	public Invite(int tournamentId, int participantId, String sender) {
+		this.tournamentId = tournamentId;
+		this.participantId = participantId;
+		this.sender = sender;
+	}
+	
+	public Invite(int id, int tournamentId, int participantId, String sender, String status, boolean read) {
 		this.id = id;
-		this.tournament_id = tournament_id;
-		this.participant_id = participant_id;
+		this.tournamentId = tournamentId;
+		this.participantId = participantId;
 		this.sender = sender;
 		this.status = status;
 		this.read = read;
@@ -28,20 +34,20 @@ public class Invite {
 		this.id = id;
 	}
 
-	public int getTournament_id() {
-		return tournament_id;
+	public int gettournamentId() {
+		return tournamentId;
 	}
 
-	public void setTournament_id(int tournament_id) {
-		this.tournament_id = tournament_id;
+	public void settournamentId(int tournamentId) {
+		this.tournamentId = tournamentId;
 	}
 
-	public int getParticipant_id() {
-		return participant_id;
+	public int getparticipantId() {
+		return participantId;
 	}
 
-	public void setParticipant_id(int participant_id) {
-		this.participant_id = participant_id;
+	public void setparticipantId(int participantId) {
+		this.participantId = participantId;
 	}
 
 	public String getSender() {

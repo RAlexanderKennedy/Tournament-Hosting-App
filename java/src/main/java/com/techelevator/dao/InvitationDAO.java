@@ -8,18 +8,18 @@ public interface InvitationDAO {
 	
 	public List<Invite> getAllInvites();
 	
-	public List<Invite> getInviteByTournamentId(int id);
+	public List<Invite> getInvitesByTournamentId(int id);
 	
-	public List<Invite> getInviteByParticipantId(int id);
+	public List<Invite> getInvitesByParticipantId(int id);
 	
-	public List<Invite> getInviteByHostId(int id);
+	public List<Invite> getInvitesByHostId(int id);
 	
-	public void requestJoin();
+	public void send(Invite newInvite);
 	
-	public void inviteParticipant();
+	public void acceptInvitation(int id);
 	
-	public void acceptInvitation();
+	public void declineInvitation(int id);
 	
-	public void declineInvitation();
+	public void deleteInvitation(int id);
 
 }
