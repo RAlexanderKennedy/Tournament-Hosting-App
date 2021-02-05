@@ -1,25 +1,3 @@
-<template>
-<div>
-  <h1>My Tournaments</h1>
-  <br>
-  <h3> Hosting:</h3>
-  <br>
-  
-  <h3> Participating:</h3>
-  <ul>
-      <li v-for="tournament in filteredList" v-bind:key="tournament.id">
-          <router-link class="link-text" v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
-          {{tournament.name}}
-        </router-link>
-        <br>
-        {{tournament.status}}
-        <br>
-        {{tournament.startDate}} - {{tournament.endDate}}
-      </li>
-  </ul>
-</div>
-</template>
-
 <script>
 import tournamentService from "@/services/TournamentService.js"
 export default {
@@ -29,40 +7,99 @@ export default {
             filter: {
                 user_id: this.$store.state.user.id
             },
-            tournaments:[]
+            tournaments:[],
+
+            filteredTournaments:[],
+
+            isLoading: true
         }
     },
     created() {
         tournamentService.getTournaments().then(response => {
             this.tournaments = response.data;
+            let participants = []
+            let unfilteredTournaments = this.tournaments;
+            unfilteredTournaments.forEach( (tournament) => {
+                tournamentService.getParticipantsByTournamentId(tournament.id).then(response => {
+                    this.isLoading = false
+                    participants = response.data
+                    participants.forEach((participant) => {
+                        //console.log(participant.id)
+                        //console.log(this.filter.user_id)
+                        if (participant.id == this.filter.user_id){
+                            this.filteredTournaments.push(tournament)
+                        //console.log(tournament)
+                        //console.log(filteredTournaments)
+                    }
+                    })
+                })
+            })
         });
+       // let filteredList = filterTournaments(this.tournaments)
+        //console.log(this.filteredList)
     },
     methods: {
-
+        filterTournaments(tournamentsList) {
+            
+            let participants = []
+            let unfilteredTournaments = tournamentsList;
+            let filteredTournaments = []
+            unfilteredTournaments.forEach( (tournament) => {
+                tournamentService.getParticipantsByTournamentId(tournament.id).then(response => {
+                    this.isLoading = false
+                    participants = response.data
+                    participants.forEach((participant) => {
+                        //console.log(participant.id)
+                        //console.log(this.filter.user_id)
+                        if (participant.id == this.filter.user_id){
+                            filteredTournaments.push(tournament)
+                        //console.log(tournament)
+                        //console.log(filteredTournaments)
+                    }
+                    })
+                })
+            })
+                        //console.log(filteredTournaments)
+                       return filteredTournaments
+           
+            
+        },
     },
 
     computed: {
-        filteredList() {
-            let participants = []
-            let unfilteredTournaments = this.tournaments;
-            let filteredTournaments = []
-
-            unfilteredTournaments.forEach( (tournament) => {
-                participants = tournamentService.getParticipantsByTournamentId(tournament.id)
-                if (participants.includes(this.filter.user_id)){
-                    filteredTournaments.push(tournament)
-                }
-            });
-            //filteredTournaments = filteredTournaments.filter((tournament) =>
-            //participants = tournamentService.getParticipantsByTournamentId(tournament.id),
-            //participants.includes(this.filter.user_id)
-            //);
-            return filteredTournaments
+        filteredList(){
+            let list = this.filterTournaments(this.tournaments);
+            //console.log(list)
+            return list
         }
     }
 
 }
 </script>
+<template>
+<div>
+  <h1>My Tournaments</h1>
+  <br>
+  <h3> Hosting:</h3>
+  <br>
+  
+        <div v-if="!this.isLoading">
+  <h3> Participating:</h3>
+  <ul>
+      <li v-for="tournament in this.filteredTournaments" v-bind:key="tournament.id">
+          <router-link v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
+          {{tournament.name}}
+        </router-link>
+        <br>
+        {{tournament.status}}
+        <br>
+        {{tournament.startDate}} - {{tournament.endDate}}
+      </li>
+  </ul>
+    </div>
+</div>
+</template>
+
 
 <style>
 
