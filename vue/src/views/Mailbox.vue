@@ -24,6 +24,9 @@
             </li>
          </ul>
          <h3> Invitations Sent:</h3> 
+         <li v-for="request in invitesSentAsHost" v-bind:key="request.id">
+                <InvitationItem v-bind:invite="request"/>
+        </li>
     </div>
     
       
