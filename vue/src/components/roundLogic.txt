@@ -1,0 +1,18 @@
+for(let i = 0; i < this.matches.length; i++){
+                let listItem = document.createElement("div");
+                let name1 = document.createElement("p");
+                let name2 = document.createElement("p");
+                let trimWhite1 = this.matches[i].participant1.displayName.replace(/\s/g,'');
+                let trimWhite2 = this.matches[i].participant2.displayName.replace(/\s/g,'');
+
+                name1.innerText = this.matches[i].participant1.displayName+ this.matches[i].id;
+                listItem.innerText = " VS "; 
+                name2.innerText = this.matches[i].participant2.displayName + this.matches[i].id;
+                container.appendChild(listItem);
+                listItem.setAttribute("class", "card"); 
+                listItem.setAttribute("id", ("slot"+ (i+1)));
+                listItem.setAttribute("style", "height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;" + ("grid-area:grid"+ (i+1) + ";"));
+                listItem.appendChild(name1);
+                name1.setAttribute("id", trimWhite1)
+                listItem.appendChild(name2);
+                name2.setAttribute("id", trimWhite2)

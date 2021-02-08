@@ -1,8 +1,23 @@
 <template>
   <div>
   <div id="grid-container">
-      
-
+  <div id=""></div>
+  <div id="line1">line1</div>
+  <div id="line2">line2</div>
+  <div id="line3">line3</div>
+  <div id="line4">line4</div>
+  <div id="line5"></div>
+  <div id="line6"></div>
+  <div id="line7"></div>
+  <div id="line8"></div>
+  <div id="line9"></div>
+  <div id="line10"></div>
+  <div id="line11"></div>
+  <div id="line12"></div>
+  <div id="line13"></div>
+  <div id="line14"></div>
+  
+  
   </div>
   </div>
 </template>
@@ -44,23 +59,45 @@ export default {
           this.participants = response.data;            
 
             
-            let container = document.getElementById("grid-container");
-            for(let i = 0; i < this.participants.length; i++){
-             let listItem = document.createElement("div");
-             listItem.innerText = this.participants[i].displayName;
-             container.appendChild(listItem);
-             listItem.setAttribute("class", "card"); 
-             listItem.setAttribute("id", ("slot"+ (i+1)));
-             listItem.setAttribute("style", "height:35px; vertical-align:middle; padding,10px; background-color:white; border-radius:15px; box-shadow: 4px 3px 8px 1px #969696; -webkit-box-shadow: 4px 3px 8px 1px #969696; padding-top: 15px; min-width:150px;");
-             
+            //let container = document.getElementById("grid-container");
+            //for(let i = 0; i < this.participants.length; i++){
+             //let listItem = document.createElement("div");
+             //listItem.innerText = this.participants[i].displayName;
+             //container.appendChild(listItem);
+             //listItem.setAttribute("class", "card"); 
+             //listItem.setAttribute("id", ("slot"+ (i+1)));
+             //listItem.setAttribute("style", "height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;" + ("grid-area:grid"+ (i+1) + ";"));
+             //listItem.setAttribute("style", ("grid-area:grid"+ (i+1) + ";"))
                
-            }
+            //}
       });
 
         tournamentService.getMatchesByTournamentId(this.tournamentId)
       .then(response => {
           this.matches = response.data;
 
+
+            if(this.matches.length === 3){
+            let container = document.getElementById("grid-container");
+            let mkDiv = document.createElement("div");
+            mkDiv.setAttribute("id","parent");
+            
+
+           
+            let mkP = document.createElement("p");
+
+            mkDiv.innerText = "test";
+            mkDiv.setAttribute("style" , "grid-area:grid1; height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;");
+            
+            container.appendChild(mkDiv);
+            mkP.innerText = "name-1";
+            mkP.setAttribute("id", "node-1");
+            mkDiv.appendChild(mkP);
+
+           }        
+
+           
+           
       });
 
 
@@ -82,7 +119,7 @@ export default {
 #slot4{
     grid-area:grid4;
 }
-.slot5{
+#slot5{
     grid-area:grid5;
 }
 #slot6{
@@ -118,9 +155,92 @@ export default {
 #slot16{
     grid-area:grid16;
 }
+#line1{
+    grid-area:line1;
+     width:100%;
+    height:100%;
+}
+#line2{
+    grid-area:line2;
+     width:100%;
+    height:100%;
+}
+#line3{
+    grid-area:line3;
+     width:100%;
+    height:100%;
+}
+#line4{
+    grid-area:line4;
+     width:100%;
+    height:100%;
+}
+#line5{
+    grid-area:line5;
+    border-top: black thick solid;
+    width:100%;
+    height:100%;
+}
+#line6{
+    border-top: black thick solid;
+    grid-area:line6;
+    width:100%;
+    height:100%;
+}
+#line7{
+    grid-area:line7;
+    border-top: black thick solid;
+     width:100%;
+    height:100%;
+}
+#line8{
+    grid-area:line8;
+     width:100%;
+    height:100%;
+}
+#line9{
+    grid-area:line9;
+    border-top: black thick solid;
+     width:100%;
+    height:100%;
+}
+#line10{
+    grid-area:line10;
+    border-top: black thick solid;
+     width:100%;
+    height:100%;
+}
+#line11{
+    grid-area:line11;
+    border-top: black thick solid;
+     width:100%;
+    height:100%;
+}
+#line12{
+    grid-area:line12;
+    border-top: black thick solid;
+     width:100%;
+    height:100%;
+}
+#line13{
+    grid-area:line13;
+    border-top: black thick solid;
+     width:100%;
+    height:100%;
+}
+#line14{
+    grid-area:line14;
+    border-top: black thick solid;
+    width:100%;
+    height:100%;
+}
+
+
+
 
 
 #grid-container {
+   
     font-size:15px;
     font-weight: bold;
     width:95%;
@@ -128,7 +248,7 @@ export default {
     height:500px;
     padding:20px;
     display: grid;
-    grid-gap: 25px 25px;
+    grid-gap: 0px 0px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:
