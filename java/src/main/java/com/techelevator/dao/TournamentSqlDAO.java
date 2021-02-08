@@ -174,6 +174,13 @@ public class TournamentSqlDAO implements TournamentDAO {
 			throw new RuntimeException("Something has gone horribly, horribly wrong");
 		}
 	}
+
+	@Override
+	public void removeParticipant(long participantId, int tournamentId) {
+		String sql = "delete from user_tournament WHERE user_id = ? AND tournament_id = ?";
+		template.update(sql, participantId, tournamentId);
+		
+	}
 	
 
 }

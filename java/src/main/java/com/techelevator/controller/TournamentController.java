@@ -83,4 +83,9 @@ public class TournamentController {
 		return tournamentDAO.getMatchesByTournamentId(id);
 	};
 	
+	@RequestMapping(path="/tournament/{tournamentId}/{userId}", method = RequestMethod.DELETE)
+	public void removeParticipant (@PathVariable int tournamentId, @PathVariable int userId) {
+		tournamentDAO.removeParticipant(userId, tournamentId);
+	};
+	
 }
