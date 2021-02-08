@@ -16,5 +16,5 @@ public interface UserDAO {
     
     void addDisplayName(String username, String displayName);
 
-    boolean create(String username, String password, String role);
+    boolean create(String username, String password, String role, String displayName);
 }

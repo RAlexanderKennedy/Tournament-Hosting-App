@@ -1,6 +1,6 @@
 <template>
 <div>
-  {{host.displayName}}
+  {{displayName}}
   </div>
 </template>
 
@@ -9,17 +9,25 @@ import tournamentService from "@/services/TournamentService.js"
 export default {
  name: "host",
   props: {
-      hostId: Number
+      tournamentId: Number
   },
   data() {
     return {
-      host: ""
+      displayName: "Test",
+      hostId: Number
     }
   },
   created() {
-      tournamentService.getUserById(this.hostId)
+      tournamentService.getTournamentById(this.tournamentId)
       .then(response => {
-          this.host = response.data;
+          let tournament = response.data;
+          this.hostId = tournament.host_id;
+
+          tournamentService.getUserById(this.hostId)
+          .then(response => {
+            let host = response.data;
+            this.displayName = host.displayName;
+          });
       });
   }
 }

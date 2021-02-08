@@ -26,4 +26,6 @@ public interface TournamentDAO {
 	public void deleteTournament(int id);
 	
 	public void addParticipant(long participantId, int tournamentId);
+	
+	public void removeParticipant(long participantId, int tournamentId);
 }

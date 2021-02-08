@@ -8,6 +8,7 @@ import store from '../store/index'
 import TournamentDetails from '../views/TournamentDetails.vue'
 import myTournaments from '../views/MyTournaments.vue'
 import Mailbox from '../views/Mailbox'
+import CreateTournament from '../views/CreateTournament.vue'
 
 Vue.use(Router)
 
@@ -64,7 +65,6 @@ const router = new Router({
         requiresAuth: false
       }
     },
-    //TODO add link to my tournaments from home page
     {
       path: "/myTournaments",
       name: "my-tournaments",
@@ -77,6 +77,14 @@ const router = new Router({
       path: "/mailbox",
       name: "mailbox",
       component: Mailbox,
+      meta: {
+        requiresAuth:true
+      }
+    },
+    {
+      path: "/createTournament",
+      name: "create-tournament",
+      component: CreateTournament,
       meta: {
         requiresAuth:true
       }
