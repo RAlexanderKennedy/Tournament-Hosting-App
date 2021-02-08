@@ -32,6 +32,14 @@ export default {
 
     removeParticipant(userId, tournamentId) {
         return http.delete(`/tournament/${tournamentId}/${userId}`);
+    },
+    
+    getAllUsers(){
+        return http.get('/user/all')
+    },
+    
+    addTournament(tournament){
+        return http.post('/addTournament', tournament)
     }
 
 

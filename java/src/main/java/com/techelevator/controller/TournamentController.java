@@ -76,16 +76,23 @@ public class TournamentController {
 	@RequestMapping(path="/user/displayName/{username}", method=RequestMethod.PUT)
 	public void addDisplayName (@PathVariable String username, @Valid @RequestBody String displayName) {
 		userDAO.addDisplayName(username, displayName);
-	}
+	};
 	
 	@RequestMapping(path="tournament/{id}/matches", method=RequestMethod.GET)
 	public List<Match> getMatchesByTournamentId(@PathVariable int id) {
 		return tournamentDAO.getMatchesByTournamentId(id);
 	};
 	
+
 	@RequestMapping(path="/tournament/{tournamentId}/{userId}", method = RequestMethod.DELETE)
 	public void removeParticipant (@PathVariable int tournamentId, @PathVariable int userId) {
 		tournamentDAO.removeParticipant(userId, tournamentId);
 	};
+
+	@RequestMapping(path="/user/all")
+	public List<User> getAllUsers(){
+		return userDAO.findAll();
+	};
+
 	
 }

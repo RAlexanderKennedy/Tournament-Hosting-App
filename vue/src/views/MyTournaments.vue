@@ -11,6 +11,8 @@ export default {
 
             filteredTournaments:[],
 
+            filteredHosted:[],
+
             isLoading: true
         }
     },
@@ -34,44 +36,22 @@ export default {
                     })
                 })
             })
-        });
-       // let filteredList = filterTournaments(this.tournaments)
-        //console.log(this.filteredList)
-    },
-    methods: {
-        filterTournaments(tournamentsList) {
             
-            let participants = []
-            let unfilteredTournaments = tournamentsList;
-            let filteredTournaments = []
             unfilteredTournaments.forEach( (tournament) => {
-                tournamentService.getParticipantsByTournamentId(tournament.id).then(response => {
-                    this.isLoading = false
-                    participants = response.data
-                    participants.forEach((participant) => {
-                        //console.log(participant.id)
-                        //console.log(this.filter.user_id)
-                        if (participant.id == this.filter.user_id){
-                            filteredTournaments.push(tournament)
-                        //console.log(tournament)
-                        //console.log(filteredTournaments)
+               
+                        if (tournament.host_id == this.filter.user_id){
+                            this.filteredHosted.push(tournament)
+                        
                     }
                     })
                 })
-            })
-                        //console.log(filteredTournaments)
-                       return filteredTournaments
-           
-            
-        },
+    },
+    methods: {
+        
     },
 
     computed: {
-        filteredList(){
-            let list = this.filterTournaments(this.tournaments);
-            //console.log(list)
-            return list
-        }
+       
     }
 
 }
@@ -80,10 +60,20 @@ export default {
 <div>
   <h1>My Tournaments</h1>
   <br>
+        <div v-if="!this.isLoading">
   <h3> Hosting:</h3>
   <br>
-  
-        <div v-if="!this.isLoading">
+  <ul>
+      <li v-for="tournament in this.filteredHosted" v-bind:key="tournament.id">
+          <router-link v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
+          {{tournament.name}}
+        </router-link>
+        <br>
+        {{tournament.status}}
+        <br>
+        {{tournament.startDate}} - {{tournament.endDate}}
+      </li>
+  </ul>
   <h3> Participating:</h3>
   <ul>
       <li v-for="tournament in this.filteredTournaments" v-bind:key="tournament.id">
