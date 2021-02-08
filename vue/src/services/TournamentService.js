@@ -33,13 +33,18 @@ export default {
     removeParticipant(userId, tournamentId) {
         return http.delete(`/tournament/${tournamentId}/${userId}`);
     },
-    
+
     getAllUsers(){
         return http.get('/user/all')
     },
     
     addTournament(tournament){
-        return http.post('/addTournament', tournament)
+        return http.post('/addTournament', tournament);
+    },
+
+    // see tournamentController for proper usage of webObject
+    addParticipants(webObject) {
+        return http.post('tournament/add', webObject);
     }
 
 

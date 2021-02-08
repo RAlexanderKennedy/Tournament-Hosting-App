@@ -64,6 +64,8 @@ public class TournamentController {
 	
 	@RequestMapping(path="/tournament/add", method=RequestMethod.POST)
 	public void addParticipants(@Valid @RequestBody ParticipantsWebObject x) {
+		// needs an object with an array called "participants" that 
+		// holds userId and then tournamentId
 		tournamentDAO.addParticipant(x.getParticipants()[0], x.getParticipants()[1]);
 		//System.out.println(Arrays.toString(x.getParticipants()));
 	};
