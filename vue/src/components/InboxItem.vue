@@ -14,6 +14,21 @@
             <p>You have {{invite.status}} this request</p>
         </div>
       </div>
+
+      <div v-if="invite.sender == 'Host'">
+          You have been invited to join 
+          <router-link v-bind:to="{ name: 'tournament-details', params: {id: tournamentId} }"> 
+            {{tournamentName}}
+        </router-link>
+        <div v-if="invite.status == 'Pending'">
+            <button v-on:click="accept">Accept</button>
+            <button v-on:click="decline">Decline</button>
+        </div>
+        <div v-if="invite.status != 'Pending'" 
+        v-bind:class="{ accepted: invite.status == 'Accepted' }">
+            <p>You have {{invite.status}} this invite</p>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -29,7 +44,10 @@ export default {
             tournamentId: Number,
             tournamentName: "",
             participantDisplayName: "",
-            hostDisplayName: ""
+            hostDisplayName: "",
+            numParticipants: Number,
+            maxParticipants: Number
+
         }
     },
 
@@ -39,6 +57,8 @@ export default {
             let tournament = response.data;
             this.tournamentId = tournament.id;
             this.tournamentName = tournament.name;
+            this.numParticipants = tournament.participants.length;
+            this.maxParticipants = tournament.maxParticipants;
         });
         tournamentService.getUserById(this.invite.participantId).
         then(response => {
@@ -52,7 +72,7 @@ export default {
             tournamentService.addParticipants(webObject).
             then(response => {
                 if (response.status == 200 || response.status == 201) {
-                    alert("Request Accepted, Participant Added");
+                    alert("Request Accepted");
                     return true;
                 }
                 else {
@@ -62,21 +82,27 @@ export default {
             });
         },
         accept() {
-            let re = confirm("Are you sure you want to accept?");
-            if (re) {
-                invitationService.acceptInvite(this.invite.id).
-                then(response => {
+            if (this.numParticipants < this.maxParticipants) {
+                let re = confirm("Are you sure you want to accept?");
+                if (re) {
+                    invitationService.acceptInvite(this.invite.id).
+                    then(response => {
                     if (response.status === 200) {
-                        
-                        this.addParticipant();
-                        this.$router.go();
-                        
-                    }
-                    else {
-                        alert("Error accepting invite");
-                    }
+                            
+                            this.addParticipant();
+                            this.$router.go();
+                            
+                        }
+                        else {
+                            alert("There was an error");
+                        }
                 });
             }
+            }
+            else {
+                alert("Error: tournament is full");
+            }
+            
         },
         decline() {
             let re = confirm("Are you sure you want to decline?");

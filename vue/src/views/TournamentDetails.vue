@@ -54,12 +54,14 @@ export default {
       invites: [],
       participants: [],
       status: "",
-      tournamentId: Number
+      tournamentId: Number,
+      maxParticipants: Number
     }
   },
   computed: {
     canJoin() {
       let bool = true; 
+      if (this.participants.length === this.maxParticipants) bool = false;
       if (this.status != "Upcoming") bool = false;
       this.participants.forEach( (participant) => {
         if (participant.id === this.$store.state.user.id) {
@@ -113,6 +115,7 @@ export default {
           this.status = tournament.status;
           this.participants = tournament.participants;
           this.tournamentId = tournament.id;
+          this.maxParticipants = tournament.maxParticipants;
       });
 
   },
