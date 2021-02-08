@@ -5,7 +5,25 @@
       <input class="search" type="text" placeholder="Search Tournaments" v-model="filter.name">
     </div>
     <ul class="tournaments">
-      <li v-for="tournament in filteredList" v-bind:key="tournament.id">
+      <li v-for="tournament in upcomingFiltered" v-bind:key="tournament.id">
+        <router-link class="link-text" v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
+          {{tournament.name}}
+        </router-link>
+        <br>
+        {{tournament.status}}
+        <br>
+        {{tournament.startDate}} - {{tournament.endDate}}
+      </li>
+      <li v-for="tournament in ongoingFiltered" v-bind:key="tournament.id">
+        <router-link class="link-text" v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
+          {{tournament.name}}
+        </router-link>
+        <br>
+        {{tournament.status}}
+        <br>
+        {{tournament.startDate}} - {{tournament.endDate}}
+      </li>
+      <li v-for="tournament in closedFiltered" v-bind:key="tournament.id">
         <router-link class="link-text" v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
           {{tournament.name}}
         </router-link>
@@ -50,8 +68,37 @@ export default {
         .includes(this.filter.name.toLowerCase()));
       }
       return filteredTournaments;
+    },
+    upcomingFiltered() {
+      let allTournaments = this.tournaments
+      let upcomingTournaments= allTournaments.filter((tournament) => {
+      if(tournament.status.toLowerCase() == "upcoming"){
+        return tournament
+      }
+     })
+      return upcomingTournaments
+    },
+    ongoingFiltered() {
+      let allTournaments = this.tournaments
+      let ongoingTournaments= allTournaments.filter((tournament) => {
+      if(tournament.status.toLowerCase() == "ongoing"){
+        return tournament
+      }
+     })
+      return ongoingTournaments
+    },
+    closedFiltered() {
+      let allTournaments = this.tournaments
+      let closedTournaments= allTournaments.filter((tournament) => {
+      if(tournament.status.toLowerCase() == "closed"){
+        return tournament
+      }
+     })
+      return closedTournaments
     }
-  }
+  },
+
+
 
 }
 </script>
