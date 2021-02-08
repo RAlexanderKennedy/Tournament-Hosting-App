@@ -35,7 +35,8 @@ export default {
   data() {
     return {
       participants: [],
-      matches:[]
+      matches:[],
+      maxParticipants: Number
     }
   },
     computed:{
@@ -70,6 +71,11 @@ export default {
              //listItem.setAttribute("style", ("grid-area:grid"+ (i+1) + ";"))
                
             //}
+      });
+
+      tournamentService.getTournamentById(this.tournamentId)
+      .then(response => {
+          this.maxParticipants = response.data.maxParticipants;
       });
 
         tournamentService.getMatchesByTournamentId(this.tournamentId)
