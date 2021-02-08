@@ -51,7 +51,8 @@ export default {
     methods:{
 
         sendInvite(user) {
-          let request = {tournamentId:this.tournamentId, participantId: user.id, sender: "Host"};
+            
+          let request = {tournamentId:this.$route.params.id, participantId: user.id, sender: "Host"};
           invitationService.sendInvite(request).then(response => {
             if (response.status == 200 || response.status == 201) {
                 alert("Request Sent");
