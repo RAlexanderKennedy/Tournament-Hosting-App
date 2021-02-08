@@ -8,7 +8,7 @@
         <h1>Inbox</h1>
         <ul>
             <li v-for="request in requestsReceivedAsHost" v-bind:key="request.id">
-                <InboxItem v-bind:invite="request"/>
+                <InboxItem v-bind:invitgie="request"/>
             </li>
          </ul>
     </div>

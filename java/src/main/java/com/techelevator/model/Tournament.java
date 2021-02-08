@@ -13,8 +13,10 @@ public class Tournament {
 	private List<User> participants = new ArrayList<User>();
 	private int host_id;
 	private String status;
+	private int maxParticipants;
 	
-	public Tournament(String name, Date startDate, Date endDate, int id, int host_id, String status, List<User> participants) {
+	public Tournament(String name, Date startDate, Date endDate, int id, int host_id, String status, List<User> participants,
+				int maxParticipants) {
 		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -22,6 +24,7 @@ public class Tournament {
 		this.host_id = host_id;
 		this.status = status;
 		this.participants = participants;
+		this.maxParticipants = maxParticipants;
 	}
 
 	public List<User> getParticipants() {
@@ -84,7 +87,17 @@ public class Tournament {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public int getMaxParticipants() {
+		return maxParticipants;
+	}
+
+	public void setMaxParticipants(int maxParticipants) {
+		this.maxParticipants = maxParticipants;
 	};
+	
+	
 	
 	
 	

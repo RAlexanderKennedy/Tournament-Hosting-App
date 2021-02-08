@@ -102,8 +102,9 @@ public class TournamentSqlDAO implements TournamentDAO {
 			int hostId = result.getInt("host_id");
 			Date end_date = result.getDate("end_date");
 			Date date = result.getDate("tournament_date");
+			int maxParticipants = result.getInt("max_participants");
 			List<User> participants = getUsersByTournamentId(id);
-			Tournament tournament = new Tournament(name, date, end_date, id, hostId, status, participants);
+			Tournament tournament = new Tournament(name, date, end_date, id, hostId, status, participants, maxParticipants);
 			tournaments.add(tournament);
 		}
 		
@@ -122,8 +123,9 @@ public class TournamentSqlDAO implements TournamentDAO {
 			int hostId = result.getInt("host_id");
 			Date end_date = result.getDate("end_date");
 			Date date = result.getDate("tournament_date");
+			int maxParticipants = result.getInt("max_participants");
 			List<User> participants = getUsersByTournamentId(id);
-			Tournament tournament = new Tournament(name, date, end_date, id, hostId, status, participants);
+			Tournament tournament = new Tournament(name, date, end_date, id, hostId, status, participants, maxParticipants);
 			return tournament;
 		}
 		return null;
@@ -137,8 +139,9 @@ public class TournamentSqlDAO implements TournamentDAO {
 		Date date = newTournament.getStartDate();
 		Date endDate = newTournament.getEndDate();
 		int tournamentId = getNextTournamentId();
-		String sql = "insert into tournaments (tournament_name, host_id, status, tournament_date, end_date, tournament_id) values (?,?,?,?,?,?)";
-		template.update(sql, name, host_id, status, date, endDate, tournamentId);
+		int maxParticipants = newTournament.getMaxParticipants();
+		String sql = "insert into tournaments (tournament_name, host_id, status, tournament_date, end_date, tournament_id, max_participants) values (?,?,?,?,?,?,?)";
+		template.update(sql, name, host_id, status, date, endDate, tournamentId, maxParticipants);
 		for (User user : newTournament.getParticipants()) {
 			// TODO: find way to get ID of created tournament
 			addParticipant(user.getId(), tournamentId);
@@ -147,8 +150,8 @@ public class TournamentSqlDAO implements TournamentDAO {
 
 	@Override
 	public void editTournament(Tournament tournamentToEdit) {
-		String sql = "update tournaments set tournament_name = ?, host_id = ?, status = ?, tournament_date = ?, end_date = ? where tournament_id = ?";
-		template.update(sql, tournamentToEdit.getName(),tournamentToEdit.getHost_id(), tournamentToEdit.getStatus(), tournamentToEdit.getStartDate(), tournamentToEdit.getEndDate(), tournamentToEdit.getId());
+		String sql = "update tournaments set tournament_name = ?, host_id = ?, status = ?, tournament_date = ?, end_date = ?, max_participants = ? where tournament_id = ?";
+		template.update(sql, tournamentToEdit.getName(),tournamentToEdit.getHost_id(), tournamentToEdit.getStatus(), tournamentToEdit.getStartDate(), tournamentToEdit.getEndDate(), tournamentToEdit.getMaxParticipants(), tournamentToEdit.getId());
 	}
 
 	@Override
