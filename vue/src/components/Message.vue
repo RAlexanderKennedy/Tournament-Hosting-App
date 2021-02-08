@@ -3,8 +3,8 @@
       <div v-if="invite.participantId == $store.state.user.id && invite.status != 'Pending'">
         Your request to join {{tournamentName}} was {{invite.status}}
       </div>
-      <div>
-
+      <div v-if="invite.hostId == $store.state.user.id && invite.status != 'Pending'">
+          {{participantDisplayName}} {{invite.status}} your invitation to join {{tournamentName}}
       </div>
   </div>
 </template>
@@ -33,11 +33,11 @@ export default {
             this.tournamentName = tournament.name;
             this.hostId = tournament.host_id;
         });
-        // tournamentService.getUserById(this.invite.participantId).
-        // then(response => {
-        //     let user = response.data;
-        //     this.participantDisplayName = user.displayName
-        // });
+        tournamentService.getUserById(this.invite.participantId).
+        then(response => {
+            let user = response.data;
+            this.participantDisplayName = user.displayName
+        });
         // tournamentService.getUserById(this.hostId).
         // then(response => {
         //     let user = response.data;
