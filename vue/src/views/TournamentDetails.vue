@@ -12,7 +12,7 @@
       <h3>End Date:</h3>
       <endDate v-bind:tournamentId="parseInt($route.params.id)" />
       <br>
-      <button v-if="isHost">
+      <button v-if="isHost && participants.length < maxParticipants && status == 'Upcoming'">
         <router-link v-bind:to="{ name: 'invite-users'}">Invite Users</router-link>
         </button>
       <button 
@@ -58,7 +58,8 @@ export default {
       participants: [],
       status: "",
       tournamentId: Number,
-      isHost: false
+      isHost: false,
+      maxParticipants: 0,
     }
   },
   computed: {
@@ -117,6 +118,7 @@ export default {
           let tournament = response.data;
           this.status = tournament.status;
           this.participants = tournament.participants;
+          this.maxParticipants = tournament.maxParticipants
           this.tournamentId = tournament.id;
           if(tournament.host_id == this.$store.state.user.id){
           this.isHost = true;

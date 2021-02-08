@@ -3,7 +3,7 @@
   <h1>Invite Users To {{tournament.name}}</h1>
     <ul>
         <li v-for="user in users" v-bind:key="user.id">
-            {{user.displayName}} <button v-if="!participantIds.includes(user.id)" v-on:click="sendInvite">Invite</button>
+            {{user.displayName}} <button v-if="!participantIds.includes(user.id)" v-on:click="sendInvite(user)">Invite</button>
         </li>
     </ul>
 </div>
@@ -50,8 +50,8 @@ export default {
     },
     methods:{
 
-        sendInvite() {
-          let request = {tournamentId:this.tournamentId, participantId: this.$store.state.user.id, sender: "Host"};
+        sendInvite(user) {
+          let request = {tournamentId:this.tournamentId, participantId: user.id, sender: "Host"};
           invitationService.sendInvite(request).then(response => {
             if (response.status == 200 || response.status == 201) {
                 alert("Request Sent");
