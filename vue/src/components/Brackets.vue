@@ -90,7 +90,7 @@ export default {
             mkDiv.setAttribute("style" , "grid-area:grid1; height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;");
             
             container.appendChild(mkDiv);
-            mkP.innerText = "name-1";
+            mkP.innerText = this.matches.id.winner.displayName;
             mkP.setAttribute("id", "node-1");
             mkDiv.appendChild(mkP);
 
