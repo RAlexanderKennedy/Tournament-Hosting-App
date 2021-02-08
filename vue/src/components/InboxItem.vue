@@ -5,15 +5,21 @@
           <router-link v-bind:to="{ name: 'tournament-details', params: {id: tournamentId} }"> 
             {{tournamentName}}
         </router-link>
-        <button>Accept</button>
-        <button>Decline</button>
+        <div v-if="invite.status == 'Pending'">
+            <button v-on:click="accept">Accept</button>
+            <button v-on:click="decline">Decline</button>
+        </div>
+        <div v-if="invite.status != 'Pending'" 
+        v-bind:class="{ accepted: invite.status == 'Accepted' }">
+            <p>You have {{invite.status}} this request</p>
+        </div>
       </div>
   </div>
 </template>
 
 <script>
 import tournamentService from "@/services/TournamentService.js"
-// import invitationService from "@/services/InvitationService.js"
+import invitationService from "@/services/InvitationService.js"
 
 export default {
     name: "inbox-item",
@@ -39,6 +45,54 @@ export default {
             let user = response.data;
             this.participantDisplayName = user.displayName
         });
+    },
+    methods: {
+        addParticipant() {
+            let webObject = {participants: [this.invite.participantId, this.tournamentId]};
+            tournamentService.addParticipants(webObject).
+            then(response => {
+                if (response.status == 200 || response.status == 201) {
+                    alert("Request Accepted, Participant Added");
+                    return true;
+                }
+                else {
+                    alert("Error adding participant");
+                    return false;
+                }
+            });
+        },
+        accept() {
+            let re = confirm("Are you sure you want to accept?");
+            if (re) {
+                invitationService.acceptInvite(this.invite.id).
+                then(response => {
+                    if (response.status === 200) {
+                        
+                        this.addParticipant();
+                        this.$router.go();
+                        
+                    }
+                    else {
+                        alert("Error accepting invite");
+                    }
+                });
+            }
+        },
+        decline() {
+            let re = confirm("Are you sure you want to decline?");
+            if (re) {
+                invitationService.declineInvite(this.invite.id).
+                then(response => {
+                    if (response.status === 200) {
+                        alert("Request Declined");
+                        this.$router.go();
+                    }
+                    else {
+                        alert("There was an error");
+                    }
+                });
+            }
+        }
     }
 }
 </script>

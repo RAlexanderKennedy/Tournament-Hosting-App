@@ -5,7 +5,9 @@
             {{tournamentName}}
         </router-link>
         <p>Status: {{invite.status}}</p>
-        <button v-on:click="cancel">Cancel Request</button>
+        <div v-if="invite.status == 'Pending'">
+            <button v-on:click="cancel">Cancel Request</button>
+        </div>
     </div>
   </div>
 </template>

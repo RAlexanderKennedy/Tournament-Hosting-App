@@ -8,7 +8,10 @@
         <h1>Inbox</h1>
         <ul>
             <li v-for="request in requestsReceivedAsHost" v-bind:key="request.id">
-                <InboxItem v-bind:invitgie="request"/>
+                <InboxItem v-bind:invite="request"/>
+            </li>
+            <li v-for="request in requestsSentAsParticipant" v-bind:key="request.id">
+                <Message v-bind:invite="request"/>
             </li>
          </ul>
     </div>
@@ -31,6 +34,7 @@
 import invitationService from '../services/InvitationService'
 import InvitationItem from '../components/InvitationItem.vue'
 import InboxItem from '../components/InboxItem.vue'
+import Message from '../components/Message.vue'
 
 export default {
     name: "my-tournaments",
@@ -50,7 +54,8 @@ export default {
     },
     components:{
         InvitationItem,
-        InboxItem
+        InboxItem,
+        Message
     },
     created() {
       invitationService.getInvitesByParticipantId(this.$store.state.user.id).
