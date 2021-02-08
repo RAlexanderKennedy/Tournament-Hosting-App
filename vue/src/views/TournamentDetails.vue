@@ -12,6 +12,9 @@
       <h3>End Date:</h3>
       <endDate v-bind:tournamentId="parseInt($route.params.id)" />
       <br>
+      <button v-if="isHost">
+        <router-link v-bind:to="{ name: 'invite-users'}">Invite Users</router-link>
+        </button>
       <button 
       v-if="canJoin" 
       :disabled='requested == "Join Requested" || requested == "Join Declined"'
@@ -55,10 +58,12 @@ export default {
       participants: [],
       status: "",
       tournamentId: Number,
-      maxParticipants: Number
+      maxParticipants: Number,
+      isHost: false
     }
   },
   computed: {
+
     canJoin() {
       let bool = true; 
       if (this.participants.length === this.maxParticipants) bool = false;
@@ -116,6 +121,9 @@ export default {
           this.participants = tournament.participants;
           this.tournamentId = tournament.id;
           this.maxParticipants = tournament.maxParticipants;
+          if(tournament.host_id == this.$store.state.user.id){
+            this.isHost = true;
+          }
       });
 
   },

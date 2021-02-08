@@ -9,6 +9,17 @@
             <button v-on:click="cancel">Cancel Request</button>
         </div>
     </div>
+
+    <div v-if="invite.sender == 'Host'">
+        You invited {{participantDisplayName}} to participate in
+        <router-link v-bind:to="{ name: 'tournament-details', params: {id: tournamentId} }"> 
+            {{tournamentName}}
+        </router-link>
+        <p>Status: {{invite.status}}</p>
+        <div v-if="invite.status == 'Pending'">
+            <button v-on:click="cancel">Cancel Request</button>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -22,7 +33,8 @@ export default {
     data() {
         return {
             tournamentId: Number,
-            tournamentName: ""
+            tournamentName: "",
+            participantDisplayName: ""
         }
     },
 
@@ -33,15 +45,20 @@ export default {
             this.tournamentId = tournament.id;
             this.tournamentName = tournament.name;
         });
+        tournamentService.getUserById(this.invite.participantId).
+        then(response => {
+            let user = response.data;
+            this.participantDisplayName = user.displayName;
+        })
     },
     methods: {
         cancel() {
-            let response = confirm("Are you sure you want to cancel this join request?");
+            let response = confirm("Are you sure you want to cancel?");
             if (response) {
                 invitationService.removeInvite(this.invite.id).
                 then(response => {
                     if (response.status === 200) {
-                        alert("Request Canceled");
+                        alert("Cancel Successful");
                         this.$router.go();
                     }
                     else {
