@@ -15,8 +15,9 @@
   <div id="line11"></div>
   <div id="line12"></div>
   <div id="line13"></div>
-  <div id="line14"></div>    
-
+  <div id="line14"></div>
+  
+  
   </div>
   </div>
 </template>
@@ -75,19 +76,28 @@ export default {
       .then(response => {
           this.matches = response.data;
 
-            let container = document.getElementById("grid-container")
-            for(let i = 0; i < this.matches.length; i++){
-                let listItem = document.createElement("div");
-                let text = document.createElement("p");
-                listItem.innerText = this.matches[i].participant1.displayName +
-                " VS "+ this.matches[i].participant2.displayName;
-                container.appendChild(listItem);
-                listItem.setAttribute("class", "card"); 
-                listItem.setAttribute("id", ("slot"+ (i+1)));
-                listItem.setAttribute("style", "height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;" + ("grid-area:grid"+ (i+1) + ";"));
-                //listItem.setAttribute("style", ("grid-area:grid"+ (i+1) + ";"))
-            }
 
+            if(this.matches.length === 3){
+            let container = document.getElementById("grid-container");
+            let mkDiv = document.createElement("div");
+            mkDiv.setAttribute("id","parent");
+            
+
+           
+            let mkP = document.createElement("p");
+
+            mkDiv.innerText = "test";
+            mkDiv.setAttribute("style" , "grid-area:grid1; height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;");
+            
+            container.appendChild(mkDiv);
+            mkP.innerText = "name-1";
+            mkP.setAttribute("id", "node-1");
+            mkDiv.appendChild(mkP);
+
+           }        
+
+           
+           
       });
 
 
@@ -109,7 +119,7 @@ export default {
 #slot4{
     grid-area:grid4;
 }
-.slot5{
+#slot5{
     grid-area:grid5;
 }
 #slot6{
@@ -230,6 +240,7 @@ export default {
 
 
 #grid-container {
+   
     font-size:15px;
     font-weight: bold;
     width:95%;
