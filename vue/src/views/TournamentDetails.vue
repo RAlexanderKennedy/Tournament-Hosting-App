@@ -1,9 +1,13 @@
 <template>
   <div>
+    <button v-if="canStartTournament"
+    v-on:click="startTournament">
+      Start Tournament
+    </button>
     <brackets v-bind:tournamentId="parseInt($route.params.id)"/>
       <h3>Host:</h3>
       <host v-bind:tournamentId="parseInt($route.params.id)" />
-      <h3>Participants:</h3>
+      <h3>Participants ({{maxParticipants}} Total Needed):</h3>
       <participants v-bind:tournamentId="parseInt($route.params.id)" />
       <h3>Status:</h3>
       <status v-bind:tournamentId="parseInt($route.params.id)" />
@@ -63,6 +67,12 @@ export default {
     }
   },
   computed: {
+    canStartTournament(){
+      if (this.isHost && this.status == "Upcoming") {
+            return true;
+      }
+      return false;
+    },
     canJoin() {
       let bool = true; 
       if (this.isHost) bool = false;
@@ -141,6 +151,12 @@ export default {
 
   },
   methods: {
+    startTournament() {
+      if (this.participants.length != this.maxParticipants) {
+        alert("You need " + (this.maxParticipants - this.participants.length) +
+              " more participants to start this tournament");
+      }
+    },
     sendInvite() {
       let request = {tournamentId:this.tournamentId, participantId: this.$store.state.user.id, sender: "Participant"};
       invitationService.sendInvite(request).then(response => {
