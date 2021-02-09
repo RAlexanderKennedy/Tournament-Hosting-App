@@ -7,26 +7,36 @@
     <div v-if="inbox">
         <h1>Inbox</h1>
         <ul>
+            <h3> Invitations/Requests: </h3>
             <li v-for="request in requestsReceivedAsHost" v-bind:key="request.id">
                 <InboxItem v-bind:invite="request"/>
             </li>
+            <li v-for="request in invitesReceivedAsParticipant" v-bind:key="request.id">
+                <InboxItem v-bind:invite="request"/>
+            </li>
+            <h3> Responses from other users: </h3>
+            <!-- Messages -->
             <li v-for="request in requestsSentAsParticipant" v-bind:key="request.id">
+                <Message v-bind:invite="request"/>
+            </li>
+            <li v-for="request in invitesSentAsHost" v-bind:key="request.id">
                 <Message v-bind:invite="request"/>
             </li>
          </ul>
     </div>
     <div v-if="!inbox" >
         <h1>Sent</h1>
-        <h3> Joins Requested:</h3> 
         <ul>
+            <h3> Joins Requested:</h3>
             <li v-for="request in requestsSentAsParticipant" v-bind:key="request.id">
                 <InvitationItem v-bind:invite="request"/>
             </li>
-         </ul>
-         <h3> Invitations Sent:</h3> 
-         <li v-for="request in invitesSentAsHost" v-bind:key="request.id">
+            <h3> Invitations Sent:</h3> 
+            <li v-for="request in invitesSentAsHost" v-bind:key="request.id">
                 <InvitationItem v-bind:invite="request"/>
-        </li>
+            </li>
+         </ul>
+         
     </div>
     
       
