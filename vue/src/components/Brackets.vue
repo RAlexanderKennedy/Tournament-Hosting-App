@@ -85,40 +85,17 @@ export default {
 
             if(this.maxParticipants === 4){
             let container = document.getElementById("grid-container");
-            let mkDiv = document.createElement("div");
-            mkDiv.setAttribute("style" , "grid-area:grid1;  height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;");
-            let mkP = document.createElement("p");
 
+            
 
-            container.appendChild(mkDiv);
-            mkP.innerText = this.matches[2].winner.displayName;
-            mkP.setAttribute("id", "node-1");
-            mkDiv.appendChild(mkP);
-
-            let vs = document.createElement("p");
-            vs.innerText = "VS";
-            mkDiv.appendChild(vs);
-
-            let loser = document.createElement("p");
-            let loserText = document.createElement("span");
-
-            if(this.matches[2].winner.displayName === this.matches[2].participant2.displayName){
-                loserText.innerText = this.matches[2].participant1.displayName;
-            }else{
-                loserText.innerText = this.matches[2].participant2.displayName;
-            }
-            mkDiv.appendChild(loser);
-            loser.setAttribute("style", "text-decoration:line-through; color:darkred")
-            loserText.setAttribute("style", "color:black")
-            loser.appendChild(loserText);
-
+            //Round 1
             let round1 = document.createElement("div");
             round1.setAttribute("style", "grid-area:grid2;  height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;");
             container.appendChild(round1);
 
             let textStyle1 = document.createElement("span");
             let mkP1 = document.createElement("p");
-            if(this.matches[0].participant1.displayName === this.matches[0].winner.displayName){
+            if(this.matches[0].participant1.displayName !== this.matches[0].winner.displayName){
                 textStyle1.setAttribute("style", "color:black");
                 mkP1.setAttribute("style", "text-decoration:line-through; color:darkred");
             }else{
@@ -131,11 +108,11 @@ export default {
             
             let vs1 = document.createElement("p");
             vs1.innerText = "VS";
-            round1.appendChild(vs);
+            round1.appendChild(vs1);
 
             let textStyle2 = document.createElement("span");
             let mkP2 = document.createElement("p");
-            if(this.matches[0].participant2.displayName === this.matches[0].winner.displayName){
+            if(this.matches[0].participant2.displayName !== this.matches[0].winner.displayName){
                 textStyle2.setAttribute("style", "color:black");
                 mkP2.setAttribute("style", "text-decoration:line-through; color:darkred");
             }else{
@@ -145,6 +122,79 @@ export default {
             textStyle2.innerText = this.matches[0].participant2.displayName;
             round1.appendChild(mkP2)
             mkP2.appendChild(textStyle2)
+
+            //Round 2
+
+            let round1_2 = document.createElement("div");
+            round1_2.setAttribute("style", "grid-area:grid3;  height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;");
+            container.appendChild(round1_2);
+
+            let textStyle1_2 = document.createElement("span");
+            let mkP1_2 = document.createElement("p");
+            if(this.matches[1].participant1.displayName !== this.matches[1].winner.displayName){
+                textStyle1_2.setAttribute("style", "color:black");
+                mkP1_2.setAttribute("style", "text-decoration:line-through; color:darkred");
+            }else{
+                textStyle1_2.setAttribute("style", "color:black;");
+                mkP1_2.setAttribute("style", "color:black;");
+            }
+            textStyle1_2.innerText = this.matches[1].participant1.displayName;
+            round1_2.appendChild(mkP1_2)
+            mkP1_2.appendChild(textStyle1_2)
+            
+            let vs1_2 = document.createElement("p");
+            vs1_2.innerText = "VS";
+            round1_2.appendChild(vs1_2);
+
+            let textStyle2_2 = document.createElement("span");
+            let mkP2_2 = document.createElement("p");
+            if(this.matches[1].participant2.displayName !== this.matches[1].winner.displayName){
+                textStyle2_2.setAttribute("style", "color:black");
+                mkP2_2.setAttribute("style", "text-decoration:line-through; color:darkred");
+            }else{
+                textStyle2_2.setAttribute("style", "color:black;");
+                mkP2_2.setAttribute("style", "color:black;");
+            }
+            textStyle2_2.innerText = this.matches[1].participant2.displayName;
+            round1_2.appendChild(mkP2_2)
+            mkP2_2.appendChild(textStyle2_2)
+
+
+                        //Round 3
+            let round1_3 = document.createElement("div");
+            round1_3.setAttribute("style", "grid-area:grid1;  height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;");
+            container.appendChild(round1_3);
+
+            let textStyle1_3 = document.createElement("span");
+            let mkP1_3 = document.createElement("p");
+            if(this.matches[2].participant1.displayName !== this.matches[2].winner.displayName){
+                textStyle1_3.setAttribute("style", "color:black");
+                mkP1_3.setAttribute("style", "text-decoration:line-through; color:darkred");
+            }else{
+                textStyle1_3.setAttribute("style", "color:black;");
+                mkP1_3.setAttribute("style", "color:black;");
+            }
+            textStyle1_3.innerText = this.matches[2].participant1.displayName;
+            round1_3.appendChild(mkP1_3)
+            mkP1_3.appendChild(textStyle1_3)
+            
+            let vs1_3 = document.createElement("p");
+            vs1_3.innerText = "VS";
+            round1_3.appendChild(vs1_3);
+
+            let textStyle2_3 = document.createElement("span");
+            let mkP2_3 = document.createElement("p");
+            if(this.matches[2].participant2.displayName !== this.matches[2].winner.displayName){
+                textStyle2_3.setAttribute("style", "color:black");
+                mkP2_3.setAttribute("style", "text-decoration:line-through; color:darkred");
+            }else{
+                textStyle2_3.setAttribute("style", "color:black;");
+                mkP2_3.setAttribute("style", "color:black;");
+            }
+            textStyle2_3.innerText = this.matches[2].participant2.displayName;
+            round1_3.appendChild(mkP2_3)
+            mkP2_3.appendChild(textStyle2_3)
+
 
            }        
 
