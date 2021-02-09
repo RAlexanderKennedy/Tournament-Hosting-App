@@ -65,16 +65,32 @@ export default {
         displayName: '',
         role: 'user',
       },
+      users: [],
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
     };
   },
   methods: {
     register() {
+      let unique = true
+      this.users.forEach(user => {
+       if(user.displayName == this.user.displayName){
+         
+         unique = false
+         this.registrationErrors = true
+         this.registrationErrorMsg = "This display name is already in use. Please enter another."
+         throw new Error
+        }
+        else if(user.username == this.user.username){
+          unique = false
+          this.registrationErrorMsg = "This username is already in use. Please enter another."
+        }
+      });
       if (this.user.password != this.user.confirmPassword) {
         this.registrationErrors = true;
         this.registrationErrorMsg = 'Password & Confirm Password do not match.';
-      } else {
+      }
+      else {
         tournamentService
         .addDisplayName(this.user.username, this.user);
         authService
@@ -90,7 +106,7 @@ export default {
           .catch((error) => {
             const response = error.response;
             this.registrationErrors = true;
-            if (response.status === 400) {
+            if (response.status === 400 && unique == true) {
               this.registrationErrorMsg = 'Bad Request: Validation Errors';
             }
           });
@@ -101,6 +117,11 @@ export default {
       this.registrationErrorMsg = 'There were problems registering this user.';
     },
   },
+  created() {
+    tournamentService.getAllUsers().then(response =>{
+      this.users = response.data
+    })
+  }
 };
 </script>
 
