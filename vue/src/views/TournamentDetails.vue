@@ -63,9 +63,9 @@ export default {
     }
   },
   computed: {
-
     canJoin() {
       let bool = true; 
+      if (this.isHost) bool = false;
       if (this.participants.length === this.maxParticipants) bool = false;
       if (this.status != "Upcoming") bool = false;
       this.participants.forEach( (participant) => {
@@ -93,10 +93,22 @@ export default {
       this.invites.forEach( (invite) => {
         if (invite.participantId === this.$store.state.user.id) {
           if (invite.status === "Pending") {
-            text =  "Join Requested"
+            if (invite.sender === "Host") {
+              text = "You've been invited to this tournament (check inbox)"
+            }
+            else {
+              text =  "Join Requested";
+            }
+              
           }
           else if (invite.status === "Declined") {
-            text =  "Join Declined"
+            if (invite.sender === "Host") {
+              text = "You declined the invitation"
+            }
+            else {
+              text = "Your request was declined"
+            }
+            
           }
         }
       });
