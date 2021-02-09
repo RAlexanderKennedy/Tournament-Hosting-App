@@ -5,7 +5,15 @@
       <input class="search" type="text" placeholder="Search Tournaments" v-model="filter.name">
     </div>
     <ul class="tournaments">
-      <li v-for="tournament in upcomingFiltered" v-bind:key="tournament.id">
+      <div id = "selector">
+        <div class="checkbox">
+          <label><input type ="checkbox" v-model="upcomingChecked">Hide Upcoming</label>
+          <label><input type ="checkbox" v-model="ongoingChecked">Hide Ongoing</label>
+          <label><input type ="checkbox" v-model="closedChecked">Hide Closed</label>
+        </div>
+      </div>
+        <div v-if="!upcomingChecked">
+      <li v-for="tournament in upcomingFiltered" v-bind:key="tournament.id" >
         <router-link class="link-text" v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
           {{tournament.name}}
         </router-link>
@@ -14,6 +22,8 @@
         <br>
         {{tournament.startDate}} - {{tournament.endDate}}
       </li>
+        </div>
+        <div v-if="!ongoingChecked">
       <li v-for="tournament in ongoingFiltered" v-bind:key="tournament.id">
         <router-link class="link-text" v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
           {{tournament.name}}
@@ -23,6 +33,8 @@
         <br>
         {{tournament.startDate}} - {{tournament.endDate}}
       </li>
+        </div>
+        <div v-if="!closedChecked">
       <li v-for="tournament in closedFiltered" v-bind:key="tournament.id">
         <router-link class="link-text" v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
           {{tournament.name}}
@@ -32,6 +44,7 @@
         <br>
         {{tournament.startDate}} - {{tournament.endDate}}
       </li>
+        </div>
     </ul>
   </div>
   </div>
@@ -47,7 +60,10 @@ export default {
       filter: {
         name: ""
       },
-      tournaments: []
+      tournaments: [],
+      upcomingChecked: false,
+      ongoingChecked: false,
+      closedChecked: false
     }
   },
   created() {
