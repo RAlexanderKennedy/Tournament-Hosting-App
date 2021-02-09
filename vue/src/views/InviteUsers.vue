@@ -3,7 +3,27 @@
   <h1>Invite Users To {{tournament.name}}</h1>
     <ul>
         <li v-for="user in users" v-bind:key="user.id">
-            {{user.displayName}} <button v-if="!participantIds.includes(user.id)" v-on:click="sendInvite(user)">Invite</button>
+            {{user.displayName}} 
+            <span v-if="participantIds.includes(user.id)"> (Already a participant) </span>
+            <button v-if="!participantIds.includes(user.id)" v-on:click="sendInvite(user)">Invite</button>
+        </li>
+    </ul>
+    <h3 v-if="participants.length != 0">Already Participants: </h3>
+    <ul>
+        <li v-for="participant in participants" v-bind:key="participant.id">
+            {{participant.displayName}} 
+        </li>
+    </ul>
+    <h3 v-if="invitedList.length != 0">Already Invited: </h3>
+    <ul>
+        <li v-for="user in invitedList" v-bind:key="user.id">
+            {{user.displayName}} 
+        </li>
+    </ul>
+    <h3 v-if="requestedList.length != 0">Requested to Join (View Inbox to Accept/Decline): </h3>
+    <ul>
+        <li v-for="user in requestedList" v-bind:key="user.id">
+            {{user.displayName}} 
         </li>
     </ul>
 </div>
@@ -21,7 +41,8 @@ export default {
             users: [],
             participants: [],
             status: "",
-            participantIds: []
+            participantIds: [],
+            invites: []
         }
     },
     created(){
@@ -32,11 +53,16 @@ export default {
             this.participants.forEach((participant) =>{
                 this.participantIds.push(participant.id)
             })
-        })
+        }),
 
         tournamentService.getAllUsers().then(response =>{
             this.users = response.data;
-        })
+        }),
+        invitationService.getInvitesByTournamentId(parseInt(this.$route.params.id)).then(
+        response => {
+            this.invites = response.data;
+        }
+         );
     },
     computed: {
         canInvite() {
@@ -46,6 +72,42 @@ export default {
           }
 
       return bool;
+        },
+        invitedList() {
+            let invitedList = [];
+            // for (let i = 0; i < this.users.length; i++) {
+            //    this.invites.forEach((invite) => {
+            //         if (invite.participantId === this.user[i].id) {
+            //             if (invite.status === "Pending" && invite.sender === "Host") {
+            //                 invitedList.push(this.user[i]);
+            //             }
+            //         }
+            //     }) 
+            // }
+            this.users.forEach((user) => {
+                this.invites.forEach((invite) => {
+                    if (invite.participantId === user.id) {
+                        if (invite.status === "Pending" && invite.sender === "Host") {
+                            invitedList.push(user);
+                        }
+                    }
+                })
+            }) 
+            return invitedList;
+        },
+        requestedList() {
+            let requestedList = [];
+            this.users.forEach((user) => {
+                this.invites.forEach((invite) => {
+                    if (invite.participantId === user.id) {
+                        if (invite.status === "Pending" && invite.sender === "Participant") {
+                            requestedList.push(user);
+                        }
+                    }
+                })
+            }) 
+            return requestedList;
+
         }
     },
     methods:{
