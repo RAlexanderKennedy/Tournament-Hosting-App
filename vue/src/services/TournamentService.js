@@ -57,7 +57,10 @@ export default {
 
     deleteMatch(id){
         http.delete(`/match/${id}`)
-    }
+    },
 
+    editTournament(tournament){
+        http.put('/editTournament', tournament)
+    }
 
 }
