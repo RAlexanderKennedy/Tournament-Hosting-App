@@ -68,7 +68,8 @@ export default {
       status: "",
       tournamentId: Number,
       maxParticipants: Number,
-      isHost: false
+      isHost: false,
+      tournament: Object
     }
   },
   computed: {
@@ -149,6 +150,7 @@ export default {
 
     tournamentService.getTournamentById(parseInt(this.$route.params.id))
       .then(response => {
+          this.tournament = response.data;
           let tournament = response.data;
           this.status = tournament.status;
           this.participants = tournament.participants;
@@ -167,19 +169,37 @@ export default {
         alert("You need " + (this.maxParticipants - this.participants.length) +
               " more participants to start this tournament");
       }
-      // for (let i = 0; i < this.maxParticipants; i + 2) {
-      //   let match = {
-      //     tournamentId: parseInt(this.$route.params.id),
-      //     participant1: this.participants[i],
-      //     participant2: this.participants[i],
-      //     round: 1,
-      //     winner: null
-      //   };
-      //   // create match
+      else {
+        for (let i = 0; i < this.maxParticipants; i + 2) {
+          // create match
+          let match = {
+            tournamentId: parseInt(this.$route.params.id),
+            participant1: this.participants[i],
+            participant2: this.participants[i],
+            round: 1,
+            winner: null
+          };
+          // add match
+          tournamentService.addMatch(match).then(response => {
+            if (response.status != 200 || response.status != 201) {
+              alert("There was an error");
+            }
+          });
+        }
 
-      //   // This part is not needed
-      //   return match;
-      // }
+        // change tournament to ongoing and change date if needed
+        let currentDate = new Date();
+        let newTournament = this.tournament;
+        newTournament.status = "Ongoing";
+        newTournament.startDate = currentDate;
+        tournamentService.editTournament(newTournament).then(response => {
+          if (response.status != 200 || response.status != 201) {
+              alert("There was an error");
+          }
+        });
+
+      }
+      
     },
     sendInvite() {
       let request = {tournamentId:this.tournamentId, participantId: this.$store.state.user.id, sender: "Participant"};
