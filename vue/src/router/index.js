@@ -9,6 +9,7 @@ import TournamentDetails from '../views/TournamentDetails.vue'
 import myTournaments from '../views/MyTournaments.vue'
 import Mailbox from '../views/Mailbox'
 import CreateTournament from '../views/CreateTournament.vue'
+import InviteUsers from '../views/InviteUsers.vue'
 
 Vue.use(Router)
 
@@ -85,6 +86,14 @@ const router = new Router({
       path: "/createTournament",
       name: "create-tournament",
       component: CreateTournament,
+      meta: {
+        requiresAuth:true
+      }
+    },
+    {
+      path: "/inviteUsers/:id",
+      name: "invite-users",
+      component: InviteUsers,
       meta: {
         requiresAuth:true
       }
