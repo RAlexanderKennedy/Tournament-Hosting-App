@@ -2,7 +2,7 @@
 <div>
   <h1>Invite Users To {{tournament.name}}</h1>
     <ul>
-        <li v-for="user in users" v-bind:key="user.id">
+        <li v-for="user in uninvitedList" v-bind:key="user.id">
             {{user.displayName}} 
             <span v-if="participantIds.includes(user.id)"> (Already a participant) </span>
             <button v-if="!participantIds.includes(user.id)" v-on:click="sendInvite(user)">Invite</button>
@@ -108,6 +108,24 @@ export default {
             }) 
             return requestedList;
 
+        },
+        uninvitedList() {
+            let uninvitedList = [];
+            this.users.forEach((user) => {
+                let canInvite = true;
+                this.invites.forEach((invite) => {
+                    if (invite.participantId === user.id) {
+                        canInvite = false;
+                    }
+                })
+                this.participants.forEach((participant) => {
+                    if (participant.id === user.id) {
+                        canInvite = false;
+                    }
+                })
+                if (canInvite) uninvitedList.push(user);
+            }) 
+            return uninvitedList;
         }
     },
     methods:{
