@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.techelevator.dao.MatchDAO;
 import com.techelevator.dao.TournamentDAO;
 import com.techelevator.dao.UserDAO;
 import com.techelevator.model.Match;
@@ -29,6 +30,9 @@ public class TournamentController {
 	
 	@Autowired
 	UserDAO userDAO;
+	
+	@Autowired
+	MatchDAO matchDAO;
 	
 	@RequestMapping(path="/allTournaments", method=RequestMethod.GET)
 	public List<Tournament> getAllTournaments(){
@@ -95,6 +99,19 @@ public class TournamentController {
 	public List<User> getAllUsers(){
 		return userDAO.findAll();
 	};
-
 	
+	@RequestMapping(path="/match/add", method=RequestMethod.POST)
+	public void addMatch(@Valid @RequestBody Match match) {
+		matchDAO.createMatch(match);
+	};
+	
+	@RequestMapping(path="/match/edit", method=RequestMethod.PUT)
+	public void editMatch(@Valid @RequestBody Match match) {
+		matchDAO.editMatch(match);
+	};
+	
+	@RequestMapping(path="/match/{id}", method = RequestMethod.DELETE)
+	public void deleteMatch(@PathVariable int id) {
+		matchDAO.deleteMatch(id);
+	}
 }

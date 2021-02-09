@@ -1,8 +1,10 @@
 <template>
   <div id="main1">
-      <div v-for="participant in participants" v-bind:key="participant.id">
+    <ul class="numbered">
+      <li v-for="participant in participants" v-bind:key="participant.id">
           {{participant.displayName}}
-      </div>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -30,5 +32,8 @@ export default {
 </script>
 
 <style>
+.numbered {
+  list-style-type: decimal;
+}
 
 </style>

@@ -45,7 +45,22 @@ export default {
     // see tournamentController for proper usage of webObject
     addParticipants(webObject) {
         return http.post('tournament/add', webObject);
-    }
+    },
 
+    addMatch(match){
+        return http.post('/match/add', match)
+    },
+
+    editMatch(match){
+        return http.put('/match/edit', match)
+    },
+
+    deleteMatch(id){
+        http.delete(`/match/${id}`)
+    },
+
+    editTournament(tournament){
+        http.put('/editTournament', tournament)
+    }
 
 }

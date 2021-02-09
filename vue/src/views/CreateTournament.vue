@@ -17,12 +17,17 @@
              <input type="date" v-model="newTournament.endDate" required/>
              </div>
         <div class="form-element">
-             <label for="Maximum Participants">Maximum Participants:</label>
-             <input type="text" v-model="newTournament.maxParticipants" required/>
+             <label for="Participants">Number of Participants:</label>
+             <select id="participants" name="participants" v-model="newTournament.maxParticipants" required>
+                <option value=2>2</option>
+                <option value=4>4</option>
+                <option value=8>8</option>
+                <option value=16>16</option>
+             </select>
         </div>
              <input type="submit" value="Save" />
              <input type="button" value="Cancel" v-on:click.prevent="resetForm" />
-             </form>
+    </form>
   </div>
 </template>
 
@@ -112,5 +117,8 @@ div.form-element > select {
 div.form-element > textarea {
   height: 60px;
   width: 300px;
+}
+#participants {
+    margin-bottom: 5rem;
 }
 </style>

@@ -1,9 +1,18 @@
 <template>
   <div>
+    <button v-if="canStartTournament"
+    v-on:click="startTournament">
+      Start Tournament
+    </button>
+    <button v-if="canEnterResults">
+        <router-link v-bind:to="{ name: 'control-panel'}">Enter Results</router-link>
+    </button>
+
+
     <brackets v-bind:tournamentId="parseInt($route.params.id)"/>
       <h3>Host:</h3>
       <host v-bind:tournamentId="parseInt($route.params.id)" />
-      <h3>Participants:</h3>
+      <h3>Participants ({{maxParticipants}} Total Needed):</h3>
       <participants v-bind:tournamentId="parseInt($route.params.id)" />
       <h3>Status:</h3>
       <status v-bind:tournamentId="parseInt($route.params.id)" />
@@ -59,10 +68,23 @@ export default {
       status: "",
       tournamentId: Number,
       maxParticipants: Number,
-      isHost: false
+      isHost: false,
+      tournament: Object
     }
   },
   computed: {
+    canStartTournament(){
+      if (this.isHost && this.status == "Upcoming") {
+            return true;
+      }
+      return false;
+    },
+    canEnterResults() {
+      if (this.isHost && this.status == "Ongoing") {
+            return true;
+      }
+      return false;
+    },
     canJoin() {
       let bool = true; 
       if (this.isHost) bool = false;
@@ -128,6 +150,7 @@ export default {
 
     tournamentService.getTournamentById(parseInt(this.$route.params.id))
       .then(response => {
+          this.tournament = response.data;
           let tournament = response.data;
           this.status = tournament.status;
           this.participants = tournament.participants;
@@ -141,6 +164,43 @@ export default {
 
   },
   methods: {
+    startTournament() {
+      if (this.participants.length != this.maxParticipants) {
+        alert("You need " + (this.maxParticipants - this.participants.length) +
+              " more participants to start this tournament");
+      }
+      else {
+        for (let i = 0; i < this.maxParticipants; i + 2) {
+          // create match
+          let match = {
+            tournamentId: parseInt(this.$route.params.id),
+            participant1: this.participants[i],
+            participant2: this.participants[i],
+            round: 1,
+            winner: null
+          };
+          // add match
+          tournamentService.addMatch(match).then(response => {
+            if (response.status != 200 || response.status != 201) {
+              alert("There was an error");
+            }
+          });
+        }
+
+        // change tournament to ongoing and change date if needed
+        let currentDate = new Date();
+        let newTournament = this.tournament;
+        newTournament.status = "Ongoing";
+        newTournament.startDate = currentDate;
+        tournamentService.editTournament(newTournament).then(response => {
+          if (response.status != 200 || response.status != 201) {
+              alert("There was an error");
+          }
+        });
+
+      }
+      
+    },
     sendInvite() {
       let request = {tournamentId:this.tournamentId, participantId: this.$store.state.user.id, sender: "Participant"};
       invitationService.sendInvite(request).then(response => {
