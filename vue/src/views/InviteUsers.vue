@@ -5,7 +5,7 @@
         <li v-for="user in uninvitedList" v-bind:key="user.id">
             {{user.displayName}} 
             <span v-if="participantIds.includes(user.id)"> (Already a participant) </span>
-            <button v-if="!participantIds.includes(user.id)" v-on:click="sendInvite(user)">Invite</button>
+            <button v-if="!participantIds.includes(user.id) && tournament.host_id != user.id" v-on:click="sendInvite(user)">Invite</button>
         </li>
     </ul>
     <h3 v-if="participants.length != 0">Already Participants: </h3>
@@ -42,7 +42,8 @@ export default {
             participants: [],
             status: "",
             participantIds: [],
-            invites: []
+            invites: [],
+            usersWithoutHost:[]
         }
     },
     created(){
@@ -57,6 +58,11 @@ export default {
 
         tournamentService.getAllUsers().then(response =>{
             this.users = response.data;
+            this.usersWithoutHost = this.users.filter((user) => {
+                if (user.id != this.$store.state.user.id){
+                    return user
+                }
+            })
         }),
         invitationService.getInvitesByTournamentId(parseInt(this.$route.params.id)).then(
         response => {
@@ -84,7 +90,7 @@ export default {
             //         }
             //     }) 
             // }
-            this.users.forEach((user) => {
+            this.usersWithoutHost.forEach((user) => {
                 this.invites.forEach((invite) => {
                     if (invite.participantId === user.id) {
                         if (invite.status === "Pending" && invite.sender === "Host") {
@@ -97,7 +103,7 @@ export default {
         },
         requestedList() {
             let requestedList = [];
-            this.users.forEach((user) => {
+            this.usersWithoutHost.forEach((user) => {
                 this.invites.forEach((invite) => {
                     if (invite.participantId === user.id) {
                         if (invite.status === "Pending" && invite.sender === "Participant") {
@@ -111,7 +117,7 @@ export default {
         },
         uninvitedList() {
             let uninvitedList = [];
-            this.users.forEach((user) => {
+            this.usersWithoutHost.forEach((user) => {
                 let canInvite = true;
                 this.invites.forEach((invite) => {
                     if (invite.participantId === user.id) {
