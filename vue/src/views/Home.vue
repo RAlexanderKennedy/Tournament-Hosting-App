@@ -5,7 +5,7 @@
     </h1>
     <h2>
       <button v-if="$store.state.token != ''">
-      <router-link v-bind:to="{ name: 'create-tournament'}">Create New Tournament</router-link>
+        <router-link v-bind:to="{ name: 'create-tournament'}">Create New Tournament</router-link>
       </button>
     </h2>
     <h1 v-if="$store.state.token == ''"> 

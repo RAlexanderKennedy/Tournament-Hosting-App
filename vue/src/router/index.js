@@ -10,6 +10,7 @@ import myTournaments from '../views/MyTournaments.vue'
 import Mailbox from '../views/Mailbox'
 import CreateTournament from '../views/CreateTournament.vue'
 import InviteUsers from '../views/InviteUsers.vue'
+import ControlPanel from '../views/ControlPanel.vue'
 
 Vue.use(Router)
 
@@ -94,6 +95,14 @@ const router = new Router({
       path: "/inviteUsers/:id",
       name: "invite-users",
       component: InviteUsers,
+      meta: {
+        requiresAuth:true
+      }
+    },
+    {
+      path: "/controlPanel/:id",
+      name: "control-panel",
+      component: ControlPanel,
       meta: {
         requiresAuth:true
       }

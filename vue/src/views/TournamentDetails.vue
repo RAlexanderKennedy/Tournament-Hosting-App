@@ -4,6 +4,11 @@
     v-on:click="startTournament">
       Start Tournament
     </button>
+    <button v-if="canEnterResults">
+        <router-link v-bind:to="{ name: 'control-panel'}">Enter Results</router-link>
+    </button>
+
+
     <brackets v-bind:tournamentId="parseInt($route.params.id)"/>
       <h3>Host:</h3>
       <host v-bind:tournamentId="parseInt($route.params.id)" />
@@ -69,6 +74,12 @@ export default {
   computed: {
     canStartTournament(){
       if (this.isHost && this.status == "Upcoming") {
+            return true;
+      }
+      return false;
+    },
+    canEnterResults() {
+      if (this.isHost && this.status == "Ongoing") {
             return true;
       }
       return false;
@@ -156,6 +167,19 @@ export default {
         alert("You need " + (this.maxParticipants - this.participants.length) +
               " more participants to start this tournament");
       }
+      // for (let i = 0; i < this.maxParticipants; i + 2) {
+      //   let match = {
+      //     tournamentId: parseInt(this.$route.params.id),
+      //     participant1: this.participants[i],
+      //     participant2: this.participants[i],
+      //     round: 1,
+      //     winner: null
+      //   };
+      //   // create match
+
+      //   // This part is not needed
+      //   return match;
+      // }
     },
     sendInvite() {
       let request = {tournamentId:this.tournamentId, participantId: this.$store.state.user.id, sender: "Participant"};
