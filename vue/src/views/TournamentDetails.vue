@@ -181,7 +181,7 @@ export default {
           };
           // add match
           tournamentService.addMatch(match).then(response => {
-            if (response.status != 200 || response.status != 201) {
+            if (response.status != 200 && response.status != 201) {
               alert("There was an error");
             }
           });
