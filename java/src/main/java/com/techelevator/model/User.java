@@ -27,6 +27,11 @@ public class User {
       this.displayName = displayName;
    }
 
+   public User(Long id, String displayName) {
+	   this.id = id;
+	   this.displayName = displayName;
+   }
+   
    public String getDisplayName() {
 	return displayName;
    }

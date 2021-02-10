@@ -56,11 +56,11 @@ export default {
     },
 
     deleteMatch(id){
-        http.delete(`/match/${id}`)
+        return http.delete(`/match/${id}`)
     },
 
     editTournament(tournament){
-        http.put('/editTournament', tournament)
+        return http.put('/editTournament', tournament)
     }
 
 }

@@ -67,18 +67,35 @@ public class TournamentSqlDAO implements TournamentDAO {
 			match.setTournamentId(rs.getInt("tournament_id"));
 			match.setRound(rs.getInt("round"));
 			
+			User emptyUser = new User((long)0, "");
+			
 			long par1 = rs.getInt("user1");
 			long par2 = rs.getInt("user2");
 			Integer winnerId = rs.getInt("winner");
 			
-			User participant1 = UserDAO.getUserById(par1);
-			User participant2 = UserDAO.getUserById(par2);
-			match.setParticipant1(participant1);
-			match.setParticipant2(participant2);
+			if (par1 != 0) {
+				User participant1 = UserDAO.getUserById(par1);
+				match.setParticipant1(participant1);
+			}
+			else {
+				match.setParticipant1(emptyUser);
+				
+			}
 			
-			if (winnerId != null) {
+			if (par2 != 0) {
+				User participant2 = UserDAO.getUserById(par2);
+				match.setParticipant2(participant2);
+			}
+			else {
+				match.setParticipant2(emptyUser);
+			}
+			
+			if (winnerId != 0) {
 				User winner = UserDAO.getUserById(winnerId.longValue());
 				match.setWinner(winner);
+			}
+			else {
+				match.setWinner(emptyUser);
 			}
 			matches.add(match);
 			

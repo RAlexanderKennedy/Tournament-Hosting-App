@@ -1,5 +1,9 @@
 <template>
   <div>
+    <button>
+        <router-link v-bind:to="{ name: 'tournament-details'}">Back to Tournament</router-link>
+    </button>
+
       <h2 v-if="round4List.length > 0">Round 4</h2>
       <div v-for="match in round4List" v-bind:key="match.id">
           <MatchItem v-bind:match="match" />
@@ -45,25 +49,28 @@ export default {
             return round1;
         },
         round2List() {
-            let round1 = this.matches.filter((match) => {
+            if (this.round1List.length === 0 || !this.roundDone(this.round1List)) return [];
+            let round2 = this.matches.filter((match) => {
                 if (match.round == 2) return match;
             });
 
-            return round1;
+            return round2;
         },
         round3List() {
-            let round1 = this.matches.filter((match) => {
+            if (this.round2List.length === 0 || !this.roundDone(this.round2List)) return [];
+            let round3 = this.matches.filter((match) => {
                 if (match.round == 3) return match;
             });
 
-            return round1;
+            return round3;
         },
         round4List() {
-            let round1 = this.matches.filter((match) => {
+            if (this.round3List.length === 0 || !this.roundDone(this.round3List)) return [];
+            let round4 = this.matches.filter((match) => {
                 if (match.round == 4) return match;
             });
 
-            return round1;
+            return round4;
         }
     },
     created() {
@@ -73,6 +80,15 @@ export default {
             console.log(this.matches.length);
         })
         
+    },
+    methods: {
+        roundDone(roundList) {
+            let bool = true;
+            roundList.forEach((match) => {
+                if (match.winner.id == 0) bool = false; 
+            });
+            return bool;
+        }
     }
 
 }

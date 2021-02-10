@@ -39,23 +39,23 @@ font-family: 'Syncopate', sans-serif;
 }
 
 .myButton {
-	box-shadow: 1px 1px 0px 0px #000;
-	background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
-	background-color:#ededed;
+	box-shadow: 1px 1px 0px 0px rgb(112, 112, 112);
+	
+	background-color:#84ce61;
 	border-radius:3px;
-	border:1px solid #d6bcd6;
+	
 	display:inline-block;
 	cursor:pointer;
-	color:#3a8a9e;
+	color:#fff;
 	font-family:Arial;
 	font-size:17px;
 	padding:7px 25px;
 	text-decoration:none;
-	text-shadow:0px 1px 0px #e1e2ed;
+	text-shadow:0px 1px 0px rgb(61, 61, 61);
 }
 .myButton:hover {
-	background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
-	background-color:#bab1ba;
+	
+	background-color:#9fdf6a;
 }
 .myButton:active {
 	position:relative;

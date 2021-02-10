@@ -1,17 +1,21 @@
 <template>
   <div class="detailsContainer">
        <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
+
+       
     <button class="myButton" v-if="canStartTournament"
     v-on:click="startTournament">
       Start Tournament
     </button>
+
+
     <button v-if="canEnterResults">
         <router-link v-bind:to="{ name: 'control-panel'}">Enter Results</router-link>
     </button>
 
 
-    <brackets v-bind:tournamentId="parseInt($route.params.id)"/>
+    <brackets v-if="status != 'Upcoming'" v-bind:tournamentId="parseInt($route.params.id)"/>
       <h3>Host:</h3>
       <host v-bind:tournamentId="parseInt($route.params.id)" />
       <h3>Participants ({{maxParticipants}} Total Needed):</h3>
@@ -172,13 +176,112 @@ export default {
               " more participants to start this tournament");
       }
       else {
-        for (let i = 0; i < this.maxParticipants; i + 2) {
+        for (let i = 0; i < this.maxParticipants; i=i+2) {
           // create match
           let match = {
             tournamentId: parseInt(this.$route.params.id),
-            participant1: this.participants[i],
-            participant2: this.participants[i],
+            participant1: {id: this.participants[i].id},
+            participant2: {id: this.participants[i + 1].id},
             round: 1,
+            winner: null
+          };
+          console.log(match.participant1.id);
+
+          // add match
+          tournamentService.addMatch(match).then(response => {
+            if (response.status != 200 && response.status != 201) {
+              alert("There was an error");
+            }
+          });
+        }
+
+        if (this.maxParticipants == 4) {
+          // create one empty match
+          let match = {
+            tournamentId: parseInt(this.$route.params.id),
+            participant1: {id: 0},
+            participant2: {id: 0},
+            round: 2,
+            winner: null
+          };
+          // add match
+          tournamentService.addMatch(match).then(response => {
+            if (response.status != 200 && response.status != 201) {
+              alert("There was an error");
+            }
+          });
+        }
+
+        else if (this.maxParticipants == 8) {
+          // create three empty matches
+          for (let i = 0; i < 2; i++) {
+            let match = {
+              tournamentId: parseInt(this.$route.params.id),
+              participant1: {id: 0},
+              participant2: {id: 0},
+              round: 2,
+              winner: null
+            };
+            // add match
+            tournamentService.addMatch(match).then(response => {
+              if (response.status != 200 && response.status != 201) {
+                alert("There was an error");
+              }
+            });
+          }
+          let match = {
+            tournamentId: parseInt(this.$route.params.id),
+            participant1: {id: 0},
+            participant2: {id: 0},
+            round: 3,
+            winner: null
+          };
+          // add match
+          tournamentService.addMatch(match).then(response => {
+            if (response.status != 200 && response.status != 201) {
+              alert("There was an error");
+            }
+          });
+        }
+
+        else if (this.maxParticipants == 16) {
+          // create three empty matches
+          for (let i = 0; i < 4; i++) {
+            let match = {
+              tournamentId: parseInt(this.$route.params.id),
+              participant1: {id: 0},
+              participant2: {id: 0},
+              round: 2,
+              winner: null
+            };
+            // add match
+            tournamentService.addMatch(match).then(response => {
+              if (response.status != 200 && response.status != 201) {
+                alert("There was an error");
+              }
+            });
+          }
+          for (let i = 0; i < 2; i++) {
+            let match = {
+              tournamentId: parseInt(this.$route.params.id),
+              participant1: {id: 0},
+              participant2: {id: 0},
+              round: 3,
+              winner: null
+            };
+            // add match
+            tournamentService.addMatch(match).then(response => {
+              if (response.status != 200 && response.status != 201) {
+                alert("There was an error");
+              }
+            });
+          }
+
+          let match = {
+            tournamentId: parseInt(this.$route.params.id),
+            participant1: {id: 0},
+            participant2: {id: 0},
+            round: 4,
             winner: null
           };
           // add match
@@ -190,16 +293,26 @@ export default {
         }
 
         // change tournament to ongoing and change date if needed
-        let currentDate = new Date();
+        let newStartDate = new window.Date();
+        newStartDate = this.formatDate(newStartDate);
         let newTournament = this.tournament;
         newTournament.status = "Ongoing";
-        newTournament.startDate = currentDate;
+        newTournament.startDate = newStartDate;
+        newTournament.participants = [];
+        console.log(newTournament);
         tournamentService.editTournament(newTournament).then(response => {
-          if (response.status != 200 || response.status != 201) {
+          if (response.status != 200 && response.status != 201) {
               alert("There was an error");
           }
-        });
-
+          else {
+            alert("Tournament Started!");
+            this.$router.go();
+          }
+        })
+        .catch (error => {
+          if (error.response) console.log(error.response);
+          else if (error.request) console.log(error.request);
+        })
       }
       
     },
@@ -230,6 +343,19 @@ export default {
           }
         });
       }
+    },
+    formatDate(date) {
+      var d = new window.Date(date),
+          month = '' + (d.getMonth() + 1),
+          day = '' + d.getDate(),
+          year = d.getFullYear();
+
+      if (month.length < 2) 
+          month = '0' + month;
+      if (day.length < 2) 
+          day = '0' + day;
+
+      return [year, month, day].join('-');
     }
   }
 }

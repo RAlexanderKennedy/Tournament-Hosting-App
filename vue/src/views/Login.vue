@@ -1,5 +1,7 @@
 <template>
   <div id="login" class="text-center">
+     <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
     <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div
@@ -84,8 +86,16 @@ export default {
 body{
   margin:0px;
   font-family:Arial, Helvetica, sans-serif;
+ 
+  
+  font-family: 'Syncopate', sans-serif;
+  background-color:#504B4B;
+
+  background-image:url(../images/c67e47d858c786d336d98ae6862a2776.jpg);
+  background-repeat: repeat-y;
+  background-size: 100%;
   background-color:rgb(168, 221, 88);
-  background: linear-gradient(180deg, rgb(168, 221, 88) 0%, rgb(174, 235, 139) 35%, rgb(168, 221, 88) 80%);
+  background-blend-mode: screen;
   
 }
 #app{
@@ -133,7 +143,7 @@ h1{
 textarea{
   border-radius:25px;
 }
-
+/*
 .home{
 
   width:100%;
@@ -148,17 +158,16 @@ textarea{
   padding:0px;
   z-index:-1;
 }
-#app{
- 
-  z-index: -3;
-}
+*/
 #main-container1{
+  
   height:100%;
   margin:0px;
   padding-bottom:0px;
   
 
 }
+
 
 
   
