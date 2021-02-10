@@ -2,9 +2,12 @@
   <div class="controlPanel">
       <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
-    <button class="myButton">
-        <router-link v-bind:to="{ name: 'tournament-details'}">Back to Tournament</router-link>
-    </button>
+    
+    <router-link v-bind:to="{ name: 'tournament-details', params: {id: parseInt($route.params.id)}}">
+        <button class="myButton">
+            Back to Tournament
+        </button>
+    </router-link>
 
       <h2 v-if="round4List.length > 0">Round 4</h2>
       <div v-for="match in round4List" v-bind:key="match.id">
