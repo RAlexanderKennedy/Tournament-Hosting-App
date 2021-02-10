@@ -1,5 +1,7 @@
 <template>
   <div id="login" class="text-center">
+     <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
     <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div
@@ -83,7 +85,7 @@ export default {
 <style>
 body{
   margin:0px;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: 'Syncopate', sans-serif;
   background-color:#504B4B;
 }
 #app{
