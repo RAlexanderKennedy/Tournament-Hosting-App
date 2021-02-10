@@ -20,12 +20,12 @@ public class MatchSqlDAO implements MatchDAO {
 	@Override
 	public void createMatch(Match newMatch) {
 		int tournamentId = newMatch.getTournamentId();
-		long user1 = newMatch.getParticipant1().getId();
-		long user2 = newMatch.getParticipant2().getId();
+		int user1 = newMatch.getParticipant1().getId().intValue();
+		int user2 = newMatch.getParticipant2().getId().intValue();
 		int round = newMatch.getRound();
-		long winner = newMatch.getWinner().getId();
+		
 		String sql = "insert into matches (tournament_id, user1, user2, round, winner) values (?,?,?,?,?)";
-		template.update(sql, tournamentId, user1, user2, round, winner);
+		template.update(sql, tournamentId, user1, user2, round, null);
 	}
 
 	@Override

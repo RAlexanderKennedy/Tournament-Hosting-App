@@ -6,7 +6,7 @@
         </router-link>
         <p>Status: {{invite.status}}</p>
         <div v-if="invite.status == 'Pending'">
-            <button v-on:click="cancel">Cancel Request</button>
+            <button v-on:click="cancel" class="inviteButton">Cancel Request</button>
         </div>
     </div>
 
@@ -17,7 +17,7 @@
         </router-link>
         <p>Status: {{invite.status}}</p>
         <div v-if="invite.status == 'Pending'">
-            <button v-on:click="cancel">Cancel Request</button>
+            <button v-on:click="cancel" class="inviteButton">Cancel Request</button>
         </div>
     </div>
   </div>

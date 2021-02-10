@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="mailboxContainer">
+       <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
     <div class="btn-group">
         <button v-on:click="switchToInbox" v-bind:class="{ selected: inbox }">Inbox</button>
         <button v-on:click="switchToSent" v-bind:class="{ selected: !inbox }">Sent</button>
@@ -136,6 +138,17 @@ margin-top: 1rem;
     border-width: 2px;
     border-color: black;
     border-radius: 3px;
+}
+
+.mailboxContainer{
+    font-family: 'Syncopate', sans-serif;
+    font-size:14px
+}
+
+.mailboxContainer h3{
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size:22px
 }
 
 </style>
