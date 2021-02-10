@@ -3,8 +3,8 @@
       <h3>{{match.participant1.displayName}} vs. {{match.participant2.displayName}}</h3>
       <div v-if="match.winner.id == 0">
           <h3>Who Won?</h3>
-          <button v-on:click="declareWinner(match.participant1)">{{match.participant1.displayName}}</button>
-          <button v-on:click="declareWinner(match.participant2)">{{match.participant2.displayName}}</button>
+          <button v-on:click="declareWinner(match.participant1)" class="inviteButton">{{match.participant1.displayName}}</button>
+          <button v-on:click="declareWinner(match.participant2)" class="inviteButton">{{match.participant2.displayName}}</button>
       </div>
       <div v-else>
           Winner: {{match.winner.displayName}}
