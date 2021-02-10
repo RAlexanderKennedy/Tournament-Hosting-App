@@ -6,8 +6,8 @@
             {{tournamentName}}
         </router-link>
         <div v-if="invite.status == 'Pending'">
-            <button v-on:click="accept">Accept</button>
-            <button v-on:click="decline">Decline</button>
+            <button v-on:click="accept" class="inviteButton">Accept</button>
+            <button v-on:click="decline" class="inviteButton">Decline</button>
         </div>
         <div v-if="invite.status != 'Pending'" 
         v-bind:class="{ accepted: invite.status == 'Accepted' }">

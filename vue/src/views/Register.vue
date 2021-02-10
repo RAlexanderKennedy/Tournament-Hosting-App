@@ -1,5 +1,7 @@
 <template>
   <div id="register" class="text-center">
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
     <form class="form-register" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
@@ -41,7 +43,7 @@
         v-model="user.displayName"
         required
       />
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
+      <button class="inviteButton" type="submit">
         Create Account
       </button>
 
@@ -126,5 +128,7 @@ export default {
 </script>
 
 <style>
-
+#register {
+  font-family: 'Syncopate', sans-serif;
+}
 </style>
