@@ -44,13 +44,13 @@ export default {
                 else {
                     this.$router.go();
                 }
-                })
-                .catch (error => {
-                if (error.response) console.log(error.response);
-                else if (error.request) console.log(error.request);
-                })
+            })
+            .catch (error => {
+            if (error.response) console.log(error.response);
+            else if (error.request) console.log(error.request);
+            })
         
-        }
+        },
     }
 
 }

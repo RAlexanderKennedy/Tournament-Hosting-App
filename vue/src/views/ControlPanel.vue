@@ -58,6 +58,9 @@ export default {
             let round2 = this.matches.filter((match) => {
                 if (match.round == 2) return match;
             });
+            if (round2.length != 0 && round2[0].participant1.id === 0) {
+                this.newRound(1);
+            }
 
             return round2;
         },
@@ -66,6 +69,9 @@ export default {
             let round3 = this.matches.filter((match) => {
                 if (match.round == 3) return match;
             });
+            if (round3.length != 0 && round3[0].participant1.id === 0) {
+                this.newRound(2);
+            }
 
             return round3;
         },
@@ -84,6 +90,11 @@ export default {
             this.matches = response.data;
             console.log(this.matches.length);
         })
+
+
+        // if (this.roundDone(this.round1List) && this.round2List[0].participant1.id === 0) {
+        //     this.newRound(1);
+        // }
         
     },
     methods: {
@@ -92,7 +103,44 @@ export default {
             roundList.forEach((match) => {
                 if (match.winner.id == 0) bool = false; 
             });
+
             return bool;
+        },
+        newRound(prevRound) {
+            let oldRound = this.matches.filter( (match) => {
+                if (match.round === prevRound) {
+                    return match;
+                }
+            });
+            let newRound = this.matches.filter( (match) => {
+                if (match.round === prevRound + 1) {
+                    return match;
+                }
+            });
+
+            let i = 0;
+            newRound.forEach( (newMatch) => {
+                let par1 = oldRound[i].winner.id;
+                let par2 = oldRound[i + 1].winner.id;
+                newMatch.participant1 = {id: par1};
+                newMatch.participant2 = {id: par2};
+                newMatch.winner = {id: 0}
+                i=i+2;
+
+                tournamentService.editMatch(newMatch).then(response => {
+                    if (response.status != 200 && response.status != 201) {
+                        alert("There was an error");
+                    }
+                })
+                .catch (error => {
+                if (error.response) console.log(error.response);
+                else if (error.request) console.log(error.request);
+                });
+            });
+
+            this.$router.go();
+
+            
         }
     }
 
