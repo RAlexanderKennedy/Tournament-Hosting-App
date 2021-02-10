@@ -10,7 +10,7 @@
     </button>
 
 
-    <button v-if="canEnterResults">
+    <button v-if="canEnterResults" class="myButton">
         <router-link v-bind:to="{ name: 'control-panel'}">Enter Results</router-link>
     </button>
 
