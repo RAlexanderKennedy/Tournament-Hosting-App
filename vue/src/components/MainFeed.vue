@@ -124,7 +124,7 @@ export default {
 <style>
 #main-container1{
 width:100%;  
-font-family: 'Syncopate', sans-serif;font-family: 'Syncopate', sans-serif;
+font-family: 'Syncopate', sans-serif;
 }
 
 #item-wraper{
