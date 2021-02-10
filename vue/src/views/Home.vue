@@ -6,9 +6,9 @@
       Welcome, {{$store.state.user.displayName}}!
     </h1>
     <h2>
-      <button v-if="$store.state.token != ''" class="myButton">
-        <router-link v-bind:to="{ name: 'create-tournament'}">Create New Tournament</router-link>
-      </button>
+      
+        <router-link v-bind:to="{ name: 'create-tournament'}" class="myButton">Create New Tournament</router-link>
+      
     </h2>
     <h1 v-if="$store.state.token == ''"> 
       Welcome!
@@ -39,10 +39,10 @@ font-family: 'Syncopate', sans-serif;
 }
 
 .myButton {
-	box-shadow: 3px 4px 0px 0px #899599;
+	box-shadow: 1px 1px 0px 0px #000;
 	background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
 	background-color:#ededed;
-	border-radius:15px;
+	border-radius:3px;
 	border:1px solid #d6bcd6;
 	display:inline-block;
 	cursor:pointer;
