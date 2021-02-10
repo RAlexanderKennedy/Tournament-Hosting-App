@@ -189,6 +189,52 @@ export default {
            }
 
 
+           if(this.maxParticipants === 16){
+                 
+
+               let container = document.getElementById("grid-container");
+               for(let i = 0; i < 15; i++){
+
+                   let setDiv = document.createElement("div");
+                   //setDiv.setAttribute("id", ("slot"+ (i+1)));
+                   setDiv.innerText = "";
+                   let assign = 15 - i
+                   setDiv.setAttribute("style", "grid-area:grid"+(assign)+";  height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;");
+                   container.appendChild(setDiv);
+                   //console.log("I count"+i);
+
+                   let participantA = document.createElement("p");
+                   let textA = document.createElement("span");
+                   let participantB = document.createElement("p");
+                   let textB = document.createElement("span");
+                   setDiv.appendChild(participantA);
+                   participantA.appendChild(textA);
+                   textA.innerText = this.matches[i].participant1.displayName;
+                   setDiv.appendChild(participantB);
+                   participantB.appendChild(textB);
+                   textB.innerText = this.matches[i].participant2.displayName;
+
+                    if(this.matches[i].participant1.displayName !== this.matches[i].winner.displayName){
+                        participantA.setAttribute("style", "text-decoration:line-through; color:darkred;");
+                        textA.setAttribute("style", "color:black;");
+                    }else{
+                        participantA.setAttribute("style", "color:black");
+                        textA.setAttribute("style", "color:black");
+                    }
+
+                    if(this.matches[i].participant2.displayName !== this.matches[i].winner.displayName){
+                        participantB.setAttribute("style", "text-decoration:line-through; color:darkred;");
+                        textB.setAttribute("style", "color:black");
+                    }else{
+                        participantB.setAttribute("style", "color:black");
+                        textB.setAttribute("style", "color:black");
+                    }
+
+                   
+               }
+           }
+
+
 
            
       });

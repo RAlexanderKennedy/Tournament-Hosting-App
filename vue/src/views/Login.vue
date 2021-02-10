@@ -84,12 +84,15 @@ export default {
 body{
   margin:0px;
   font-family:Arial, Helvetica, sans-serif;
-  background-color:#504B4B;
+  background-color:rgb(168, 221, 88);
+  background: linear-gradient(180deg, rgb(168, 221, 88) 0%, rgb(174, 235, 139) 35%, rgb(168, 221, 88) 80%);
+  
 }
 #app{
   padding-left:0px;
-  background-color:rgb(168, 221, 88);
+ /* background-color:rgb(168, 221, 88);
   background: linear-gradient(180deg, rgb(168, 221, 88) 0%, rgb(174, 235, 139) 35%, rgb(168, 221, 88) 80%);
+  */
 }
 #loginBox{
   width:275px;
@@ -130,4 +133,35 @@ h1{
 textarea{
   border-radius:25px;
 }
+
+.home{
+
+  width:100%;
+  height:100%;
+  background-image:url(../images/c67e47d858c786d336d98ae6862a2776.jpg);
+  background-repeat: repeat-y;
+  background-size: 100%;
+  background-color:rgb(168, 221, 88);
+  background-blend-mode: screen;
+  background-position: local;
+  margin:0px;
+  padding:0px;
+  z-index:-1;
+}
+#app{
+ 
+  z-index: -3;
+}
+#main-container1{
+  height:100%;
+  margin:0px;
+  padding-bottom:0px;
+  
+
+}
+
+
+  
+
+
 </style>

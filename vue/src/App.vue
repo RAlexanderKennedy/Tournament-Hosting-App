@@ -9,5 +9,6 @@
       <router-link class= "nav-item" v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
     </nav>
     <router-view />
+    <div id="background"></div>
   </div>
 </template>
