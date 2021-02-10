@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="createTournamentContainer">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
      <h1>
          Create New Tournament
      </h1> 
@@ -25,8 +27,8 @@
                 <option value=16>16</option>
              </select>
         </div>
-             <input type="submit" value="Save" />
-             <input type="button" value="Cancel" v-on:click.prevent="resetForm" />
+             <input type="submit" value="Save" class="inviteButton"/>
+             <input type="button" value="Cancel" v-on:click.prevent="resetForm" class="inviteButton"/>
     </form>
   </div>
 </template>
@@ -103,6 +105,9 @@ methods: {
 </script>
 
 <style>
+.createTournamentContainer {
+    font-family: 'Syncopate', sans-serif;
+}
 div.form-element {
   margin-top: 10px;
 }
