@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <button>
+  <div class="controlPanel">
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
+    <button class="myButton">
         <router-link v-bind:to="{ name: 'tournament-details'}">Back to Tournament</router-link>
     </button>
 
@@ -103,5 +105,9 @@ export default {
 
 
 <style>
+
+.controlPanel{
+    font-family: 'Syncopate', sans-serif;
+}
 
 </style>
