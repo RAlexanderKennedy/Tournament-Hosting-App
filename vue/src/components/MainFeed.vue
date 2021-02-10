@@ -94,6 +94,11 @@ export default {
         return tournament
       }
      })
+     if (this.filter.name != '') {
+        upcomingTournaments = upcomingTournaments.filter((tournament) =>
+        tournament.name.toLowerCase()
+        .includes(this.filter.name.toLowerCase()));
+      }
       return upcomingTournaments
     },
     ongoingFiltered() {
@@ -103,6 +108,11 @@ export default {
         return tournament
       }
      })
+     if (this.filter.name != '') {
+        ongoingTournaments = ongoingTournaments.filter((tournament) =>
+        tournament.name.toLowerCase()
+        .includes(this.filter.name.toLowerCase()));
+      }
       return ongoingTournaments
     },
     closedFiltered() {
@@ -112,6 +122,11 @@ export default {
         return tournament
       }
      })
+     if (this.filter.name != '') {
+        closedTournaments = closedTournaments.filter((tournament) =>
+        tournament.name.toLowerCase()
+        .includes(this.filter.name.toLowerCase()));
+      }
       return closedTournaments
     }
   },

@@ -175,6 +175,7 @@ export default {
 	padding:3px 8px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #e1e2ed;
+    margin-bottom:0.5rem
 }
 .inviteButton:hover {
 	background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
