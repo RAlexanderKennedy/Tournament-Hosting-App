@@ -1,7 +1,10 @@
 <template>
-  <div>
+  <div class="detailsContainer">
+       <link rel="preconnect" href="https://fonts.gstatic.com">
+       <link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
 
-    <button v-if="canStartTournament"
+       
+    <button class="myButton" v-if="canStartTournament"
     v-on:click="startTournament">
       Start Tournament
     </button>
@@ -24,17 +27,17 @@
       <h3>End Date:</h3>
       <endDate v-bind:tournamentId="parseInt($route.params.id)" />
       <br>
-      <button v-if="isHost && participants.length < maxParticipants && status == 'Upcoming'">
+      <button v-if="isHost && participants.length < maxParticipants && status == 'Upcoming'" class="myButton" id="startButton">
         <router-link v-bind:to="{ name: 'invite-users'}">Invite Users</router-link>
         </button>
       <button 
       v-if="canJoin" 
       :disabled='requested == "Join Requested" || requested == "Join Declined"'
-      v-on:click="sendInvite">
+      v-on:click="sendInvite" class="myButton">
         {{requested}}
       </button>
       <button v-if="canLeave"
-      v-on:click="leaveTournament">
+      v-on:click="leaveTournament" class="myButton">
         Leave Tournament
       </button>
         
@@ -367,5 +370,14 @@ export default {
 <style scoped>
     body{
         background-color:darkgray;
+    }
+    .detailsContainer{
+      font-family: 'Syncopate', sans-serif;
+      font-size: 14px
+    }
+    .detailsContainer h3{
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      font-size: 22px
     }
 </style>

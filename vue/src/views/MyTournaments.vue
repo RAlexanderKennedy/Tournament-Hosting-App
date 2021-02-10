@@ -57,15 +57,17 @@ export default {
 }
 </script>
 <template>
-<div>
+<div class="myTournamentsContainer">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
   <h1>My Tournaments</h1>
   <br>
         <div v-if="!this.isLoading">
   <h3> Hosting:</h3>
   <br>
   <ul>
-      <li v-for="tournament in this.filteredHosted" v-bind:key="tournament.id">
-          <router-link v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
+      <li v-for="tournament in this.filteredHosted" v-bind:key="tournament.id" class="myTournamentsList">
+          <router-link v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }" class="link-text2"> 
           {{tournament.name}}
         </router-link>
         <br>
@@ -92,5 +94,15 @@ export default {
 
 
 <style>
+.myTournamentsContainer{
+    font-family: 'Syncopate', sans-serif;
+}
 
+.link-text2{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:14pt
+}
+.myTournamentsList{
+    font-size:10pt
+}
 </style>

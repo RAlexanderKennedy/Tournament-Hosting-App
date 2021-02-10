@@ -1,5 +1,7 @@
 <template>
   <div id="main-container1">
+     <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
     <div id="item-wraper">
     <div>
       <input class="search" type="text" placeholder="Search Tournaments" v-model="filter.name">
@@ -13,7 +15,7 @@
         </div>
       </div>
         <div v-if="!upcomingChecked">
-      <li v-for="tournament in upcomingFiltered" v-bind:key="tournament.id" >
+      <li v-for="tournament in upcomingFiltered" v-bind:key="tournament.id">
         <router-link class="link-text" v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
           {{tournament.name}}
         </router-link>
@@ -92,6 +94,11 @@ export default {
         return tournament
       }
      })
+     if (this.filter.name != '') {
+        upcomingTournaments = upcomingTournaments.filter((tournament) =>
+        tournament.name.toLowerCase()
+        .includes(this.filter.name.toLowerCase()));
+      }
       return upcomingTournaments
     },
     ongoingFiltered() {
@@ -101,6 +108,11 @@ export default {
         return tournament
       }
      })
+     if (this.filter.name != '') {
+        ongoingTournaments = ongoingTournaments.filter((tournament) =>
+        tournament.name.toLowerCase()
+        .includes(this.filter.name.toLowerCase()));
+      }
       return ongoingTournaments
     },
     closedFiltered() {
@@ -110,6 +122,11 @@ export default {
         return tournament
       }
      })
+     if (this.filter.name != '') {
+        closedTournaments = closedTournaments.filter((tournament) =>
+        tournament.name.toLowerCase()
+        .includes(this.filter.name.toLowerCase()));
+      }
       return closedTournaments
     }
   },
@@ -122,6 +139,7 @@ export default {
 <style>
 #main-container1{
 width:100%;  
+font-family: 'Syncopate', sans-serif;
 }
 
 #item-wraper{
@@ -153,6 +171,7 @@ margin-right:auto
     border-radius: 1rem;
     counter-increment: gradient-counter;
     margin-top: 0rem;
+    margin-bottom: 1rem;
     min-height: 3rem;
     padding: 1rem 1rem 1rem 0rem;
     position: relative;
@@ -164,6 +183,7 @@ margin-right:auto
   .link-text{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.5em;
+    font-weight: bold;
     color:black;
     text-decoration: none;
     

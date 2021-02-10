@@ -1,5 +1,9 @@
 <template>
   <div>
+    <button>
+        <router-link v-bind:to="{ name: 'tournament-details'}">Back to Tournament</router-link>
+    </button>
+
       <h2 v-if="round4List.length > 0">Round 4</h2>
       <div v-for="match in round4List" v-bind:key="match.id">
           <MatchItem v-bind:match="match" />
