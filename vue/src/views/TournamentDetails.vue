@@ -6,17 +6,7 @@
 
 
 
-    <router-link v-bind:to="{ name: 'control-panel', params: {id: parseInt($route.params.id)}}">
-      <button v-if="this.isHost && this.status == 'Ongoing'" class="myButton">
-        Enter Results
-      </button>
-    </router-link>
-
-    <router-link v-bind:to="{ name: 'control-panel', params: {id: parseInt($route.params.id)}}">
-      <button v-if="this.isHost && this.status == 'Closed'" class="myButton">
-        View Results
-      </button>
-    </router-link>
+    
 
     <h1 v-if="status == 'Closed'" class='welcome'>Winner: {{winningUser}}</h1>
 
@@ -27,7 +17,7 @@
     v-bind:winnerName="winningUser"/>
 
 
-      <div id="inline" style="display:inline; background-color:white; width:100%; height:100%;">
+      <div id="inline" style="">
       <div class="details">
       <h3>Host:</h3>
       <host v-bind:tournamentId="parseInt($route.params.id)" />
@@ -75,6 +65,26 @@
       v-on:click="leaveTournament" class="myButton">
         Leave Tournament
       </button>
+
+          <button class="myButton" v-if="canStartTournament"
+    v-on:click="startTournament">
+      Start Tournament
+    </button>
+
+
+
+
+    <router-link v-bind:to="{ name: 'control-panel', params: {id: parseInt($route.params.id)}}">
+      <button v-if="this.isHost && this.status == 'Ongoing'" class="myButton">
+        Enter Results
+      </button>
+    </router-link>
+
+    <router-link v-bind:to="{ name: 'control-panel', params: {id: parseInt($route.params.id)}}">
+      <button v-if="this.isHost && this.status == 'Closed'" class="myButton">
+        View Results
+      </button>
+    </router-link>
       </div>
 
     </div>    
@@ -479,10 +489,10 @@ export default {
     .details{
       vertical-align: top;
       display:inline-block;
-      background-color:white;
-      width:auto;
-      height:300px;
-      border:black solid 1px;
+      
+      
+      
+      
 
       padding:4rem;
     }
@@ -490,10 +500,25 @@ export default {
       display: flex;
       background-color: rgb(255, 255, 255, 85%);
       width:100%;
-      height:26.2rem;
+      height:26.1rem;
       align-content: center;
       justify-content: center;
       justify-items:legacy;
 
+    }
+
+    #inline> div:nth-child(odd){
+      border-left:rgb(206, 206, 206) solid 1px;
+    }
+    #inline> div:nth-child(even){
+      border-left:rgb(206, 206, 206) solid 1px;
+    }
+
+    #inline >div:first-child{
+      border-left:0px;
+    }
+
+    #inline> div{
+      overflow:auto;
     }
 </style>
