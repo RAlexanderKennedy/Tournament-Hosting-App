@@ -2,7 +2,7 @@
   <div class="home">
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
-    <h1 v-if="$store.state.token != ''" class="welcome"> 
+    <h1 v-if="$store.state.token != ''"> 
       Welcome, {{$store.state.user.displayName}}!
     </h1>
     <h2>
@@ -10,7 +10,7 @@
         <router-link v-bind:to="{ name: 'create-tournament'}" class="myButton">Create New Tournament</router-link>
       
     </h2>
-    <h1 v-if="$store.state.token == ''" class="welcome"> 
+    <h1 v-if="$store.state.token == ''"> 
       Welcome!
     </h1>
     <MainFeed />

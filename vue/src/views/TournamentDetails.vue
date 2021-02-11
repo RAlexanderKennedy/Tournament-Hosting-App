@@ -20,7 +20,7 @@
       </button>
     </router-link>
 
-    <h2 v-if="status == 'Closed'">Winner: {{winningUser}}</h2>
+    <h1 v-if="status == 'Closed'" class='welcome'>Winner: {{winningUser}}</h1>
 
 >>>>>>> f66bd8c08cc4ce3c83133346f36118d9617169c2
 
@@ -472,6 +472,24 @@ export default {
       font-size: 22px
     }
 
+.welcome {
+  background: radial-gradient(circle, #0a0a0a 0%, #dac403 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: animatedGradient 2s infinite ease;
+  animation-direction: alternate;
+}
+
+@keyframes animatedGradient {
+  from {
+    background-size: 100%;
+  }
+
+  to {
+    background-size: 250%;
+  }
+}
     
     .details{
       vertical-align: top;
