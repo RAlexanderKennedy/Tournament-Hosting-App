@@ -10,7 +10,6 @@
           <p v-if="!isWinner">Winner: {{match.winner.displayName}}</p>
           <h4 class="winningUser" v-if="isWinner">Winner of the Tournament: {{match.winner.displayName}}</h4>
       </div>
-      
   </div>
 </template>
 
@@ -62,7 +61,7 @@ export default {
                         alert(participant.displayName + " wins the tournament!");
                         this.closeTournament();
                     }
-                    this.$router.go();
+                    //this.$router.go();
                 }
             })
             .catch (error => {
@@ -74,25 +73,22 @@ export default {
         closeTournament() {
             tournamentService.getTournamentById(parseInt(this.$route.params.id))
             .then(response => {
-                this.tournament = response.data;
-            });
+                let tournament = response.data;
 
-            let newTournament = this.tournament;
-            newTournament.status = "Closed";
-            newTournament.participants = [];
-            tournamentService.editTournament(newTournament).then(response => {
-            if (response.status != 200 && response.status != 201) {
-                alert("There was an error");
-            }
-            else {
-                alert("Tournament Started!");
-                this.$router.go();
-            }
-            })
-            .catch (error => {
-            if (error.response) console.log(error.response);
-            else if (error.request) console.log(error.request);
-            })
+                let newTournament = tournament;
+                newTournament.status = "Closed";
+                newTournament.participants = [];
+                tournamentService.editTournament(newTournament).then(response => {
+                    if (response.status != 200 && response.status != 201) {
+                        alert("There was an error");
+                    }
+                })
+                .catch (error => {
+                if (error.response) console.log(error.response);
+                else if (error.request) console.log(error.request);
+                });
+            });
+            
         }
     }
 
