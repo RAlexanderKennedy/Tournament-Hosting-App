@@ -61,7 +61,7 @@ export default {
                         alert(participant.displayName + " wins the tournament!");
                         this.closeTournament();
                     }
-                    //this.$router.go();
+                    this.$router.go();
                 }
             })
             .catch (error => {

@@ -326,7 +326,7 @@ export default {
         }
 
         // change tournament to ongoing and change date if needed
-        let newStartDate = new window.Date();
+        let newStartDate = new window.Date(); 
         newStartDate = this.formatDate(newStartDate);
         let newTournament = this.tournament;
         newTournament.status = "Ongoing";
