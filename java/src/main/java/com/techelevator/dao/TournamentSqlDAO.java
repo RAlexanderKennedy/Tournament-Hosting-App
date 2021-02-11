@@ -16,6 +16,8 @@ import com.techelevator.model.Match;
 import com.techelevator.model.Tournament;
 import com.techelevator.model.User;
 
+import java.util.Collections;
+
 @Component
 public class TournamentSqlDAO implements TournamentDAO {
 
@@ -102,8 +104,48 @@ public class TournamentSqlDAO implements TournamentDAO {
 			
 		}
 		
+		List<Match> round1 = new ArrayList<Match>();
+		List<Match> round2 = new ArrayList<Match>();
+		List<Match> round3 = new ArrayList<Match>();
+		List<Match> round4 = new ArrayList<Match>();
 		
-		return matches;
+		for (Match match : matches) {
+			if (match.getRound() == 1) {
+				round1.add(match);
+			}
+			if (match.getRound() == 2) {
+				round2.add(match);
+			}
+			if (match.getRound() == 3) {
+				round3.add(match);
+			}
+			if (match.getRound() == 4) {
+				round4.add(match);
+			}
+		}
+		
+		Collections.sort(round1);
+		Collections.sort(round2);
+		Collections.sort(round3);
+		Collections.sort(round4);
+		
+		List<Match> orderedMatches = new ArrayList<Match>();
+		
+		for (Match match : round1) {
+			orderedMatches.add(match);
+		}
+		for (Match match : round2) {
+			orderedMatches.add(match);
+		}
+		for (Match match : round3) {
+			orderedMatches.add(match);
+		}
+		for (Match match : round4) {
+			orderedMatches.add(match);
+		}
+		
+		
+		return orderedMatches;
 	}
 	
 	@Override

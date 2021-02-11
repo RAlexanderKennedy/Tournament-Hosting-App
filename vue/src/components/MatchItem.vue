@@ -61,7 +61,6 @@ export default {
                         alert(participant.displayName + " wins the tournament!");
                         this.closeTournament();
                     }
-                    this.$router.go();
                 }
             })
             .catch (error => {
@@ -81,6 +80,9 @@ export default {
                 tournamentService.editTournament(newTournament).then(response => {
                     if (response.status != 200 && response.status != 201) {
                         alert("There was an error");
+                    }
+                    else {
+                        this.$router.go();
                     }
                 })
                 .catch (error => {

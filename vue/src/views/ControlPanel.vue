@@ -44,7 +44,6 @@ export default {
         return {
             matches: [],
             maxParticipants: Number,
-            Winner: ""
         }
     },
     computed: {
@@ -82,6 +81,9 @@ export default {
             let round4 = this.matches.filter((match) => {
                 if (match.round == 4) return match;
             });
+            if (round4.length != 0 && round4[0].participant1.id === 0) {
+                this.newRound(3);
+            }
 
             return round4;
         }
@@ -90,6 +92,10 @@ export default {
         tournamentService.getMatchesByTournamentId(parseInt(this.$route.params.id))
         .then(response => {
             this.matches = response.data;
+            this.matches.forEach((match) => {
+                console.log(match.round);
+            })
+            
         });
 
         tournamentService.getTournamentById(parseInt(this.$route.params.id))

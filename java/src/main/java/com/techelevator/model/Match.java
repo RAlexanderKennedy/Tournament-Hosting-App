@@ -1,7 +1,7 @@
 package com.techelevator.model;
 
-public class Match {
-	private int id;
+public class Match implements Comparable<Match>{
+	private Integer id;
 	private int tournamentId;
 	private User participant1;
 	private User participant2;
@@ -10,7 +10,7 @@ public class Match {
 	
 	public Match() {this.winner = null;}
 	
-	public Match(int id, int tournamentId, User participant1, User participant2, int round, User winner) {
+	public Match(Integer id, int tournamentId, User participant1, User participant2, int round, User winner) {
 		this.id = id;
 		this.tournamentId = tournamentId;
 		this.participant1 = participant1;
@@ -20,7 +20,7 @@ public class Match {
 	}
 	
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	public void setId(int id) {
@@ -55,6 +55,11 @@ public class Match {
 	}
 	public void setWinner(User winner) {
 		this.winner = winner;
+	}
+
+	@Override
+	public int compareTo(Match o) {
+		return this.getId().compareTo(o.getId());
 	}
 	
 	
