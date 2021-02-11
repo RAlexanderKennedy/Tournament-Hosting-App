@@ -18,31 +18,59 @@
 
 
     <brackets v-if="status != 'Upcoming'" v-bind:tournamentId="parseInt($route.params.id)"/>
+
+
+      <div id="inline" style="display:inline; background-color:white; width:100%; height:100%;">
+      <div class="details">
       <h3>Host:</h3>
       <host v-bind:tournamentId="parseInt($route.params.id)" />
+      </div>
+
+      <div class="details">
       <h3>Participants ({{maxParticipants}} Total Needed):</h3>
       <participants v-bind:tournamentId="parseInt($route.params.id)" />
+      </div>
+
+      <div class="details">
       <h3>Status:</h3>
       <status v-bind:tournamentId="parseInt($route.params.id)" />
+      </div>
+
+      <div class="details">
       <h3>Start Date:</h3>
       <date v-bind:tournamentId="parseInt($route.params.id)" />
+      </div>
+
+      <div class="details">
       <h3>End Date:</h3>
       <endDate v-bind:tournamentId="parseInt($route.params.id)" />
+      </div>
+
+      <div class="details">
       <br>
       <button v-if="isHost && participants.length < maxParticipants && status == 'Upcoming'" class="myButton" id="startButton">
         <router-link v-bind:to="{ name: 'invite-users'}">Invite Users</router-link>
         </button>
+
+      </div>
+
+      <div class="details">
       <button 
       v-if="canJoin" 
       :disabled='requested == "Join Requested" || requested == "Join Declined"'
       v-on:click="sendInvite" class="myButton">
         {{requested}}
       </button>
+      </div>
+
+      <div class="details">
       <button v-if="canLeave"
       v-on:click="leaveTournament" class="myButton">
         Leave Tournament
       </button>
-        
+      </div>
+
+      </div>    
       
   </div>
 </template>
@@ -381,5 +409,21 @@ export default {
       font-family: Arial, Helvetica, sans-serif;
       font-weight: bold;
       font-size: 22px
+    }
+
+    
+    .details{
+      vertical-align: top;
+      display:inline-block;
+      background-color:white;
+      width:auto;
+      height:300px;
+      border:black solid 1px;
+
+      padding:4rem;
+    }
+    #inline{
+      padding-left:auto;
+      padding-right:auto;
     }
 </style>
