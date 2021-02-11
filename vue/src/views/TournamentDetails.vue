@@ -3,16 +3,18 @@
        <link rel="preconnect" href="https://fonts.gstatic.com">
        <link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
 
-       
+
     <button class="myButton" v-if="canStartTournament"
     v-on:click="startTournament">
       Start Tournament
     </button>
 
 
-    <button v-if="canEnterResults" class="myButton">
-        <router-link v-bind:to="{ name: 'control-panel'}">Enter Results</router-link>
-    </button>
+    <router-link v-bind:to="{ name: 'control-panel', params: {id: parseInt($route.params.id)}}">
+      <button v-if="canEnterResults" class="myButton">
+        Enter Results
+      </button>
+    </router-link>
 
 
     <brackets v-if="status != 'Upcoming'" v-bind:tournamentId="parseInt($route.params.id)"/>
