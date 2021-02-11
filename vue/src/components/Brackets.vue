@@ -37,22 +37,48 @@ export default {
       participants: [],
       matches:[],
       maxParticipants: Number,
-      flip:[]
+      round1:[],
+      round2:[],
+      round3:[],
+      round4:[]
     }
   },
-    computed:{
+    methods:{
         
-        slotUser(){
-            let counter = 1;
-            const currentDiv = document.getElementById("slot" + counter);
-            for(let i = 0; i < this.participants.length; i++){
-                //document.getElementById("slot" + counter)
-                if(currentDiv.innerText === ""){
-                    currentDiv.innerText = this.participants[i].displayName;
-                }
-                counter++;
-            }
-            return console.log()
+        slotUser(match, divNumber){
+            let container = document.getElementById("grid-container");
+            let setDiv = document.createElement("div");
+
+            setDiv.setAttribute("style", "grid-area:grid"+(divNumber)+";  height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;");
+                   container.appendChild(setDiv);
+                 
+
+                   let participantA = document.createElement("p");
+                   let textA = document.createElement("span");
+                   let participantB = document.createElement("p");
+                   let textB = document.createElement("span");
+                   setDiv.appendChild(participantA);
+                   participantA.appendChild(textA);
+                   textA.innerText = match.participant1.displayName;
+                   setDiv.appendChild(participantB);
+                   participantB.appendChild(textB);
+                   textB.innerText = match.participant2.displayName;
+
+                   if(match.participant1.displayName !== match.winner.displayName){
+                        participantA.setAttribute("style", "text-decoration:line-through; color:darkred;");
+                        textA.setAttribute("style", "color:black;");
+                    }else{
+                        participantA.setAttribute("style", "color:black");
+                        textA.setAttribute("style", "color:black");
+                    }
+
+                    if(match.participant2.displayName !== match.winner.displayName){
+                        participantB.setAttribute("style", "text-decoration:line-through; color:darkred;");
+                        textB.setAttribute("style", "color:black");
+                    }else{
+                        participantB.setAttribute("style", "color:black");
+                        textB.setAttribute("style", "color:black");
+                    }
         }
     },
     created(){
@@ -61,17 +87,7 @@ export default {
           this.participants = response.data;            
 
             
-            //let container = document.getElementById("grid-container");
-            //for(let i = 0; i < this.participants.length; i++){
-             //let listItem = document.createElement("div");
-             //listItem.innerText = this.participants[i].displayName;
-             //container.appendChild(listItem);
-             //listItem.setAttribute("class", "card"); 
-             //listItem.setAttribute("id", ("slot"+ (i+1)));
-             //listItem.setAttribute("style", "height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;" + ("grid-area:grid"+ (i+1) + ";"));
-             //listItem.setAttribute("style", ("grid-area:grid"+ (i+1) + ";"))
-               
-            //}
+            
       });
 
       tournamentService.getTournamentById(this.tournamentId)
@@ -84,158 +100,117 @@ export default {
           this.matches = response.data;
 
 
+            for(let i = 0; i < this.matches.length; i++){
+                if(this.matches[i].round === 1){
+                    this.round1.push(this.matches[i])
+                }
+            if(this.maxParticipants > 2){
+                
 
+                
+              if(this.matches[i].round === 2){
+                    this.round2.push(this.matches[i])
+                }
 
+            }
+            if(this.maxParticipants > 4){
+                
 
-                                  if(this.maxParticipants === 4){
+                
+              if(this.matches[i].round === 3){
+                    this.round3.push(this.matches[i])
+                }
+                
+            }
 
-                        let line5 = document.getElementById("line5")
-                        let line6 = document.getElementById("line6")
-                        let line7 = document.getElementById("line7")
-                        let line8 = document.getElementById("line8")
-                        line5.setAttribute("style", "border-width:0px;")
-                        line6.setAttribute("style", "border-width:0px;")
-                        line7.setAttribute("style", "border-width:0px;")
-                        line8.setAttribute("style", "border-width:0px;")
-                 
-
-               let container = document.getElementById("grid-container");
-               for(let i = 0; i < 3; i++){
-
-                   let setDiv = document.createElement("div");
-                   //setDiv.setAttribute("id", ("slot"+ (i+1)));
-                   setDiv.innerText = "";
-                   let assign = 3 - i
-                   setDiv.setAttribute("style", "grid-area:grid"+(assign)+";  height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;");
-                   container.appendChild(setDiv);
-                   //console.log("I count"+i);
-
-                   let participantA = document.createElement("p");
-                   let textA = document.createElement("span");
-                   let participantB = document.createElement("p");
-                   let textB = document.createElement("span");
-                   setDiv.appendChild(participantA);
-                   participantA.appendChild(textA);
-                   textA.innerText = this.matches[i].participant1.displayName;
-                   setDiv.appendChild(participantB);
-                   participantB.appendChild(textB);
-                   textB.innerText = this.matches[i].participant2.displayName;
-
-                    if(this.matches[i].participant1.displayName !== this.matches[i].winner.displayName){
-                        participantA.setAttribute("style", "text-decoration:line-through; color:darkred;");
-                        textA.setAttribute("style", "color:black;");
-                    }else{
-                        participantA.setAttribute("style", "color:black");
-                        textA.setAttribute("style", "color:black");
+            if(this.maxParticipants > 8){
+                  
+                if(this.matches[i].round === 4){
+                    this.round4.push(this.matches[i])
                     }
+                
+            }
+            
+        
 
-                    if(this.matches[i].participant2.displayName !== this.matches[i].winner.displayName){
-                        participantB.setAttribute("style", "text-decoration:line-through; color:darkred;");
-                        textB.setAttribute("style", "color:black");
-                    }else{
-                        participantB.setAttribute("style", "color:black");
-                        textB.setAttribute("style", "color:black");
-                    }
+            }
+            console.log(this.matches);
+            let i = 1;
+            if(this.maxParticipants === 4){
 
+                let line5 = document.getElementById("line5")
+                let line6 = document.getElementById("line6")
+                let line7 = document.getElementById("line7")
+                let line8 = document.getElementById("line8")
+                line5.setAttribute("style", "border-width:0px;")
+                line6.setAttribute("style", "border-width:0px;")
+                line7.setAttribute("style", "border-width:0px;")
+                line8.setAttribute("style", "border-width:0px;")
+
+                this.round2.forEach( (match) => {
+                    this.slotUser(match, i);
+                    
+                    i++;
+                });
+                this.round1.forEach( (match) => {
+                    this.slotUser(match, i);
                    
-               }
-           }
+                    i++;
+                }); 
+
+            
 
 
+            }
 
-           if(this.maxParticipants === 8){
-                 
-
-               let container = document.getElementById("grid-container");
-               for(let i = 0; i < 7; i++){
-
-                   let setDiv = document.createElement("div");
-                   //setDiv.setAttribute("id", ("slot"+ (i+1)));
-                   setDiv.innerText = "";
-                   let assign = 7 - i
-                   setDiv.setAttribute("style", "grid-area:grid"+(assign)+";  height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;");
-                   container.appendChild(setDiv);
-                   //console.log("I count"+i);
-
-                   let participantA = document.createElement("p");
-                   let textA = document.createElement("span");
-                   let participantB = document.createElement("p");
-                   let textB = document.createElement("span");
-                   setDiv.appendChild(participantA);
-                   participantA.appendChild(textA);
-                   textA.innerText = this.matches[i].participant1.displayName;
-                   setDiv.appendChild(participantB);
-                   participantB.appendChild(textB);
-                   textB.innerText = this.matches[i].participant2.displayName;
-
-                    if(this.matches[i].participant1.displayName !== this.matches[i].winner.displayName){
-                        participantA.setAttribute("style", "text-decoration:line-through; color:darkred;");
-                        textA.setAttribute("style", "color:black;");
-                    }else{
-                        participantA.setAttribute("style", "color:black");
-                        textA.setAttribute("style", "color:black");
-                    }
-
-                    if(this.matches[i].participant2.displayName !== this.matches[i].winner.displayName){
-                        participantB.setAttribute("style", "text-decoration:line-through; color:darkred;");
-                        textB.setAttribute("style", "color:black");
-                    }else{
-                        participantB.setAttribute("style", "color:black");
-                        textB.setAttribute("style", "color:black");
-                    }
-
-                   
-               }
-           }
+            if(this.maxParticipants === 8){
 
 
-           if(this.maxParticipants === 16){
-                 
+                this.round3.forEach( (match) => {
+                    this.slotUser(match, i);
+                    
+                    i++;
+                });
+                this.round2.forEach( (match) => {
+                    this.slotUser(match, i);
+                    
+                    i++;
+                }); 
 
-               let container = document.getElementById("grid-container");
-               for(let i = 0; i < 15; i++){
+                this.round1.forEach( (match) => {
+                    this.slotUser(match, i);
+                    
+                    i++;
+                });
 
-                   let setDiv = document.createElement("div");
-                   //setDiv.setAttribute("id", ("slot"+ (i+1)));
-                   setDiv.innerText = "";
-                   let assign = 15 - i
-                   setDiv.setAttribute("style", "grid-area:grid"+(assign)+";  height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;");
-                   container.appendChild(setDiv);
-                   //console.log("I count"+i);
+            }
 
-                   let participantA = document.createElement("p");
-                   let textA = document.createElement("span");
-                   let participantB = document.createElement("p");
-                   let textB = document.createElement("span");
-                   setDiv.appendChild(participantA);
-                   participantA.appendChild(textA);
-                   textA.innerText = this.matches[i].participant1.displayName;
-                   setDiv.appendChild(participantB);
-                   participantB.appendChild(textB);
-                   textB.innerText = this.matches[i].participant2.displayName;
+            if(this.maxParticipants === 16){
 
-                    if(this.matches[i].participant1.displayName !== this.matches[i].winner.displayName){
-                        participantA.setAttribute("style", "text-decoration:line-through; color:darkred;");
-                        textA.setAttribute("style", "color:black;");
-                    }else{
-                        participantA.setAttribute("style", "color:black");
-                        textA.setAttribute("style", "color:black");
-                    }
+                this.round4.forEach( (match) => {
+                    this.slotUser(match, i);
+                    
+                    i++;
+                });
 
-                    if(this.matches[i].participant2.displayName !== this.matches[i].winner.displayName){
-                        participantB.setAttribute("style", "text-decoration:line-through; color:darkred;");
-                        textB.setAttribute("style", "color:black");
-                    }else{
-                        participantB.setAttribute("style", "color:black");
-                        textB.setAttribute("style", "color:black");
-                    }
+                this.round3.forEach( (match) => {
+                    this.slotUser(match, i);
+                    
+                    i++;
+                });
+                this.round2.forEach( (match) => {
+                    this.slotUser(match, i);
+                    
+                    i++;
+                }); 
 
-                   
-               }
-           }
+                this.round1.forEach( (match) => {
+                    this.slotUser(match, i);
+                    
+                    i++;
+                });
 
-
-
+            }
            
       });
 
@@ -412,10 +387,7 @@ export default {
             ". line1 . . . line2 . . . line3 . . . line4 ."
             "grid8 . grid9 . grid10 . grid11 . grid12 . grid13 . grid14 . grid15";
 
-        /* "grid1 grid2 grid3 grid4"9
-            "grid5 grid6 grid7 grid8"
-            "grid9 grid10 grid11 grid12"
-            "grid13 grid14 grid15 grid16"; */
+
 
     align-items: center;
     text-align: center;
