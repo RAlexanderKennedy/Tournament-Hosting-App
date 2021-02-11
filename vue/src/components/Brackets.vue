@@ -159,8 +159,78 @@ export default {
         
 
         }
+
+
+
+            if (this.maxParticipants !== 2 && this.maxParticipants !== 4 && this.maxParticipants !== 8 && this.maxParticipants !== 16) {
+
+                let line1 = document.getElementById("line1")
+                let line2 = document.getElementById("line2")
+                let line3 = document.getElementById("line3")
+                let line4 = document.getElementById("line4")
+                let line5 = document.getElementById("line5")
+                let line6 = document.getElementById("line6")
+                let line7 = document.getElementById("line7")
+                let line8 = document.getElementById("line8")
+                let line9 = document.getElementById("line9")
+                let line10 = document.getElementById("line10")
+                let line11 = document.getElementById("line11")
+                let line12 = document.getElementById("line12")
+                let line13 = document.getElementById("line13")
+                let line14 = document.getElementById("line14")
+                line1.setAttribute("style", "border-width:0px; margin:0px;")
+                line2.setAttribute("style", "border-width:0px; margin:0px;")
+                line3.setAttribute("style", "border-width:0px; margin:0px;")
+                line4.setAttribute("style", "border-width:0px; margin:0px;")
+
+                line5.setAttribute("style", "border-width:0px;")
+                line6.setAttribute("style", "border-width:0px;")
+                line7.setAttribute("style", "border-width:0px;")
+                line8.setAttribute("style", "border-width:0px;")
+
+                line9.setAttribute("style", "border-width:0px;")
+                line10.setAttribute("style", "border-width:0px;")
+                line11.setAttribute("style", "border-width:0px;")
+                line12.setAttribute("style", "border-width:0px;")
+                line13.setAttribute("style", "border-width:0px;")
+                line14.setAttribute("style", "border-width:0px;")
+
+
+            }
+
+
             let i = 1;
             if (this.maxParticipants === 2) {
+
+                let line1 = document.getElementById("line1")
+                let line2 = document.getElementById("line2")
+                let line3 = document.getElementById("line3")
+                let line4 = document.getElementById("line4")
+                line1.setAttribute("style", "border-width:0px; margin:0px;")
+                line2.setAttribute("style", "border-width:0px; margin:0px;")
+                line3.setAttribute("style", "border-width:0px; margin:0px;")
+                line4.setAttribute("style", "border-width:0px; margin:0px;")
+                let line5 = document.getElementById("line5")
+                let line6 = document.getElementById("line6")
+                let line7 = document.getElementById("line7")
+                let line8 = document.getElementById("line8")
+                line5.setAttribute("style", "border-width:0px;")
+                line6.setAttribute("style", "border-width:0px;")
+                line7.setAttribute("style", "border-width:0px;")
+                line8.setAttribute("style", "border-width:0px;")
+                let line9 = document.getElementById("line9")
+                let line10 = document.getElementById("line10")
+                let line11 = document.getElementById("line11")
+                let line12 = document.getElementById("line12")
+                let line13 = document.getElementById("line13")
+                let line14 = document.getElementById("line14")
+                line9.setAttribute("style", "border-width:0px;")
+                line10.setAttribute("style", "border-width:0px;")
+                line11.setAttribute("style", "border-width:0px;")
+                line12.setAttribute("style", "border-width:0px;")
+                line13.setAttribute("style", "border-width:0px;")
+                line14.setAttribute("style", "border-width:0px;")
+
                 this.round1.forEach( (match) => {
                     this.slotUser(match, i);
                    
@@ -173,10 +243,10 @@ export default {
                 let line2 = document.getElementById("line2")
                 let line3 = document.getElementById("line3")
                 let line4 = document.getElementById("line4")
-                line1.setAttribute("style", "border-width:0px;")
-                line2.setAttribute("style", "border-width:0px;")
-                line3.setAttribute("style", "border-width:0px;")
-                line4.setAttribute("style", "border-width:0px;")
+                line1.setAttribute("style", "border-width:0px; margin:0px;")
+                line2.setAttribute("style", "border-width:0px; margin:0px;")
+                line3.setAttribute("style", "border-width:0px; margin:0px;")
+                line4.setAttribute("style", "border-width:0px; margin:0px;")
                 let line5 = document.getElementById("line5")
                 let line6 = document.getElementById("line6")
                 let line7 = document.getElementById("line7")
@@ -210,10 +280,10 @@ export default {
                 let line3 = document.getElementById("line3")
                 let line4 = document.getElementById("line4")
 
-                line1.setAttribute("style", "border-width:0px;")
-                line2.setAttribute("style", "border-width:0px;")
-                line3.setAttribute("style", "border-width:0px;")
-                line4.setAttribute("style", "border-width:0px;")
+                line1.setAttribute("style", "border-width:0px; margin:0px;")
+                line2.setAttribute("style", "border-width:0px; margin:0px;")
+                line3.setAttribute("style", "border-width:0px; margin:0px;")
+                line4.setAttribute("style", "border-width:0px; margin:0px;")
 
 
 
