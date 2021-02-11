@@ -266,7 +266,6 @@ export default {
             round: 1,
             winner: null
           };
-          console.log(match.participant1.id);
 
           // add match
           tournamentService.addMatch(match).then(response => {
