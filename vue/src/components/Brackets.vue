@@ -138,6 +138,14 @@ export default {
             let i = 1;
             if(this.maxParticipants === 4){
 
+                let line1 = document.getElementById("line1")
+                let line2 = document.getElementById("line2")
+                let line3 = document.getElementById("line3")
+                let line4 = document.getElementById("line4")
+                line1.setAttribute("style", "border-width:0px;")
+                line2.setAttribute("style", "border-width:0px;")
+                line3.setAttribute("style", "border-width:0px;")
+                line4.setAttribute("style", "border-width:0px;")
                 let line5 = document.getElementById("line5")
                 let line6 = document.getElementById("line6")
                 let line7 = document.getElementById("line7")
@@ -146,6 +154,7 @@ export default {
                 line6.setAttribute("style", "border-width:0px;")
                 line7.setAttribute("style", "border-width:0px;")
                 line8.setAttribute("style", "border-width:0px;")
+
 
                 this.round2.forEach( (match) => {
                     this.slotUser(match, i);
@@ -164,6 +173,17 @@ export default {
             }
 
             if(this.maxParticipants === 8){
+
+                let line1 = document.getElementById("line1")
+                let line2 = document.getElementById("line2")
+                let line3 = document.getElementById("line3")
+                let line4 = document.getElementById("line4")
+
+                line1.setAttribute("style", "border-width:0px;")
+                line2.setAttribute("style", "border-width:0px;")
+                line3.setAttribute("style", "border-width:0px;")
+                line4.setAttribute("style", "border-width:0px;")
+
 
 
                 this.round3.forEach( (match) => {
@@ -211,6 +231,7 @@ export default {
                 });
 
             }
+
            
       });
 
@@ -271,25 +292,34 @@ export default {
 }
 #line1{
     grid-area:line1;
-     width:100%;
-     min-width: 10px;
+    border-left: black thick solid;
+    border-right: black thick solid;
+    width:93%;
+    min-width: 10px;
     height:100%;
 }
 #line2{
     grid-area:line2;
-     width:100%;
-     min-width: 10px;
+    border-left: black thick solid;
+    border-right: black thick solid;
+    width:93%;
+    min-width: 10px;
     height:100%;
 }
 #line3{
     grid-area:line3;
-     width:100%;
-     min-width: 10px;
+    border-left: black thick solid;
+    border-right: black thick solid;
+    width:93%;
+    min-width: 10px;
     height:100%;
 }
 #line4{
     grid-area:line4;
-     width:100%;
+    border-left: black thick solid;
+    border-right: black thick solid;
+     width:93%;
+     justify-items: center;
      min-width: 10px;
     height:100%;
 }
