@@ -92,6 +92,9 @@ export default {
         tournamentService.getMatchesByTournamentId(parseInt(this.$route.params.id))
         .then(response => {
             this.matches = response.data;
+            this.matches.forEach((match) => {
+                console.log(match.round);
+            })
             
         });
 
