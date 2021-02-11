@@ -2,20 +2,21 @@ package com.techelevator.model;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Tournament {
 	private String name;
-	private Date startDate;
-	private Date endDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	private int id;
 	private List<User> participants = new ArrayList<User>();
 	private int host_id;
 	private String status;
 	private int maxParticipants;
 	
-	public Tournament(String name, Date startDate, Date endDate, int id, int host_id, String status, List<User> participants,
+	public Tournament(String name, LocalDate startDate, LocalDate endDate, int id, int host_id, String status, List<User> participants,
 				int maxParticipants) {
 		this.name = name;
 		this.startDate = startDate;
@@ -50,19 +51,19 @@ public class Tournament {
 	}
 
 
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 	
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 	
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 	
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 

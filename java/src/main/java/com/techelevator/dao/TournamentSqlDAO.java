@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,8 +121,14 @@ public class TournamentSqlDAO implements TournamentDAO {
 			Date end_date = result.getDate("end_date");
 			Date date = result.getDate("tournament_date");
 			int maxParticipants = result.getInt("max_participants");
+			LocalDate startDate = date.toLocalDate();
+			LocalDate endDate = null;
+			if (end_date != null) {
+				endDate = end_date.toLocalDate();
+			}
+			
 			List<User> participants = getUsersByTournamentId(id);
-			Tournament tournament = new Tournament(name, date, end_date, id, hostId, status, participants, maxParticipants);
+			Tournament tournament = new Tournament(name, startDate, endDate, id, hostId, status, participants, maxParticipants);
 			tournaments.add(tournament);
 		}
 		
@@ -141,8 +148,13 @@ public class TournamentSqlDAO implements TournamentDAO {
 			Date end_date = result.getDate("end_date");
 			Date date = result.getDate("tournament_date");
 			int maxParticipants = result.getInt("max_participants");
+			LocalDate startDate = date.toLocalDate();
+			LocalDate endDate = null;
+			if (end_date != null) {
+				endDate = end_date.toLocalDate();
+			}
 			List<User> participants = getUsersByTournamentId(id);
-			Tournament tournament = new Tournament(name, date, end_date, id, hostId, status, participants, maxParticipants);
+			Tournament tournament = new Tournament(name, startDate, endDate, id, hostId, status, participants, maxParticipants);
 			return tournament;
 		}
 		return null;
@@ -153,8 +165,8 @@ public class TournamentSqlDAO implements TournamentDAO {
 		String name = newTournament.getName();
 		String status = newTournament.getStatus();
 		int host_id = newTournament.getHost_id();
-		Date date = newTournament.getStartDate();
-		Date endDate = newTournament.getEndDate();
+		LocalDate date = newTournament.getStartDate();
+		LocalDate endDate = newTournament.getEndDate();
 		int tournamentId = getNextTournamentId();
 		int maxParticipants = newTournament.getMaxParticipants();
 		String sql = "insert into tournaments (tournament_name, host_id, status, tournament_date, end_date, tournament_id, max_participants) values (?,?,?,?,?,?,?)";
