@@ -65,7 +65,7 @@ export default {
         <div v-if="!this.isLoading">
   <h3> Hosting:</h3>
   <br>
-  <ul>
+  <ul class="tournaments">
       <li v-for="tournament in this.filteredHosted" v-bind:key="tournament.id" class="myTournamentsList">
           <router-link v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }" class="link-text2"> 
           {{tournament.name}}
@@ -77,7 +77,7 @@ export default {
       </li>
   </ul>
   <h3> Participating:</h3>
-  <ul>
+  <ul class="tournaments">
       <li v-for="tournament in this.filteredTournaments" v-bind:key="tournament.id">
           <router-link v-bind:to="{ name: 'tournament-details', params: {id: tournament.id} }"> 
           {{tournament.name}}
@@ -93,7 +93,7 @@ export default {
 </template>
 
 
-<style>
+<style scoped>
 .myTournamentsContainer{
     font-family: 'Syncopate', sans-serif;
 }
@@ -104,5 +104,51 @@ export default {
 }
 .myTournamentsList{
     font-size:10pt
+}.tournaments {
+  counter-reset: gradient-counter;
+  list-style: none;
+  margin: 1.75rem auto;
+  padding-left: 0rem;
+}
+.tournaments li {
+    background: white;
+    border-radius: 1rem;
+    counter-increment: gradient-counter;
+    margin-top: 0rem;
+    margin-bottom: 1rem;
+    min-height: 3rem;
+    padding: 1rem 1rem 1rem 0rem;
+    position: relative;
+    max-width:20%;
+    border-top: solid darkgray 1px; 
+    text-align: center;   
+    
+}
+  .link-text{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    color:black;
+    text-decoration: none;
+    
+  } 
+
+  a{
+    color:black;
+    text-decoration:none;
+  }
+  a:hover{
+    color:#ccc;
+  }
+
+  input {
+    
+    border: 0px solid;
+}
+
+input:focus {
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
 }
 </style>
