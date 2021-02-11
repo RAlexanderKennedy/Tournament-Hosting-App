@@ -17,7 +17,10 @@
     </router-link>
 
 
-    <brackets v-if="status != 'Upcoming'" v-bind:tournamentId="parseInt($route.params.id)"/>
+    <brackets 
+    v-if="status != 'Upcoming'" 
+    v-bind:tournamentId="parseInt($route.params.id)"
+    v-bind:winnerName="winningUser"/>
 
 
       <div id="inline" style="display:inline; background-color:white; width:100%; height:100%;">
