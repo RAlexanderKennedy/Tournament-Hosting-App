@@ -2,10 +2,10 @@
   <div>
   <div id="grid-container">
   <div id=""></div>
-  <div id="line1"></div>
-  <div id="line2"></div>
-  <div id="line3"></div>
-  <div id="line4"></div>
+  <div id="line1" style="margin-left:auto; margin-right:auto;"></div>
+  <div id="line2" style="margin-left:auto; margin-right:auto;"></div>
+  <div id="line3" style="margin-left:auto; margin-right:auto;"></div>
+  <div id="line4" style="margin-left:auto; margin-right:auto;"></div>
   <div id="line5"></div>
   <div id="line6"></div>
   <div id="line7"></div>
@@ -49,7 +49,7 @@ export default {
             let container = document.getElementById("grid-container");
             let setDiv = document.createElement("div");
 
-            setDiv.setAttribute("style", "grid-area:grid"+(divNumber)+";  height:100%; vertical-align:middle; padding,10px; background-color:white; border-radius:5px;  padding-top: 15px; min-width:150px;");
+            setDiv.setAttribute("style", "grid-area:grid"+(divNumber)+";  height:100%; vertical-align:middle;  background-color:white; border-radius:5px;  padding-top: 15px;  min-width:150px;");
                    container.appendChild(setDiv);
                  
 
@@ -138,6 +138,14 @@ export default {
             let i = 1;
             if(this.maxParticipants === 4){
 
+                let line1 = document.getElementById("line1")
+                let line2 = document.getElementById("line2")
+                let line3 = document.getElementById("line3")
+                let line4 = document.getElementById("line4")
+                line1.setAttribute("style", "border-width:0px;")
+                line2.setAttribute("style", "border-width:0px;")
+                line3.setAttribute("style", "border-width:0px;")
+                line4.setAttribute("style", "border-width:0px;")
                 let line5 = document.getElementById("line5")
                 let line6 = document.getElementById("line6")
                 let line7 = document.getElementById("line7")
@@ -146,6 +154,7 @@ export default {
                 line6.setAttribute("style", "border-width:0px;")
                 line7.setAttribute("style", "border-width:0px;")
                 line8.setAttribute("style", "border-width:0px;")
+
 
                 this.round2.forEach( (match) => {
                     this.slotUser(match, i);
@@ -164,6 +173,17 @@ export default {
             }
 
             if(this.maxParticipants === 8){
+
+                let line1 = document.getElementById("line1")
+                let line2 = document.getElementById("line2")
+                let line3 = document.getElementById("line3")
+                let line4 = document.getElementById("line4")
+
+                line1.setAttribute("style", "border-width:0px;")
+                line2.setAttribute("style", "border-width:0px;")
+                line3.setAttribute("style", "border-width:0px;")
+                line4.setAttribute("style", "border-width:0px;")
+
 
 
                 this.round3.forEach( (match) => {
@@ -211,6 +231,7 @@ export default {
                 });
 
             }
+
            
       });
 
@@ -271,27 +292,49 @@ export default {
 }
 #line1{
     grid-area:line1;
-     width:100%;
+    border-radius: 5px;
+    border-top: black thick solid;
+    border-left: black thick solid;
+    border-right: black thick solid;
+     width:80%;
+     margin-left:50%;
      min-width: 10px;
-    height:100%;
+     height:100%;
 }
 #line2{
     grid-area:line2;
-     width:100%;
+    border-radius: 5px;
+    border-top: black thick solid;
+    border-left: black thick solid;
+    border-right: black thick solid;
+     width:80%;
+     margin-left:50%;
      min-width: 10px;
-    height:100%;
+     height:100%;
 }
 #line3{
     grid-area:line3;
-     width:100%;
+    border-radius: 5px;
+    border-top: black thick solid;
+    border-left: black thick solid;
+    border-right: black thick solid;
+     width:80%;
+     margin-left:50%;
      min-width: 10px;
-    height:100%;
+     height:100%;
 }
 #line4{
     grid-area:line4;
-     width:100%;
+    border-radius: 5px;
+    border-top: black thick solid;
+    border-left: black thick solid;
+    border-right: black thick solid;
+     width:80%;
+     margin-left:50%;
      min-width: 10px;
-    height:100%;
+     height:100%;
+     
+     
 }
 #line5{
     grid-area:line5;
@@ -369,13 +412,15 @@ export default {
 
 
 #grid-container {
-   
+    margin:0px;
+    
     font-size:15px;
     font-weight: bold;
-    width:95%;
+    width:99%;
     overflow-x:auto;
     height:500px;
     padding:20px;
+    padding-right:0px;
     display: grid;
     grid-gap: 0px 0px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -384,7 +429,7 @@ export default {
             ". . . . . . . grid1 . . . . . . ."
             ". . . grid2 line9 line10 line11 . line12 line13 line14 grid3 . . ."
             ". grid4 line5 . line6 grid5 . . . grid6 line7 . line8 grid7 ."
-            ". line1 . . . line2 . . . line3 . . . line4 ."
+            "line1 line1 line1 . line2 line2 line2 . line3 line3 line3 . line4 line4 line4"
             "grid8 . grid9 . grid10 . grid11 . grid12 . grid13 . grid14 . grid15";
 
 
