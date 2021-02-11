@@ -22,7 +22,7 @@ export default {
     props: ['match', 'maxParticipants'],
     data() {
         return {
-
+            tournament: []
         }
     },
     computed: {
@@ -60,6 +60,7 @@ export default {
                 else {
                     if (this.isWinner) {
                         alert(participant.displayName + " wins the tournament!");
+                        this.closeTournament();
                     }
                     this.$router.go();
                 }
@@ -70,6 +71,29 @@ export default {
             })
         
         },
+        closeTournament() {
+            tournamentService.getTournamentById(parseInt(this.$route.params.id))
+            .then(response => {
+                this.tournament = response.data;
+            });
+
+            let newTournament = this.tournament;
+            newTournament.status = "Closed";
+            newTournament.participants = [];
+            tournamentService.editTournament(newTournament).then(response => {
+            if (response.status != 200 && response.status != 201) {
+                alert("There was an error");
+            }
+            else {
+                alert("Tournament Started!");
+                this.$router.go();
+            }
+            })
+            .catch (error => {
+            if (error.response) console.log(error.response);
+            else if (error.request) console.log(error.request);
+            })
+        }
     }
 
 }

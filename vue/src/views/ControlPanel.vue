@@ -43,7 +43,8 @@ export default {
     data() {
         return {
             matches: [],
-            maxParticipants: Number
+            maxParticipants: Number,
+            Winner: ""
         }
     },
     computed: {
@@ -89,7 +90,6 @@ export default {
         tournamentService.getMatchesByTournamentId(parseInt(this.$route.params.id))
         .then(response => {
             this.matches = response.data;
-            console.log(this.matches.length);
         });
 
         tournamentService.getTournamentById(parseInt(this.$route.params.id))
