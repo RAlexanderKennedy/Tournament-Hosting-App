@@ -96,8 +96,9 @@ body{
   background-size: 100%;
   background-color:rgb(168, 221, 88);
   background-blend-mode: screen;
-  
+   overflow-x: hidden;
 }
+
 #app{
   padding-left:0px;
  /* background-color:rgb(168, 221, 88);
@@ -169,7 +170,24 @@ textarea{
 }
 
 
+::-webkit-scrollbar {
+  width: 15px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(152, 212, 12);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(152, 212, 12);
+}
   
 
 
