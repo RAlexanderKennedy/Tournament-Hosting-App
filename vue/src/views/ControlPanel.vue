@@ -11,22 +11,22 @@
 
       <h2 v-if="round4List.length > 0">Round 4</h2>
       <div v-for="match in round4List" v-bind:key="match.id">
-          <MatchItem v-bind:match="match" />
+          <MatchItem v-bind:match="match" v-bind:maxParticipants="maxParticipants" />
       </div>
 
       <h2 v-if="round3List.length > 0">Round 3</h2>
       <div v-for="match in round3List" v-bind:key="match.id">
-          <MatchItem v-bind:match="match" />
+          <MatchItem v-bind:match="match" v-bind:maxParticipants="maxParticipants" />
       </div>
 
       <h2 v-if="round2List.length > 0">Round 2</h2>
       <div v-for="match in round2List" v-bind:key="match.id">
-          <MatchItem v-bind:match="match" />
+          <MatchItem v-bind:match="match" v-bind:maxParticipants="maxParticipants" />
       </div>
 
       <h2 v-if="round1List.length > 0">Round 1</h2>
       <div v-for="match in round1List" v-bind:key="match.id">
-          <MatchItem v-bind:match="match" />
+          <MatchItem v-bind:match="match" v-bind:maxParticipants="maxParticipants" />
       </div>
   </div>
 </template>
@@ -42,7 +42,8 @@ export default {
     },
     data() {
         return {
-            matches: []
+            matches: [],
+            maxParticipants: Number
         }
     },
     computed: {
@@ -89,7 +90,13 @@ export default {
         .then(response => {
             this.matches = response.data;
             console.log(this.matches.length);
-        })
+        });
+
+        tournamentService.getTournamentById(parseInt(this.$route.params.id))
+      .then(response => {
+          let tournament = response.data;
+          this.maxParticipants = tournament.maxParticipants
+      });
 
 
         // if (this.roundDone(this.round1List) && this.round2List[0].participant1.id === 0) {

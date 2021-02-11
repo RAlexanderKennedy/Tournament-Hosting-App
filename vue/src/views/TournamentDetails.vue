@@ -11,8 +11,14 @@
 
 
     <router-link v-bind:to="{ name: 'control-panel', params: {id: parseInt($route.params.id)}}">
-      <button v-if="canEnterResults" class="myButton">
+      <button v-if="this.isHost && this.status == 'Ongoing'" class="myButton">
         Enter Results
+      </button>
+    </router-link>
+
+    <router-link v-bind:to="{ name: 'control-panel', params: {id: parseInt($route.params.id)}}">
+      <button v-if="this.isHost && this.status == 'Closed'" class="myButton">
+        View Results
       </button>
     </router-link>
 
@@ -88,7 +94,7 @@ export default {
       return false;
     },
     canEnterResults() {
-      if (this.isHost && this.status == "Ongoing") {
+      if (this.isHost && this.status != "Upcoming") {
             return true;
       }
       return false;
