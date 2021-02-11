@@ -6,8 +6,6 @@
 
 
 
-<<<<<<< HEAD
-=======
     <router-link v-bind:to="{ name: 'control-panel', params: {id: parseInt($route.params.id)}}">
       <button v-if="this.isHost && this.status == 'Ongoing'" class="myButton">
         Enter Results
@@ -22,7 +20,6 @@
 
     <h1 v-if="status == 'Closed'" class='welcome'>Winner: {{winningUser}}</h1>
 
->>>>>>> f66bd8c08cc4ce3c83133346f36118d9617169c2
 
     <brackets 
     v-if="status != 'Upcoming'" 
@@ -78,21 +75,9 @@
       v-on:click="leaveTournament" class="myButton">
         Leave Tournament
       </button>
-
-          <button class="myButton" v-if="canStartTournament"
-    v-on:click="startTournament">
-      Start Tournament
-    </button>
-
-
-    <router-link v-bind:to="{ name: 'control-panel', params: {id: parseInt($route.params.id)}}">
-      <button v-if="canEnterResults" class="myButton">
-        Enter Results
-      </button>
-    </router-link>
       </div>
 
-      </div>    
+    </div>    
       
   </div>
 </template>
