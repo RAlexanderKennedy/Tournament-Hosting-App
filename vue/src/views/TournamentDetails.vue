@@ -4,17 +4,7 @@
        <link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
 
 
-    <button class="myButton" v-if="canStartTournament"
-    v-on:click="startTournament">
-      Start Tournament
-    </button>
 
-
-    <router-link v-bind:to="{ name: 'control-panel', params: {id: parseInt($route.params.id)}}">
-      <button v-if="canEnterResults" class="myButton">
-        Enter Results
-      </button>
-    </router-link>
 
 
     <brackets 
@@ -71,6 +61,18 @@
       v-on:click="leaveTournament" class="myButton">
         Leave Tournament
       </button>
+
+          <button class="myButton" v-if="canStartTournament"
+    v-on:click="startTournament">
+      Start Tournament
+    </button>
+
+
+    <router-link v-bind:to="{ name: 'control-panel', params: {id: parseInt($route.params.id)}}">
+      <button v-if="canEnterResults" class="myButton">
+        Enter Results
+      </button>
+    </router-link>
       </div>
 
       </div>    
@@ -429,7 +431,7 @@ export default {
       display: flex;
       background-color: rgb(255, 255, 255, 85%);
       width:100%;
-      height:23.8rem;
+      height:26.2rem;
       align-content: center;
       justify-content: center;
       justify-items:legacy;
