@@ -29,7 +29,8 @@ export default {
     name: "brackets",
 
     props: {
-      tournamentId: Number
+      tournamentId: Number,
+      winnerName: String
   },
 
   data() {
@@ -64,21 +65,45 @@ export default {
                    participantB.appendChild(textB);
                    textB.innerText = match.participant2.displayName;
 
-                   if(match.participant1.displayName !== match.winner.displayName){
-                        participantA.setAttribute("style", "text-decoration:line-through; color:darkred;");
-                        textA.setAttribute("style", "color:black;");
-                    }else{
+                   console.log(this.finalRound);
+
+                   if (match.winner.id == 0) {
                         participantA.setAttribute("style", "color:black");
                         textA.setAttribute("style", "color:black");
-                    }
 
-                    if(match.participant2.displayName !== match.winner.displayName){
-                        participantB.setAttribute("style", "text-decoration:line-through; color:darkred;");
-                        textB.setAttribute("style", "color:black");
-                    }else{
                         participantB.setAttribute("style", "color:black");
                         textB.setAttribute("style", "color:black");
-                    }
+                   }
+                   else {
+                       if (match.participant1.displayName !== match.winner.displayName){
+                            participantA.setAttribute("style", "text-decoration:line-through; color:darkred;");
+                            textA.setAttribute("style", "color:black;");
+
+                        } else{
+                            participantA.setAttribute("style", "color:black");
+                            textA.setAttribute("style", "color:black");
+
+                            // winner attributes
+                            if (match.participant1.displayName === this.winnerName && match.round === this.finalRound) {
+                                textA.setAttribute("style", "color:red;");
+                            }
+                        }
+
+                        if (match.participant2.displayName !== match.winner.displayName){
+                            participantB.setAttribute("style", "text-decoration:line-through; color:darkred;");
+                            textB.setAttribute("style", "color:black");
+                        } else{
+                            participantB.setAttribute("style", "color:black");
+                            textB.setAttribute("style", "color:black");
+
+                            // winner attributes
+                            if (match.participant2.displayName === this.winnerName && match.round === this.finalRound) {
+                                textB.setAttribute("style", "color:red;");
+                            }
+                        }
+                   }
+
+                   
         }
     },
     created(){
@@ -133,9 +158,15 @@ export default {
             
         
 
-            }
-            console.log(this.matches);
+        }
             let i = 1;
+            if (this.maxParticipants === 2) {
+                this.round1.forEach( (match) => {
+                    this.slotUser(match, i);
+                   
+                    i++;
+                }); 
+            }
             if(this.maxParticipants === 4){
 
                 let line1 = document.getElementById("line1")
@@ -236,6 +267,23 @@ export default {
       });
 
 
+    },
+    computed: {
+        finalRound() {
+            if (this.maxParticipants === 2) {
+                return 1;
+            }
+            if (this.maxParticipants === 4) {
+                return 2;
+            }
+            if (this.maxParticipants === 8) {
+                return 3
+            }
+            if (this.maxParticipants === 16) {
+                return 4
+            }
+            return 0;
+        }
     }
 
 }

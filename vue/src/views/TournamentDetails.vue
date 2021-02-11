@@ -25,7 +25,12 @@
     <h2 v-if="status == 'Closed'">Winner: {{winningUser}}</h2>
 
 
-    <brackets v-if="status != 'Upcoming'" v-bind:tournamentId="parseInt($route.params.id)"/>
+    <brackets 
+    v-if="status != 'Upcoming'" 
+    v-bind:tournamentId="parseInt($route.params.id)"
+    v-bind:winnerName="winningUser"/>
+      
+      
       <h3>Host:</h3>
       <host v-bind:tournamentId="parseInt($route.params.id)" />
       <h3>Participants ({{maxParticipants}} Total Needed):</h3>
