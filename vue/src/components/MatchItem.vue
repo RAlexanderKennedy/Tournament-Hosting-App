@@ -7,7 +7,8 @@
           <button v-on:click="declareWinner(match.participant2)" class="inviteButton">{{match.participant2.displayName}}</button>
       </div>
       <div v-else>
-          Winner: {{match.winner.displayName}}
+          <p v-if="!isWinner">Winner: {{match.winner.displayName}}</p>
+          <h4 class="winningUser" v-if="isWinner">Winner of the Tournament: {{match.winner.displayName}}</h4>
       </div>
       
   </div>
@@ -18,13 +19,28 @@ import tournamentService from "@/services/TournamentService.js";
 
 export default {
     name: "match-item",
-    props: ['match'],
+    props: ['match', 'maxParticipants'],
     data() {
         return {
-
+            tournament: []
         }
     },
     computed: {
+        isWinner() {
+            if (this.maxParticipants == 2 && this.match.round === 1) {
+                return true;
+            }
+            else if (this.maxParticipants == 4 && this.match.round === 2) {
+                return true;
+            }
+            else if (this.maxParticipants == 8 && this.match.round === 3) {
+                return true;
+            }
+            else if (this.maxParticipants == 16 && this.match.round === 4) {
+                return true;
+            }
+            return false;
+        }
         
     },
     methods: {
@@ -42,6 +58,10 @@ export default {
                     alert("There was an error");
                 }
                 else {
+                    if (this.isWinner) {
+                        alert(participant.displayName + " wins the tournament!");
+                        this.closeTournament();
+                    }
                     this.$router.go();
                 }
             })
@@ -51,6 +71,29 @@ export default {
             })
         
         },
+        closeTournament() {
+            tournamentService.getTournamentById(parseInt(this.$route.params.id))
+            .then(response => {
+                this.tournament = response.data;
+            });
+
+            let newTournament = this.tournament;
+            newTournament.status = "Closed";
+            newTournament.participants = [];
+            tournamentService.editTournament(newTournament).then(response => {
+            if (response.status != 200 && response.status != 201) {
+                alert("There was an error");
+            }
+            else {
+                alert("Tournament Started!");
+                this.$router.go();
+            }
+            })
+            .catch (error => {
+            if (error.response) console.log(error.response);
+            else if (error.request) console.log(error.request);
+            })
+        }
     }
 
 }
@@ -60,6 +103,10 @@ export default {
 <style>
 .matchItem {
 
+}
+
+.winningUser {
+    font-weight: bolder;
 }
 
 </style>

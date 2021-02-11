@@ -2,7 +2,7 @@
   <div class="home">
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
-    <h1 v-if="$store.state.token != ''"> 
+    <h1 v-if="$store.state.token != ''" class="welcome"> 
       Welcome, {{$store.state.user.displayName}}!
     </h1>
     <h2>
@@ -10,7 +10,7 @@
         <router-link v-bind:to="{ name: 'create-tournament'}" class="myButton">Create New Tournament</router-link>
       
     </h2>
-    <h1 v-if="$store.state.token == ''"> 
+    <h1 v-if="$store.state.token == ''" class="welcome"> 
       Welcome!
     </h1>
     <MainFeed />
@@ -62,5 +62,23 @@ font-family: 'Syncopate', sans-serif;
 	top:1px;
 }
 
+.welcome {
+  background: radial-gradient(circle, #ecc92c 0%, #070707 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: animatedGradient 2s infinite ease;
+  animation-direction: alternate;
+}
+
+@keyframes animatedGradient {
+  from {
+    background-size: 100%;
+  }
+
+  to {
+    background-size: 250%;
+  }
+}
 
 </style>

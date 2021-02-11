@@ -11,10 +11,18 @@
 
 
     <router-link v-bind:to="{ name: 'control-panel', params: {id: parseInt($route.params.id)}}">
-      <button v-if="canEnterResults" class="myButton">
+      <button v-if="this.isHost && this.status == 'Ongoing'" class="myButton">
         Enter Results
       </button>
     </router-link>
+
+    <router-link v-bind:to="{ name: 'control-panel', params: {id: parseInt($route.params.id)}}">
+      <button v-if="this.isHost && this.status == 'Closed'" class="myButton">
+        View Results
+      </button>
+    </router-link>
+
+    <h2 v-if="status == 'Closed'">Winner: {{winningUser}}</h2>
 
 
     <brackets v-if="status != 'Upcoming'" v-bind:tournamentId="parseInt($route.params.id)"/>
@@ -105,18 +113,53 @@ export default {
       tournamentId: Number,
       maxParticipants: Number,
       isHost: false,
-      tournament: Object
+      tournament: Object,
+      matches: []
     }
   },
   computed: {
-    canStartTournament(){
+    winningUser() {
+      let winnerName = "";
+      if (this.maxParticipants == 2) {
+        this.matches.forEach( (match) => {
+          if (match.round == 1) {
+            winnerName = match.winner.displayName;
+          }
+        });
+      }
+      else if (this.maxParticipants == 4) {
+        this.matches.forEach( (match) => {
+          if (match.round == 2) {
+            winnerName = match.winner.displayName;
+          }
+        });
+      }
+      else if (this.maxParticipants == 8) {
+        this.matches.forEach( (match) => {
+          if (match.round == 3) {
+            winnerName = match.winner.displayName;
+          }
+        });
+      }
+      else if (this.maxParticipants == 16) {
+        this.matches.forEach( (match) => {
+          if (match.round == 4) {
+            winnerName = match.winner.displayName;
+          }
+        });
+      }
+
+      return winnerName;
+
+    },
+    canStartTournament() {
       if (this.isHost && this.status == "Upcoming") {
             return true;
       }
       return false;
     },
     canEnterResults() {
-      if (this.isHost && this.status == "Ongoing") {
+      if (this.isHost && this.status != "Upcoming") {
             return true;
       }
       return false;
@@ -197,6 +240,11 @@ export default {
             this.isHost = true;
           }
       });
+
+    tournamentService.getMatchesByTournamentId(parseInt(this.$route.params.id))
+        .then(response => {
+            this.matches = response.data;
+    });
 
   },
   methods: {
@@ -329,7 +377,6 @@ export default {
         newTournament.status = "Ongoing";
         newTournament.startDate = newStartDate;
         newTournament.participants = [];
-        console.log(newTournament);
         tournamentService.editTournament(newTournament).then(response => {
           if (response.status != 200 && response.status != 201) {
               alert("There was an error");
