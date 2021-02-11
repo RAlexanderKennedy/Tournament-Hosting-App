@@ -4,17 +4,11 @@
        <link href="https://fonts.googleapis.com/css2?family=Syncopate&display=swap" rel="stylesheet">
 
 
-    <button class="myButton" v-if="canStartTournament"
-    v-on:click="startTournament">
-      Start Tournament
-    </button>
 
 
-    <router-link v-bind:to="{ name: 'control-panel', params: {id: parseInt($route.params.id)}}">
-      <button v-if="canEnterResults" class="myButton">
-        Enter Results
-      </button>
-    </router-link>
+    
+
+    <h1 v-if="status == 'Closed'" class='welcome'>Winner: {{winningUser}}</h1>
 
 
     <brackets 
@@ -23,7 +17,7 @@
     v-bind:winnerName="winningUser"/>
 
 
-      <div id="inline">
+      <div id="inline" style="">
       <div class="details">
       <h3>Host:</h3>
       <host v-bind:tournamentId="parseInt($route.params.id)" />
@@ -71,6 +65,26 @@
       v-on:click="leaveTournament" class="myButton">
         Leave Tournament
       </button>
+
+          <button class="myButton" v-if="canStartTournament"
+    v-on:click="startTournament">
+      Start Tournament
+    </button>
+
+
+
+
+    <router-link v-bind:to="{ name: 'control-panel', params: {id: parseInt($route.params.id)}}">
+      <button v-if="this.isHost && this.status == 'Ongoing'" class="myButton">
+        Enter Results
+      </button>
+    </router-link>
+
+    <router-link v-bind:to="{ name: 'control-panel', params: {id: parseInt($route.params.id)}}">
+      <button v-if="this.isHost && this.status == 'Closed'" class="myButton">
+        View Results
+      </button>
+    </router-link>
       </div>
 
       </div>    
@@ -108,18 +122,53 @@ export default {
       tournamentId: Number,
       maxParticipants: Number,
       isHost: false,
-      tournament: Object
+      tournament: Object,
+      matches: []
     }
   },
   computed: {
-    canStartTournament(){
+    winningUser() {
+      let winnerName = "";
+      if (this.maxParticipants == 2) {
+        this.matches.forEach( (match) => {
+          if (match.round == 1) {
+            winnerName = match.winner.displayName;
+          }
+        });
+      }
+      else if (this.maxParticipants == 4) {
+        this.matches.forEach( (match) => {
+          if (match.round == 2) {
+            winnerName = match.winner.displayName;
+          }
+        });
+      }
+      else if (this.maxParticipants == 8) {
+        this.matches.forEach( (match) => {
+          if (match.round == 3) {
+            winnerName = match.winner.displayName;
+          }
+        });
+      }
+      else if (this.maxParticipants == 16) {
+        this.matches.forEach( (match) => {
+          if (match.round == 4) {
+            winnerName = match.winner.displayName;
+          }
+        });
+      }
+
+      return winnerName;
+
+    },
+    canStartTournament() {
       if (this.isHost && this.status == "Upcoming") {
             return true;
       }
       return false;
     },
     canEnterResults() {
-      if (this.isHost && this.status == "Ongoing") {
+      if (this.isHost && this.status != "Upcoming") {
             return true;
       }
       return false;
@@ -200,6 +249,11 @@ export default {
             this.isHost = true;
           }
       });
+
+    tournamentService.getMatchesByTournamentId(parseInt(this.$route.params.id))
+        .then(response => {
+            this.matches = response.data;
+    });
 
   },
   methods: {
@@ -326,13 +380,12 @@ export default {
         }
 
         // change tournament to ongoing and change date if needed
-        let newStartDate = new window.Date();
+        let newStartDate = new window.Date(); 
         newStartDate = this.formatDate(newStartDate);
         let newTournament = this.tournament;
         newTournament.status = "Ongoing";
         newTournament.startDate = newStartDate;
         newTournament.participants = [];
-        console.log(newTournament);
         tournamentService.editTournament(newTournament).then(response => {
           if (response.status != 200 && response.status != 201) {
               alert("There was an error");
@@ -414,6 +467,24 @@ export default {
       font-size: 22px
     }
 
+.welcome {
+  background: radial-gradient(circle, #0a0a0a 0%, #dac403 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: animatedGradient 2s infinite ease;
+  animation-direction: alternate;
+}
+
+@keyframes animatedGradient {
+  from {
+    background-size: 100%;
+  }
+
+  to {
+    background-size: 250%;
+  }
+}
     
     .details{
       vertical-align: top;
@@ -429,7 +500,7 @@ export default {
       display: flex;
       background-color: rgb(255, 255, 255, 85%);
       width:100%;
-      height:23.8rem;
+      height:26.1rem;
       align-content: center;
       justify-content: center;
       justify-items:legacy;
@@ -450,5 +521,4 @@ export default {
     #inline> div{
       overflow:auto;
     }
-    
 </style>
